@@ -22,7 +22,7 @@
 :root{
   /* Paleta oficial Reppets: Rich Citron #373713 · Gold #68531D · Citron #978F15 · Sunrays #EECD35 · Soft Lime #F1FF9A · Earth Brown #3B2E12 */
   --bg:#F4EFE4; --surface:#FBF8F1; --sunk:#EAE3D2; --fg:#2B2A0F; --muted:#68602F; --line:#DCD3BD;
-  --brand:#373713; --moss:#373713; --moss-ink:#F4EFE4; --leaf:#978F15; --gecko:#EECD35; --gecko-ink:#373713; --earth:#3B2E12; --pill-ink:#FBF8F1;
+  --brand:#373713; --moss:#373713; --moss-ink:#F4EFE4; --leaf:#978F15; --gecko:#EECD35; --gecko-ink:#373713; --earth:#3B2E12; --pill-ink:#FBF8F1; --glass:rgba(244,239,228,.9); --seg-on:rgba(55,55,19,.1); --trust-line:rgba(244,239,228,.22);
   --ok:#2F7A46; --warn:#A86A12; --bad:#B23B2E;
   --display:"Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
   --body:"Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -31,12 +31,12 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#1B1B09; --surface:#24240F; --sunk:#2D2D13; --fg:#F4EFE4; --muted:#C2B98E; --line:#3E3D1B;
-  --brand:#F4EFE4; --moss:#F1FF9A; --moss-ink:#373713; --leaf:#F1FF9A; --gecko:#EECD35; --gecko-ink:#373713; --earth:#3B2E12; --pill-ink:#373713;
+  --brand:#F4EFE4; --moss:#F1FF9A; --moss-ink:#373713; --leaf:#F1FF9A; --gecko:#EECD35; --gecko-ink:#373713; --earth:#3B2E12; --pill-ink:#373713; --glass:rgba(27,27,9,.9); --seg-on:rgba(241,255,154,.12); --trust-line:rgba(55,55,19,.25);
   --ok:#6CC08A; --warn:#E3B04B; --bad:#E58A7E; color-scheme:dark;
 }}
 :root[data-theme="dark"]{
   --bg:#1B1B09; --surface:#24240F; --sunk:#2D2D13; --fg:#F4EFE4; --muted:#C2B98E; --line:#3E3D1B;
-  --brand:#F4EFE4; --moss:#F1FF9A; --moss-ink:#373713; --leaf:#F1FF9A; --gecko:#EECD35; --gecko-ink:#373713; --earth:#3B2E12; --pill-ink:#373713;
+  --brand:#F4EFE4; --moss:#F1FF9A; --moss-ink:#373713; --leaf:#F1FF9A; --gecko:#EECD35; --gecko-ink:#373713; --earth:#3B2E12; --pill-ink:#373713; --glass:rgba(27,27,9,.9); --seg-on:rgba(241,255,154,.12); --trust-line:rgba(55,55,19,.25);
   --ok:#6CC08A; --warn:#E3B04B; --bad:#E58A7E; color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -68,7 +68,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .chip{display:inline-flex;align-items:center;gap:.35rem;font:600 .72rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:.42rem .62rem;border-radius:999px;background:var(--sunk);color:var(--muted)}
 
 /* header */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--glass);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:1rem;height:62px}
 .brand{display:flex;align-items:center;gap:.55rem;text-decoration:none;flex:none}
 .brand b{font:700 1.5rem/1 var(--display);color:var(--brand)}
@@ -93,11 +93,11 @@ nav.links a:hover{color:var(--fg);background:var(--sunk)}
 
 .trust{background:var(--moss);color:var(--moss-ink)}
 .trust .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
-.trust div{padding:18px 20px;display:flex;flex-direction:column;gap:4px;border-left:1px solid color-mix(in srgb,var(--moss-ink) 22%,transparent)}
+.trust div{padding:18px 20px;display:flex;flex-direction:column;gap:4px;border-left:1px solid var(--trust-line)}
 .trust div:first-child{border-left:0}
 .trust strong{font-weight:600}
 .trust span{font:400 .8rem/1.35 var(--mono);opacity:.8}
-@media (max-width:720px){.trust .wrap{grid-template-columns:1fr}.trust div{border-left:0;border-top:1px solid color-mix(in srgb,var(--moss-ink) 22%,transparent)}.trust div:first-child{border-top:0}}
+@media (max-width:720px){.trust .wrap{grid-template-columns:1fr}.trust div{border-left:0;border-top:1px solid var(--trust-line)}.trust div:first-child{border-top:0}}
 
 section.block{padding-block:72px}
 .sec-head{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
@@ -119,8 +119,8 @@ section.block{padding-block:72px}
 .price{font:600 1.05rem/1 var(--mono);font-variant-numeric:tabular-nums}
 .state{font:600 .7rem/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:.38rem .55rem;border-radius:999px;display:inline-flex;align-items:center;gap:.35rem}
 .state::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
-.st-disponible{color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}
-.st-apartado{color:var(--warn);background:color-mix(in srgb,var(--warn) 16%,transparent)}
+.st-disponible{color:var(--ok);background:rgba(47,122,70,.14)}
+.st-apartado{color:var(--warn);background:rgba(168,106,18,.16)}
 .st-vendido{color:var(--muted);background:var(--sunk)}
 .card.sold .ph{filter:grayscale(.85);opacity:.7}
 .empty{border:1.5px dashed var(--line);border-radius:var(--r);padding:36px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:14px;max-width:640px}
@@ -150,7 +150,7 @@ section.block{padding-block:72px}
 .bar{position:relative;height:34px;border-radius:8px;background:var(--sunk);overflow:visible}
 .bar.temp{background:linear-gradient(90deg,#5B8FB9 0%,#7FB3A0 30%,#E7C35A 60%,#E0762F 82%,#B8322A 100%)}
 .bar.hum{background:linear-gradient(90deg,#E6CFA0 0%,#A9C7B8 50%,#4F87A8 100%)}
-.bar .band{position:absolute;top:0;bottom:0;border:2px solid var(--fg);border-radius:6px;background:color-mix(in srgb,var(--surface) 22%,transparent)}
+.bar .band{position:absolute;top:0;bottom:0;border:2px solid var(--fg);border-radius:6px;background:rgba(255,255,255,.22)}
 .bar .mark{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--bad)}
 .ticks{position:relative;height:16px;font:400 .68rem/1 var(--mono);color:var(--muted)}
 .ticks span{position:absolute;transform:translateX(-50%)}
@@ -160,14 +160,14 @@ section.block{padding-block:72px}
 @media (max-width:640px){.gcards{grid-template-columns:1fr}}
 .gcard{border:1px solid var(--line);border-radius:var(--r);padding:18px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
 .gcard ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:6px}
-.gcard.warn{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.gcard.warn{border-color:rgba(178,59,46,.45)}
 .gcard.wide{grid-column:1/-1}
 .routine{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 @media (max-width:640px){.routine{grid-template-columns:1fr}}
 .routine div{background:var(--sunk);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
 .routine h4{margin:0;font:600 .72rem/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .routine ul{padding-left:1rem;margin:0;font-size:.92rem}
-.local{background:color-mix(in srgb,var(--gecko) 16%,var(--surface));border-color:color-mix(in srgb,var(--gecko) 50%,var(--line))}
+.local{background:rgba(238,205,53,.16);border-color:rgba(238,205,53,.5)}
 .layers{display:flex;flex-direction:column;border-radius:10px;overflow:hidden;border:1px solid var(--line)}
 .layers div{padding:10px 14px;display:flex;justify-content:space-between;gap:12px;font-size:.92rem;color:#18211B}
 .layers div span:last-child{font:600 .75rem/1.6 var(--mono)}
@@ -201,7 +201,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .seg input{position:absolute;opacity:0;pointer-events:none}
 .seg span{display:inline-flex;flex-direction:column;gap:2px;border:1.5px solid var(--line);border-radius:12px;padding:.6rem .85rem;font-weight:500;background:var(--surface)}
 .seg span small{font:400 .7rem/1.2 var(--mono);color:var(--muted)}
-.seg input:checked+span{border-color:var(--moss);background:color-mix(in srgb,var(--moss) 12%,var(--surface));box-shadow:inset 0 0 0 1px var(--moss)}
+.seg input:checked+span{border-color:var(--moss);background:var(--seg-on);box-shadow:inset 0 0 0 1px var(--moss)}
 .seg input:focus-visible+span{outline:3px solid var(--gecko);outline-offset:2px}
 .seg input:disabled+span{opacity:.4;cursor:not-allowed}
 .preview{position:sticky;top:90px;display:flex;flex-direction:column;gap:14px}
@@ -247,7 +247,7 @@ dialog::backdrop{background:rgba(8,12,9,.55)}
 .irow .b{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .irow button{padding:.4rem .7rem;font-size:.82rem}
 .mini{border:1.5px solid var(--line);background:transparent;border-radius:999px;cursor:pointer;font-weight:600}
-.mini.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 50%,var(--line))}
+.mini.danger{color:var(--bad);border-color:rgba(178,59,46,.5)}
 .formbox{border:1.5px solid var(--moss);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:12px}
 
 .sway{transform-box:fill-box;transform-origin:50% 100%;animation:sway 6s ease-in-out infinite}
@@ -307,8 +307,8 @@ nav.links a.on{color:var(--fg);background:var(--sunk);font-weight:700}
 .dxbox{border-radius:14px;padding:16px;background:var(--bg);border:1px solid var(--line)}
 .dxbox h4{margin:0 0 8px;font:700 .78rem/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .dxbox ol{margin:0;padding-left:1.2rem;display:flex;flex-direction:column;gap:8px}
-.dxbox.bio{border-color:color-mix(in srgb,#2F7A46 45%,var(--line))}
-.dxbox.air{border-color:color-mix(in srgb,#4F87A8 45%,var(--line))}
+.dxbox.bio{border-color:rgba(47,122,70,.45)}
+.dxbox.air{border-color:rgba(79,135,168,.45)}
 .petgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;margin-bottom:18px}
 .petgrid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
 .petgrid>*,.petgrid2>*{min-width:0}
@@ -337,6 +337,30 @@ nav.links a.on{color:var(--fg);background:var(--sunk);font-weight:700}
 .hist li{display:grid;grid-template-columns:110px 1fr auto;gap:10px;align-items:center;font-size:.9rem;padding:6px 0;border-bottom:1px solid var(--line)}
 .hist .hdate{font:400 .78rem/1.2 var(--mono);color:var(--muted)}
 .hist .mini{padding:.3rem .6rem;font-size:.75rem}
+
+.pdfwait{position:fixed;inset:0;z-index:9999;background:var(--bg);display:grid;place-items:center;text-align:center}
+.pdfwait>div{display:flex;flex-direction:column;align-items:center;gap:10px}
+.pdfwait .logo{animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.4}}
+.pdfsheet{position:fixed;left:0;top:0;width:760px;z-index:9998;background:#fff;color:#23220F;padding:0;font-family:var(--body);
+  --bg:#fff;--surface:#fff;--sunk:#F3EFE5;--fg:#23220F;--muted:#5C5733;--line:#DDD6C4;--brand:#373713;--moss:#373713;--moss-ink:#F4EFE4;--leaf:#978F15;--pill-ink:#fff;--ok:#2F7A46;--warn:#A86A12;--bad:#B23B2E;--glass:#fff;--seg-on:rgba(55,55,19,.1)}
+.pdfsheet .noprint,.pdfsheet .actions,.pdfsheet button,.pdfsheet input[type=file],.pdfsheet .quick,.pdfsheet .filters{display:none!important}
+.pdfsheet .tag{position:static}
+.pdfsheet .guide{display:block}
+.pdfsheet .guide>.tag{display:grid;grid-template-columns:230px 1fr;gap:8px 22px;margin-bottom:16px}
+.pdfsheet .guide>.tag>*{grid-column:2}
+.pdfsheet .guide>.tag>.tagpic{grid-column:1;grid-row:1/span 7;align-self:start}
+.pdfsheet .guide>.tag>.gauge{grid-column:1/-1}
+.pdfsheet .guide>.tag>.layers,.pdfsheet .guide>.tag>.note{grid-column:1/-1}
+.pdfsheet .guide>.tag:not(:has(.tagpic)){display:block}
+.pdfsheet .grid{grid-template-columns:repeat(3,1fr)!important}
+.pdfsheet .petgrid,.pdfsheet .petgrid2{grid-template-columns:1fr 1fr}
+.pdfsheet .cmprow{grid-template-columns:150px 1fr 1fr}
+.pdfsheet .hist{max-height:none;overflow:visible}
+.pdfsheet .sway,.pdfsheet .blink{animation:none}
+.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.credit{font-size:.7rem;color:var(--muted);margin-top:auto}
+.credit a{color:inherit}
 #printRoot{display:none}
 @media print{
   :root,:root:not([data-theme="light"]),:root[data-theme="dark"]{--bg:#fff;--surface:#fff;--sunk:#F1EDE3;--fg:#1d1d0c;--muted:#5a5530;--line:#d9d3c2;--brand:#373713;--moss:#373713;--moss-ink:#F4EFE4;--leaf:#978F15;--pill-ink:#fff;color-scheme:light}
@@ -1056,7 +1080,7 @@ function saveFile(name,text,mime){
     }).catch(function(e){toast(e&&e.code==="rejected_extension"?"Este tipo de archivo se descarga desde la página pública":"No se pudo descargar aquí")});
     return;
   }
-  try{var b=new Blob([text],{type:mime||"text/plain"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove()},500);toast("Descargando "+name)}catch(e){toast("No se pudo descargar")}
+  try{var b=(text instanceof Blob)?text:new Blob([text],{type:mime||"text/plain"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove()},500);toast("Descargando "+name)}catch(e){toast("No se pudo descargar")}
 }
 function icsEsc(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\;").replace(/,/g,"\\,").replace(/\n/g,"\\n")}
 function buildICS(events){
@@ -1138,6 +1162,8 @@ var PLANTS=[
   {n:"Adelfa o laurel rosa",sci:"Nerium oleander",tox:"toxica",hum:"baja",forma:"espada",col:"#E07AA0",uso:"Nunca cerca de reptiles.",nota:"Es muy tóxica incluso en pequeñas cantidades."},
   {n:"Hiedra",sci:"Hedera helix",tox:"toxica",hum:"media",forma:"colgante",col:"#2E5E33",uso:"No la use en terrarios.",nota:"Hojas y frutos son tóxicos."}
 ];
+var PHOTOS=[["Bromeliaceae03.jpg", "Wikimedia Commons", "CC BY-SA 3.0", 114735, "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Bromeliaceae03.jpg/500px-Bromeliaceae03.jpg"], ["Hierbabuena_0611_Revised.jpg", "Dtarazona y Peter coxhe", "Dominio público", 16710171, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Hierbabuena_0611_Revised.jpg/500px-Hierbabuena_0611_Revised.jpg"], ["Colpfl25.jpg", "Louise Wolff", "CC BY-SA 3.0", 132446, "https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Colpfl25.jpg/500px-Colpfl25.jpg"], ["Peperomia_obtusifolia_3-OB9.jpg", "Jerzy Opioła", "CC BY-SA 4.0", 9019993, "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Peperomia_obtusifolia_3-OB9.jpg/500px-Peperomia_obtusifolia_3-OB9.jpg"], ["Maranta_leuconeura3.jpg", "Kurt Stüber", "CC BY-SA 3.0", 3609, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Maranta_leuconeura3.jpg/500px-Maranta_leuconeura3.jpg"], ["Boston_Fern_(2873392811).png", "Homer Edward Price", "CC BY 2.0", 34931143, "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Boston_Fern_%282873392811%29.png/500px-Boston_Fern_%282873392811%29.png"], ["Leucobryum_glaucum.jpg", "Wikimedia Commons", "Dominio público", 452833, "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Leucobryum_glaucum.jpg/500px-Leucobryum_glaucum.jpg"], ["Winterbourne_-_Haworthia_attenuata_(6120983526).jpg", "Stephen Boisvert", "CC BY 2.0", 25038398, "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Winterbourne_-_Haworthia_attenuata_%286120983526%29.jpg/500px-Winterbourne_-_Haworthia_attenuata_%286120983526%29.jpg"], ["Gasteria_pillansii_var_pillansii_1.jpg", "Stan Shebs", "CC BY-SA 3.0", 1113533, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Gasteria_pillansii_var_pillansii_1.jpg/500px-Gasteria_pillansii_var_pillansii_1.jpg"], ["Echeveria_elegans_-_1.png", "EriaWei", "CC BY-SA 4.0", 63730044, "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Echeveria_elegans_-_1.png/500px-Echeveria_elegans_-_1.png"], ["Snake_Plant_(Sansevieria_trifasciata_'Laurentii').jpg", "Mokkie", "CC BY-SA 3.0", 32807562, "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Snake_Plant_%28Sansevieria_trifasciata_%27Laurentii%27%29.jpg/500px-Snake_Plant_%28Sansevieria_trifasciata_%27Laurentii%27%29.jpg"], ["Crassula_ovata_700.jpg", "sannse", "CC BY-SA 3.0", 56447, "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Crassula_ovata_700.jpg/500px-Crassula_ovata_700.jpg"], ["Zebrina_pendula_20060521_2_closer.jpg", "Ruestz", "CC BY-SA 3.0", 3371721, "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Zebrina_pendula_20060521_2_closer.jpg/500px-Zebrina_pendula_20060521_2_closer.jpg"], ["Taraxacum_officinale_head1_(16350804956).jpg", "Harry Rose", "CC BY 2.0", 40476091, "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Taraxacum_officinale_head1_%2816350804956%29.jpg/500px-Taraxacum_officinale_head1_%2816350804956%29.jpg"], ["Hibiscus_Brilliant.jpg", "Andrew Fogg", "CC BY 2.0", 9470239, "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Hibiscus_Brilliant.jpg/500px-Hibiscus_Brilliant.jpg"], ["Opuntia_ficus-indica,_Springbokvlakte.jpg", "JMK", "CC BY-SA 3.0", 24914427, "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Opuntia_ficus-indica%2C_Springbokvlakte.jpg/500px-Opuntia_ficus-indica%2C_Springbokvlakte.jpg"], ["Aloe_vera_flower_inset.png", "MidgleyDJ", "CC BY-SA 3.0", 5084561, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Aloe_vera_flower_inset.png/500px-Aloe_vera_flower_inset.png"], ["Money_Plant_(Epipremnum_aureum)_4.jpg", "Mokkie", "CC BY-SA 3.0", 33046648, "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Money_Plant_%28Epipremnum_aureum%29_4.jpg/500px-Money_Plant_%28Epipremnum_aureum%29_4.jpg"], ["Philodendron_scandens_subsp_oxycardium2.jpg", "KENPEI", "CC BY-SA 3.0", 1025329, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Philodendron_scandens_subsp_oxycardium2.jpg/500px-Philodendron_scandens_subsp_oxycardium2.jpg"], ["Zamioculcas_zamiifolia_1.jpg", "WeFt", "CC BY-SA 3.0", 75624, "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Zamioculcas_zamiifolia_1.jpg/500px-Zamioculcas_zamiifolia_1.jpg"], ["Spathiphyllum_cochlearispathum_RTBG.jpg", "JJ Harrison", "CC BY-SA 3.0", 7268669, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Spathiphyllum_cochlearispathum_RTBG.jpg/500px-Spathiphyllum_cochlearispathum_RTBG.jpg"], ["Ficus_pumila_(Leafs).jpg", "Ixitixel", "CC BY-SA 3.0", 3820954, "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Ficus_pumila_%28Leafs%29.jpg/500px-Ficus_pumila_%28Leafs%29.jpg"], ["Begonia_Maculata.jpg", "H. Kewellprofil", "CC BY 4.0", 137519455, "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Begonia_Maculata.jpg/500px-Begonia_Maculata.jpg"], ["Starr_061212-2331_Dieffenbachia_seguine.jpg", "Forest & Kim Starr", "CC BY 3.0", 6178632, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Starr_061212-2331_Dieffenbachia_seguine.jpg/500px-Starr_061212-2331_Dieffenbachia_seguine.jpg"], ["Weihnachtsstern_-_groß.jpg", "André Karwath", "CC BY-SA 2.5", 16584, "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Weihnachtsstern_-_gro%C3%9F.jpg/500px-Weihnachtsstern_-_gro%C3%9F.jpg"], ["Nerium_oleander_flowers_leaves.jpg", "Alvesgaspar", "CC BY 2.5", 2190478, "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Nerium_oleander_flowers_leaves.jpg/500px-Nerium_oleander_flowers_leaves.jpg"], ["Hedera_helix_Dover.jpg", "kallerna", "CC BY-SA 4.0", 128844239, "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Hedera_helix_Dover.jpg/500px-Hedera_helix_Dover.jpg"]];
+PLANTS.forEach(function(p,i){var f=PHOTOS[i];if(f){p.f=f[0];p.a=f[1];p.l=f[2];p.d='https://commons.wikimedia.org/w/index.php?curid='+f[3];p.u=f[4]}});
 var TOX={segura:["Segura","ok"],precaucion:["Precaución","warn"],toxica:["Tóxica","bad"]};
 var HUM={alta:"Alta humedad",media:"Humedad media",baja:"Clima seco"};
 var PF=[["todas","Todas"],["segura","Seguras"],["precaucion","Precaución"],["toxica","Tóxicas"],["alta","Alta humedad"],["baja","Clima seco"],["fuerte","Resiste reptiles pesados"],["com","Comestibles"]];
@@ -1160,8 +1186,8 @@ function plantsSection(){
   '<div class="psearch"><input type="search" id="plantQ" placeholder="Buscar: pothos, sábila, helecho…" aria-label="Buscar planta" autocomplete="off"></div>'+
   '<div class="filters" role="group" aria-label="Filtrar plantas">'+PF.map(function(f){return '<button data-pf="'+f[0]+'" aria-pressed="'+(plantView.f===f[0])+'">'+f[1]+'</button>'}).join("")+'</div>'+
   '<div class="legend"><span class="tox ok">Segura</span> Puede usarla. <span class="tox warn">Precaución</span> Bien con animales que no comen plantas. <span class="tox bad">Tóxica</span> No la use.</div>'+
-  '<div class="grid" id="plantGrid"></div>'+(IN_CLAUDE?'':'<div class="actions" style="margin-top:18px">'+printBtn("plantGrid","Guía de plantas seguras")+'</div>')+
-  '<p class="note" style="margin-top:22px">Información general basada en listas de plantas para terrarios bioactivos (<a href="https://www.thebiodude.com/blogs/live-plants-mosses-and-growing-guides/the-quick-list-of-edible-plants-for-your-bioactive-terrarium" target="_blank" rel="noopener">The Bio Dude</a>). Lave bien toda planta nueva y retire fertilizantes o pesticidas antes de plantarla. Ante cualquier duda, consulte a un veterinario de exóticos.</p></div></section>';
+  '<div class="grid" id="plantGrid"></div>'+'<div class="actions" style="margin-top:18px">'+printBtn("plantGrid","Guía de plantas seguras")+'</div>'+
+  '<p class="note" style="margin-top:22px">Fotos de Wikimedia Commons con licencia libre; el crédito de cada una aparece en su tarjeta. Información general basada en listas de plantas para terrarios bioactivos (<a href="https://www.thebiodude.com/blogs/live-plants-mosses-and-growing-guides/the-quick-list-of-edible-plants-for-your-bioactive-terrarium" target="_blank" rel="noopener">The Bio Dude</a>). Lave bien toda planta nueva y retire fertilizantes o pesticidas antes de plantarla. Ante cualquier duda, consulte a un veterinario de exóticos.</p></div></section>';
 }
 function renderPlants(){
   var q=plantView.q.trim().toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,""),f=plantView.f;
@@ -1171,7 +1197,7 @@ function renderPlants(){
     if(f==="todas")return true; if(TOX[f])return p.tox===f; if(HUM[f])return p.hum===f; if(f==="fuerte")return !!p.fuerte; if(f==="com")return !!p.com; return true;
   });
   $$("[data-pf]").forEach(function(b){b.setAttribute("aria-pressed",String(b.getAttribute("data-pf")===f))});
-  $("#plantGrid").innerHTML=list.length?list.map(function(p){var t=TOX[p.tox];return '<article class="card pcard tox-'+t[1]+'"><div class="ph">'+plantArt(p)+'<span class="tox '+t[1]+'">'+t[0]+'</span></div><div class="body"><h3>'+esc(p.n)+'</h3><span class="sci">'+esc(p.sci)+'</span><div class="ptags"><span class="ptag">'+HUM[p.hum]+'</span>'+(p.fuerte?'<span class="ptag">Resiste reptiles pesados</span>':'')+(p.com?'<span class="ptag">Comestible</span>':'')+'</div><p><b>Para:</b> '+esc(p.uso)+'</p><p class="note">'+esc(p.nota)+'</p></div></article>'}).join(""):'<p class="note">No encontramos esa planta. Escríbanos y le decimos si es segura.</p>';
+  $("#plantGrid").innerHTML=list.length?list.map(function(p){var t=TOX[p.tox];return '<article class="card pcard tox-'+t[1]+'"><div class="ph">'+plantArt(p)+(p.f?'<img class="photo" loading="lazy" crossorigin="anonymous" alt="Foto de '+esc(p.n)+'" src="'+p.u+'" onerror="this.remove()">':'')+'<span class="tox '+t[1]+'">'+t[0]+'</span></div><div class="body"><h3>'+esc(p.n)+'</h3><span class="sci">'+esc(p.sci)+'</span><div class="ptags"><span class="ptag">'+HUM[p.hum]+'</span>'+(p.fuerte?'<span class="ptag">Resiste reptiles pesados</span>':'')+(p.com?'<span class="ptag">Comestible</span>':'')+'</div><p><b>Para:</b> '+esc(p.uso)+'</p><p class="note">'+esc(p.nota)+'</p>'+(p.f?'<span class="credit">Foto: <a href="'+p.d+'" target="_blank" rel="noopener">'+esc(p.a)+'</a> · '+esc(p.l)+' · Wikimedia Commons</span>':'')+'</div></article>'}).join(""):'<p class="note">No encontramos esa planta. Escríbanos y le decimos si es segura.</p>';
 }
 
 /* ---------- diagnóstico ---------- */
@@ -1410,7 +1436,8 @@ function printNode(el,title){
   window.addEventListener("afterprint",restore);
   setTimeout(function(){window.print();setTimeout(function(){document.addEventListener("pointerdown",restore,true)},300)},80);
 }
-function printBtn(target,title){return IN_CLAUDE?'':'<button class="btn btn-primary" data-printnode="'+target+'" data-ptitle="'+esc(title)+'">Imprimir o guardar PDF</button>'}
+function slug(t){return String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function printBtn(target,title){return pdfBtn(target,title,'reppets-'+slug(title)+'.pdf')}
 
 /* ---------- comparador de especies ---------- */
 var DIET={leopardo:"Insectos vivos",crestado:"Papilla en polvo y algunos insectos",gargola:"Papilla en polvo e insectos",colagorda:"Insectos vivos",dragon:"Verduras diario e insectos",lenguaazul:"Omnívoro: proteína y verduras",camaleon:"Insectos vivos y agua en gotas",pitonbola:"Roedores congelados",maiz:"Roedores congelados",coralillo:"Roedores congelados"};
@@ -1444,6 +1471,74 @@ document.addEventListener("click",function(e){
   var c=e.target.closest&&e.target.closest("[data-cmp]");
   if(c){var p=c.getAttribute("data-cmp").split("|");cmpView.a=p[0];cmpView.b=p[1];$("#cmpA").value=p[0];$("#cmpB").value=p[1];renderCmp()}
 });
+
+/* ---------- PDF con marca de agua (generado en el navegador) ---------- */
+var LIBS={h2c:"https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",pdf:"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"};
+function loadScript(src){return new Promise(function(ok,no){if(document.querySelector('script[src="'+src+'"]')){ok();return}var s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=function(){no(new Error("load"))};document.head.appendChild(s)})}
+var LOGO_CACHE={};
+function logoPNG(cls,color){
+  var key=cls+color;if(LOGO_CACHE[key])return Promise.resolve(LOGO_CACHE[key]);
+  var css=document.getElementById("rp-style").textContent,m=css.match(new RegExp("\\."+cls+"\\{--m:url\\((data:image\\/png;base64,[^)]+)\\)"));
+  if(!m)return Promise.resolve(null);
+  return new Promise(function(ok){var img=new Image();img.onload=function(){var c=document.createElement("canvas");c.width=img.width;c.height=img.height;var x=c.getContext("2d");x.drawImage(img,0,0);x.globalCompositeOperation="source-in";x.fillStyle=color;x.fillRect(0,0,c.width,c.height);LOGO_CACHE[key]={url:c.toDataURL("image/png"),w:img.width,h:img.height};ok(LOGO_CACHE[key])};img.onerror=function(){ok(null)};img.src=m[1]});
+}
+var pdfBusy=false;
+function svgToImg(root){
+  var swaps=[];
+  [].slice.call(root.querySelectorAll("svg")).forEach(function(svg){
+    var r=svg.getBoundingClientRect();if(!r.width||!r.height)return;
+    var cl=svg.cloneNode(true);
+    var src=[svg].concat([].slice.call(svg.querySelectorAll("*"))),dst=[cl].concat([].slice.call(cl.querySelectorAll("*")));
+    src.forEach(function(n,i){["fill","stroke"].forEach(function(a){var v=n.getAttribute&&n.getAttribute(a);if(v&&v.indexOf("var(")>=0){dst[i].setAttribute(a,getComputedStyle(n)[a])}});if(n.getAttribute&&n.getAttribute("class")){var cs=getComputedStyle(n);if(n.tagName==="text")dst[i].setAttribute("fill",cs.fill)}});
+    cl.setAttribute("xmlns","http://www.w3.org/2000/svg");cl.setAttribute("width",Math.round(r.width));cl.setAttribute("height",Math.round(r.height));cl.removeAttribute("class");
+    [].slice.call(cl.querySelectorAll(".sway,.blink")).forEach(function(n){n.removeAttribute("class")});
+    var img=document.createElement("img");img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(new XMLSerializer().serializeToString(cl));
+    img.style.width=r.width+"px";img.style.height=r.height+"px";img.style.display="block";
+    svg.parentNode.insertBefore(img,svg);svg.style.display="none";swaps.push([svg,img]);
+  });
+  return function(){swaps.forEach(function(p){p[1].remove();p[0].style.display=""})};
+}
+function pdfBtn(target,title,file){return '<button class="btn btn-primary" data-pdf="'+target+'" data-ptitle="'+esc(title)+'" data-pfile="'+esc(file)+'">Descargar PDF</button>'}
+function exportPDF(el,title,file){
+  if(pdfBusy||!el)return;pdfBusy=true;
+  var ov=document.createElement("div");ov.className="pdfwait";ov.innerHTML='<div><span class="logo logo-emb" style="width:54px"></span><b>Preparando su PDF…</b><span class="note">Esto toma unos segundos.</span></div>';document.body.appendChild(ov);
+  var sheet=document.createElement("div"),ph=document.createComment("pdf");sheet.className="pdfsheet";
+  var restoreSvg=null;
+  function restore(){if(restoreSvg){restoreSvg();restoreSvg=null}if(ph.parentNode){ph.parentNode.insertBefore(el,ph);ph.remove()}sheet.remove();ov.remove();pdfBusy=false}
+  Promise.all([loadScript(LIBS.h2c),loadScript(LIBS.pdf),logoPNG("logo-emb","#373713"),logoPNG("logo-word","#373713"),logoPNG("logo-full","#373713")]).then(function(r){
+    var lemb=r[2],lword=r[3],lfull=r[4];
+    el.parentNode.insertBefore(ph,el);sheet.appendChild(el);document.body.appendChild(sheet);
+    var unSvg=svgToImg(sheet);restoreSvg=unSvg;
+    var imgs=[].slice.call(sheet.querySelectorAll("img"));
+    return Promise.all(imgs.map(function(i){return i.complete?0:new Promise(function(ok){i.onload=i.onerror=ok;setTimeout(ok,4000)})})).then(function(){
+      var top=sheet.getBoundingClientRect().top,cuts=[];
+      [].slice.call(sheet.querySelectorAll(".gcard,.tag,.gauge,.cmprow,.card,.dxbox,.dxq,.task,.hist li,.routine>div,.pethead,.petstats,.layers,li,p,h2,h3,dl")).forEach(function(n){var b=n.getBoundingClientRect();if(b.height>0)cuts.push(b.bottom-top+6)});
+      cuts.sort(function(a,b){return a-b});
+      return window.html2canvas(sheet,{scale:2,backgroundColor:"#ffffff",useCORS:true,windowWidth:1200,logging:false}).then(function(canvas){return {canvas:canvas,cuts:cuts,lemb:lemb,lword:lword,lfull:lfull}});
+    });
+  }).then(function(o){
+    restore();
+    var J=window.jspdf.jsPDF,doc=new J({unit:"mm",format:"a4"}),W=210,H=297,mx=12,mt=26,mb=17,cw=W-2*mx,ch=H-mt-mb;
+    var cv=o.canvas,k=cv.width/cw,pagePx=ch*k,y=0,pages=[];
+    while(y<cv.height-2){var lim=y+pagePx,end;if(lim>=cv.height){end=cv.height}else{end=lim;for(var i=o.cuts.length-1;i>=0;i--){var c=o.cuts[i]*2;if(c<=lim&&c>y+pagePx*.45){end=c;break}}}pages.push([y,end]);y=end}
+    var foot="Reppets · "+ciudad()+(waDigits()?" · WhatsApp "+prettyPhone():"")+" · @"+STATE.settings.instagram+" · rep-pets.github.io/REPPETS";
+    pages.forEach(function(pg,n){
+      if(n)doc.addPage();
+      var h=pg[1]-pg[0],c=document.createElement("canvas");c.width=cv.width;c.height=Math.ceil(h);var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(cv,0,pg[0],cv.width,h,0,0,cv.width,h);
+      doc.addImage(c.toDataURL("image/jpeg",.9),"JPEG",mx,mt,cw,h/k);
+      if(o.lemb)doc.addImage(o.lemb.url,"PNG",mx,8,11,11*o.lemb.h/o.lemb.w);
+      if(o.lword)doc.addImage(o.lword.url,"PNG",mx+13,10.5,30,30*o.lword.h/o.lword.w);
+      doc.setTextColor(55,55,19);doc.setFont("helvetica","bold");doc.setFontSize(10);doc.text(title,W-mx,13,{align:"right",maxWidth:110});
+      doc.setFont("helvetica","normal");doc.setFontSize(8);doc.setTextColor(104,96,47);doc.text(fmtDate(todayISO()),W-mx,18,{align:"right"});
+      doc.setDrawColor(55,55,19);doc.setLineWidth(.6);doc.line(mx,22,W-mx,22);
+      doc.setDrawColor(220,211,189);doc.setLineWidth(.3);doc.line(mx,H-12,W-mx,H-12);
+      doc.setFontSize(7.5);doc.setTextColor(104,96,47);doc.text(foot,mx,H-7.5);doc.text("Página "+(n+1)+" de "+pages.length,W-mx,H-7.5,{align:"right"});
+      if(o.lfull){doc.setGState(new doc.GState({opacity:.07}));var ww=140,hh=ww*o.lfull.h/o.lfull.w;doc.addImage(o.lfull.url,"PNG",(W-ww)/2,(H-hh)/2,ww,hh);doc.setGState(new doc.GState({opacity:1}))}
+    });
+    saveFile(file,doc.output("blob"),"application/pdf");
+  }).catch(function(err){restore();toast("No se pudo generar el PDF. Revise su conexión e intente de nuevo.")});
+}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pdf]");if(b){exportPDF(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"),b.getAttribute("data-pfile"))}});
 
 /* ---------- admin ---------- */
 var EDITABLE=false, ART=null, draft=null, editing=null, pendingDel=null;
