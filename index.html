@@ -398,6 +398,28 @@ nav.links a.on{color:var(--fg);background:var(--sunk);font-weight:700}
 .cmplab{font:700 .72rem/1.3 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-self:center}
 @media (max-width:640px){.cmprow{grid-template-columns:1fr 1fr}.cmplab{grid-column:1/-1;padding-bottom:0}.cmprow>div+div{border-left:1px solid var(--line)}.cmprow>div:first-of-type{border-left:0}.cmphead>span{display:none}}
 
+.chk.consent input:checked+span{text-decoration:none;color:inherit}
+.chk.consent{font-size:.85rem}
+.okmsg{color:var(--ok);font-weight:600}
+.errmsg{color:var(--bad);font-weight:600;margin:12px 0}
+.gform{display:flex;gap:8px;flex-wrap:wrap}
+.gform input{flex:1;min-width:200px;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:.6rem .7rem}
+.gauth{max-width:640px}
+.gauthin{flex-direction:row;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.gauthin>div{display:flex;flex-direction:column;gap:2px}
+.gpub{margin-top:16px;max-width:760px}
+.gpub>summary{list-style:none;display:inline-flex;cursor:pointer}
+.gpub>summary::-webkit-details-marker{display:none}
+.gpub[open]>summary{margin-bottom:12px}
+.gpost .body p{font-size:.92rem}
+.gwin{border:2px solid var(--gecko)}
+.card .ph .chip.gcrown{background:#EECD35;color:#373713}
+a.ptag-buy{text-decoration:none;color:inherit;border:1px solid var(--line)}
+a.ptag-buy:hover{border-color:var(--moss)}
+.legal{max-width:760px}
+.legal h3{margin:22px 0 6px;font-size:1.05rem}
+.legal ul{padding-left:20px;margin:6px 0}
+.legal li,.legal p{line-height:1.6}
 </style>
 <script type="application/json" id="rp-data">{"settings":{"whatsapp":"8124661781","ciudad":"Nuevo León (MTY)","instagram":"reppet_s","semarnat":"09/K2-1157/09/26"},"stock":[]}</script>
 <div id="app"></div>
@@ -837,7 +859,7 @@ function hero(){
     '</div><figure class="hero-art" style="margin:0">'+terrSVG({shape:"h",style:"selva",gecko:"crestado",luz:true,limpieza:true,seed:21,label:"Terrario de selva con un gecko crestado"})+
     '<figcaption><span>Selva tropical · 45 × 45 × 60 cm</span><span>Gecko crestado</span></figcaption></figure></div></section>'+
     '<div class="trust"><div class="wrap">'+
-    '<div><strong>Venta legal</strong><span>Bitácora SEMARNAT '+esc(STATE.settings.semarnat)+'</span></div>'+
+    '<div><strong>Venta legal</strong><span>Bitácora SEMARNAT '+esc(STATE.settings.semarnat)+'<br><a href="#privacidad" style="color:inherit">Aviso de privacidad</a></span></div>'+
     '<div><strong>Hechos a mano</strong><span>Plantas reales · piezas impresas en 3D</span></div>'+
     '<div><strong>Entrega personal</strong><span>En '+esc(ciudad())+' · por ahora sin envíos</span></div>'+
     '</div></div>';
@@ -1056,7 +1078,7 @@ function contactSection(){
   '</div></div></section>';
 }
 function footerHTML(){
-  return '<footer><div class="wrap" style="align-items:flex-end"><span class="logo logo-full" role="img" aria-label="Reppets" style="width:150px"></span><span><b style="font-family:var(--display);color:var(--fg)">Conecta. Cuida. Inspira.</b><br>© 2026 Reppets · Un fragmento de naturaleza en casa</span><span style="font-family:var(--mono)">Bitácora SEMARNAT '+esc(STATE.settings.semarnat)+'</span></div></footer>';
+  return '<footer><div class="wrap" style="align-items:flex-end"><span class="logo logo-full" role="img" aria-label="Reppets" style="width:150px"></span><span><b style="font-family:var(--display);color:var(--fg)">Conecta. Cuida. Inspira.</b><br>© 2026 Reppets · Un fragmento de naturaleza en casa</span><span style="font-family:var(--mono)">Bitácora SEMARNAT '+esc(STATE.settings.semarnat)+'<br><a href="#privacidad" style="color:inherit">Aviso de privacidad</a></span></div></footer>';
 }
 
 /* ---------- utilidades de la app ---------- */
@@ -1344,10 +1366,162 @@ function toolsSection(){
   return '<section class="block tools" id="herramientas"><div class="wrap"><div class="sec-head"><span class="eyebrow">App Reppets</span><h2>Todo para cuidar a su reptil</h2><p class="lead">Herramientas gratuitas para nuestros clientes y para cualquier aficionado. Instálela en su celular para tenerla siempre a la mano.</p></div>'+
   '<div class="toolgrid">'+T.map(function(t){return '<a class="tool" href="#'+t[0]+'"><span class="ticon">'+icon(t[0]==="comparar"?"guias":t[0])+'</span><b>'+t[1]+'</b><span class="note">'+t[2]+'</span></a>'}).join("")+'</div></div></section>';
 }
-function gallerySoon(){
-  return '<section class="block alt" id="galeria"><div class="wrap gsoon"><div class="sec-head" style="margin:0"><span class="eyebrow">Próximamente</span><h2>Terrario del Mes</h2><p class="lead">Muy pronto podrá subir fotos de su terrario, votar por el mejor hábitat de la comunidad y ganar créditos o accesorios exclusivos.</p></div>'+
-  '<div class="cbox"><b>Mientras tanto, participe desde Instagram</b><p class="note">Publique su terrario, etiquete a @'+esc(STATE.settings.instagram)+' y use #TerrarioDelMesReppets. Compartimos a los mejores en nuestras historias.</p><div class="actions"><a class="btn btn-dark" target="_blank" rel="noopener" href="'+esc(igUrl())+'">Ir a Instagram</a></div></div></div></section>';
+/* ---------- Galería "Terrario del Mes" (Supabase) ---------- */
+var SB_URL="https://kbicyfghzjqtppvcvnps.supabase.co",SB_KEY="sb_publishable_8HS8qTcogrFp9MPjlPe0PQ_KxdmCce1";
+var SB_JS="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js";
+var PRODUCT_TAGS=["Terrario Reppets","Escondite 3D","Plato 3D","Repisa 3D","Plantas vivas","Equipo de limpieza","Sustrato bioactivo","Iluminación UVB"];
+var MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+var FROM_LINK=/access_token=|error_description=/.test(location.hash),LINK_ERR=/error_description=/.test(location.hash);
+var gv={sb:null,ready:null,session:null,profile:null,admin:false,tab:"mes",posts:[],myVote:null,mine:[],pending:[],winners:[],loading:true,sent:false,err:"",photo:null,publishing:false};
+function monthKey(){var d=new Date(new Date().toLocaleString("en-US",{timeZone:"America/Monterrey"}));return d.getFullYear()+"-"+pad(d.getMonth()+1)}
+function monthName(k){var p=k.split("-");return MESES[+p[1]-1]+" "+p[0]}
+function imgUrl(path){return SB_URL+"/storage/v1/object/public/galeria/"+path.split("/").map(encodeURIComponent).join("/")}
+function initSB(){
+  if(gv.ready)return gv.ready;
+  if(IN_CLAUDE){gv.ready=Promise.reject(new Error("claude"));gv.ready.catch(function(){});return gv.ready}
+  gv.ready=loadScript(SB_JS).then(function(){
+    gv.sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{flowType:"implicit",detectSessionInUrl:true,persistSession:true,autoRefreshToken:true}});
+    gv.sb.auth.onAuthStateChange(function(ev,s){var was=gv.session&&gv.session.user.id;gv.session=s;if((s&&s.user.id)!==was){loadMe().then(renderGal)}});
+    return gv.sb.auth.getSession();
+  }).then(function(r){gv.session=r.data.session;return Promise.all([loadMe(),loadPosts()])}).then(function(){gv.loading=false;if(LINK_ERR&&!gv.session)gv.err="El enlace ya caducó o ya se usó. Pida uno nuevo.";renderGal();if(FROM_LINK){FROM_LINK=false;history.replaceState(null,"",location.pathname+"#galeria");route("galeria")}}).catch(function(){gv.loading=false;var a=$("#galArea");if(a)a.innerHTML='<p class="errmsg">No pudimos conectar con la galería. Revise su internet y recargue la página.</p>'});
+  return gv.ready;
 }
+function loadMe(){
+  var sb=gv.sb,s=gv.session;gv.profile=null;gv.admin=false;gv.myVote=null;gv.mine=[];gv.pending=[];
+  if(!sb||!s)return Promise.resolve();
+  var uid=s.user.id,M=monthKey();
+  return Promise.all([
+    sb.from("profiles").select("*").eq("id",uid).maybeSingle(),
+    sb.rpc("is_admin"),
+    sb.from("votes").select("post_id").eq("user_id",uid).eq("month",M).maybeSingle(),
+    sb.from("gallery_posts").select("*").eq("user_id",uid).order("created_at",{ascending:false})
+  ]).then(function(r){
+    gv.profile=r[0].data;gv.admin=!!r[1].data;gv.myVote=r[2].data?r[2].data.post_id:null;gv.mine=r[3].data||[];
+    if(gv.admin)return sb.from("gallery_posts").select("*").eq("status","pendiente").order("created_at").then(function(p){gv.pending=p.data||[]});
+  });
+}
+function loadPosts(){
+  var sb=gv.sb,M=monthKey();
+  return Promise.all([
+    sb.from("gallery_ranking").select("*").eq("month",M).order("votes",{ascending:false}).order("created_at"),
+    sb.from("gallery_ranking").select("*").lt("month",M).order("month",{ascending:false}).order("votes",{ascending:false}).limit(300)
+  ]).then(function(r){
+    gv.posts=r[0].data||[];var seen={};gv.winners=(r[1].data||[]).filter(function(p){if(seen[p.month])return false;seen[p.month]=1;return true}).slice(0,12);
+  });
+}
+function gallerySection(){
+  return '<section class="block" id="galeria"><div class="wrap"><div class="sec-head"><span class="eyebrow">Comunidad Reppets</span><h2>Terrario del Mes</h2><p class="lead">Suba la foto de su terrario o de su ejemplar, vote por el mejor hábitat y gane. Al cierre de cada mes, el terrario con más votos recibe créditos en la tienda o un accesorio exclusivo.</p></div><div id="galArea"><p class="note">Cargando la galería…</p></div></div></section>';
+}
+function postCard(p,opts){
+  opts=opts||{};var mine=gv.session&&p.user_id===gv.session.user.id,voted=gv.myVote===p.id;
+  var tags=(p.products||[]).map(function(t){var msg="Hola Reppets, vi en la galería el terrario “"+p.title+"” y me interesa: "+t+".";return '<a class="ptag ptag-buy" target="_blank" rel="noopener" href="'+esc(contactUrl(msg))+'" data-msg="'+esc(msg)+'">'+esc(t)+' →</a>'}).join("");
+  var voteBtn=opts.noVote?'':(mine?'<span class="note">Su publicación</span>':voted?'<button class="btn btn-dark" data-unvote>Su voto ✓</button>':'<button class="btn btn-primary" data-vote="'+p.id+'">Votar</button>');
+  return '<article class="card gpost'+(opts.rank===0?' gwin':'')+'"><div class="ph"><img src="'+esc(imgUrl(p.image_path))+'" alt="'+esc(p.title)+'" loading="lazy" crossorigin="anonymous">'+(opts.rank===0?'<span class="chip gcrown">1.º lugar</span>':(opts.badge?'<span class="chip">'+esc(opts.badge)+'</span>':''))+'</div>'+
+    '<div class="body"><h3>'+esc(p.title)+'</h3><div class="meta">'+esc(p.author||(gv.profile&&mine?gv.profile.display_name:""))+(p.species?' · '+esc(p.species):'')+'</div>'+(p.description?'<p>'+esc(p.description)+'</p>':'')+(tags?'<div class="ptags">'+tags+'</div>':'')+
+    (opts.noVote?'':'<div class="row"><span class="price">'+(p.votes||0)+' '+(+p.votes===1?'voto':'votos')+'</span>'+voteBtn+'</div>')+(opts.extra||'')+'</div></article>';
+}
+function authBox(){
+  if(!gv.session){
+    return '<div class="cbox gauth"><b>Entre con su correo para publicar y votar</b><p class="note">Le enviamos un enlace para entrar, sin contraseñas.</p>'+(gv.sent?'<p class="okmsg">Listo. Revise su correo (también la carpeta de spam) y abra el enlace en este mismo navegador.</p>':'')+
+    '<form class="gform" id="loginForm" onsubmit="return false"><input type="email" id="loginEmail" required placeholder="su@correo.com" autocomplete="email" aria-label="Correo"><button class="btn btn-dark" id="loginBtn" type="button">Enviarme el enlace</button></form>'+
+    '<label class="chk consent"><input type="checkbox" id="loginOk"><span>Acepto el <a href="#privacidad">aviso de privacidad</a>.</span></label></div>';
+  }
+  if(!gv.profile){
+    return '<div class="cbox gauth"><b>¿Con qué nombre quiere aparecer en la galería?</b><p class="note">Puede ser su nombre o su usuario de Instagram.</p><form class="gform" onsubmit="return false"><input id="dispName" maxlength="40" placeholder="Ej. Ana de Apodaca" aria-label="Nombre visible"><button class="btn btn-dark" id="saveName" type="button">Guardar</button></form><button class="mini" id="logoutBtn" style="padding:.4rem .8rem;align-self:flex-start">Cerrar sesión</button></div>';
+  }
+  return '<div class="cbox gauth gauthin"><div><b>Hola, '+esc(gv.profile.display_name)+'</b><span class="note">'+esc(gv.session.user.email)+(gv.admin?' · Administrador':'')+'</span></div><button class="mini" id="logoutBtn" style="padding:.45rem .9rem">Cerrar sesión</button></div>';
+}
+function publishForm(){
+  if(!gv.session||!gv.profile)return '';
+  return '<details class="gpub"'+(gv.publishing?' open':'')+'><summary class="btn btn-primary">Publicar mi terrario</summary><form class="formbox" id="pubForm" onsubmit="return false"><div class="fgrid">'+
+  '<div class="field full"><label for="gPhoto">Foto (vertical u horizontal, bien iluminada)</label><input type="file" id="gPhoto" accept="image/*"></div>'+
+  '<div class="field full" id="gPrev"></div>'+
+  '<div class="field"><label for="gTitle">Título</label><input id="gTitle" maxlength="60" placeholder="Ej. Selva para mi crestado"></div>'+
+  '<div class="field"><label for="gSp">Especie</label><select id="gSp"><option value="">Sin animal / otra</option>'+Object.keys(GUIDES).map(function(k){return '<option>'+GUIDES[k].nombre+'</option>'}).join("")+'</select></div>'+
+  '<div class="field full"><label for="gDesc">Cuéntenos de su terrario</label><textarea id="gDesc" maxlength="400" placeholder="Plantas, medidas, cuánto tiempo lleva…"></textarea></div>'+
+  '<div class="field full"><label>¿Qué productos usó?</label><div class="seg">'+PRODUCT_TAGS.map(function(t,i){return '<label><input type="checkbox" name="gtag" value="'+esc(t)+'" id="gt'+i+'"><span>'+esc(t)+'</span></label>'}).join("")+'</div></div>'+
+  '</div><label class="chk consent"><input type="checkbox" id="gOk"><span>Confirmo que la foto es mía y acepto que Reppets la publique en esta página y en sus redes, de acuerdo con el <a href="#privacidad">aviso de privacidad</a>.</span></label>'+
+  '<div class="actions"><button class="btn btn-dark" id="gSend" type="button">Enviar a revisión</button><span class="note" id="gStatus">Su foto aparecerá en cuanto la aprobemos.</span></div></form></details>';
+}
+function renderGal(){
+  var a=$("#galArea");if(!a)return;
+  if(IN_CLAUDE){a.innerHTML='<div class="empty"><span class="chip">Vista previa</span><h3>La galería funciona en la página pública</h3><p class="note">Ábrala en rep-pets.github.io/REPPETS para publicar, votar y moderar.</p></div>';return}
+  if(gv.loading){a.innerHTML='<p class="note">Cargando la galería…</p>';return}
+  var M=monthKey(),tabs=[["mes","Este mes"],["ganadores","Ganadores"]];if(gv.session)tabs.push(["mias","Mis publicaciones"]);if(gv.admin)tabs.push(["moderar","Revisar ("+gv.pending.length+")"]);
+  var body="";
+  if(gv.tab==="mes"){
+    body='<p class="note">Concurso de '+monthName(M)+'. Cada persona tiene un voto por mes y puede cambiarlo cuando quiera.</p>'+(gv.posts.length?'<div class="grid">'+gv.posts.map(function(p,i){return postCard(p,{rank:+p.votes>0?i:-1})}).join("")+'</div>':'<div class="empty"><h3>Todavía no hay terrarios este mes</h3><p class="note">¡Sea el primero en publicar el suyo!</p></div>');
+  }else if(gv.tab==="ganadores"){
+    body=gv.winners.length?'<div class="grid">'+gv.winners.map(function(p){return postCard(p,{noVote:true,badge:"Ganador de "+monthName(p.month),extra:'<span class="note">'+p.votes+' votos</span>'})}).join("")+'</div>':'<div class="empty"><h3>Aquí aparecerán los ganadores de cada mes</h3><p class="note">El primer ganador se anuncia al cierre de '+monthName(M)+'.</p></div>';
+  }else if(gv.tab==="mias"){
+    var ST={pendiente:"En revisión",aprobada:"Publicada",rechazada:"No aprobada"};
+    body=gv.mine.length?'<div class="grid">'+gv.mine.map(function(p){return postCard(p,{noVote:true,badge:ST[p.status]+" · "+monthName(p.month),extra:'<button class="mini danger" data-gdel="'+p.id+'" data-gpath="'+esc(p.image_path)+'" style="padding:.4rem .8rem;align-self:flex-start">Borrar</button>'})}).join("")+'</div>':'<p class="note">Aún no ha publicado nada.</p>';
+  }else if(gv.tab==="moderar"){
+    body=gv.pending.length?'<div class="grid">'+gv.pending.map(function(p){return postCard(p,{noVote:true,badge:"Pendiente",extra:'<div class="actions"><button class="btn btn-dark" data-gok="'+p.id+'">Aprobar</button><button class="btn btn-ghost" data-gno="'+p.id+'">Rechazar</button></div>'})}).join("")+'</div>':'<p class="note">No hay fotos pendientes de revisar.</p>';
+  }
+  a.innerHTML=authBox()+publishForm()+(gv.err?'<p class="errmsg">'+esc(gv.err)+'</p>':'')+
+    '<div class="filters" role="tablist" aria-label="Secciones de la galería" style="margin-top:22px">'+tabs.map(function(t){return '<button data-gtab="'+t[0]+'" aria-pressed="'+(gv.tab===t[0])+'">'+t[1]+'</button>'}).join("")+'</div>'+body;
+}
+function galErr(e,fallback){gv.err=(e&&e.message)?fallback+" ("+e.message+")":fallback;renderGal();setTimeout(function(){gv.err="";},8000)}
+function dataURLtoBlob(u){var p=u.split(","),b=atob(p[1]),n=b.length,a=new Uint8Array(n);while(n--)a[n]=b.charCodeAt(n);return new Blob([a],{type:"image/jpeg"})}
+function resizeTo(file,max,q,cb){var rd=new FileReader();rd.onload=function(){var img=new Image();img.onload=function(){var k=Math.min(1,max/Math.max(img.width,img.height)),c=document.createElement("canvas");c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext("2d").drawImage(img,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",q))};img.onerror=function(){toast("No pudimos leer esa imagen; pruebe con JPG o PNG")};img.src=rd.result};rd.readAsDataURL(file)}
+document.addEventListener("click",function(e){
+  var t=e.target,b;if(!t.closest)return;
+  if((b=t.closest("[data-gtab]"))){gv.tab=b.getAttribute("data-gtab");renderGal();return}
+  if(t.closest("#loginBtn")){
+    var em=$("#loginEmail").value.trim();if(!/^\S+@\S+\.\S+$/.test(em)){toast("Escriba un correo válido");return}
+    if(!$("#loginOk").checked){toast("Acepte el aviso de privacidad para continuar");return}
+    t.closest("#loginBtn").disabled=true;
+    gv.sb.auth.signInWithOtp({email:em,options:{emailRedirectTo:location.origin+location.pathname}}).then(function(r){if(r.error)throw r.error;gv.sent=true;renderGal()}).catch(function(err){galErr(err,"No pudimos enviar el enlace. Intente en unos minutos.")});return;
+  }
+  if(t.closest("#logoutBtn")){gv.sb.auth.signOut().then(function(){gv.session=null;gv.tab="mes";return loadMe()}).then(renderGal);return}
+  if(t.closest("#saveName")){
+    var n=$("#dispName").value.trim();if(n.length<2){toast("Escriba al menos 2 letras");return}
+    gv.sb.from("profiles").insert({id:gv.session.user.id,display_name:n}).then(function(r){if(r.error)throw r.error;return loadMe()}).then(renderGal).catch(function(err){galErr(err,"No se pudo guardar el nombre.")});return;
+  }
+  if(t.closest("#gSend")){
+    var title=$("#gTitle").value.trim();
+    if(!gv.photo){toast("Elija una foto");return}if(title.length<3){toast("Escriba un título");return}if(!$("#gOk").checked){toast("Confirme que acepta la publicación");return}
+    var btn=t.closest("#gSend");btn.disabled=true;$("#gStatus").textContent="Subiendo foto…";gv.publishing=true;
+    var uid=gv.session.user.id,path=uid+"/"+Date.now()+".jpg",tags=$$('input[name="gtag"]:checked').map(function(x){return x.value});
+    gv.sb.storage.from("galeria").upload(path,dataURLtoBlob(gv.photo),{contentType:"image/jpeg",upsert:false}).then(function(r){if(r.error)throw r.error;
+      return gv.sb.from("gallery_posts").insert({user_id:uid,title:title,species:$("#gSp").value||null,description:$("#gDesc").value.trim()||null,image_path:path,products:tags});
+    }).then(function(r){if(r.error)throw r.error;gv.photo=null;gv.publishing=false;gv.tab="mias";toast("¡Enviado! Lo publicaremos en cuanto lo revisemos.");return loadMe()}).then(renderGal).catch(function(err){btn.disabled=false;galErr(err,"No se pudo publicar.")});return;
+  }
+  if((b=t.closest("[data-vote]"))){
+    var pid=b.getAttribute("data-vote"),M=monthKey(),uid2=gv.session&&gv.session.user.id;
+    if(!uid2){toast("Entre con su correo para votar");$("#loginEmail")&&$("#loginEmail").focus();return}
+    if(!gv.profile){toast("Primero elija su nombre visible");return}
+    b.disabled=true;
+    var del=gv.myVote?gv.sb.from("votes").delete().eq("user_id",uid2).eq("month",M):Promise.resolve({});
+    Promise.resolve(del).then(function(r){if(r&&r.error)throw r.error;return gv.sb.from("votes").insert({user_id:uid2,month:M,post_id:pid})}).then(function(r){if(r.error)throw r.error;gv.myVote=pid;toast("¡Gracias por votar!");return loadPosts()}).then(renderGal).catch(function(err){galErr(err,"No se pudo registrar su voto.")});return;
+  }
+  if(t.closest("[data-unvote]")){var u3=gv.session.user.id;gv.sb.from("votes").delete().eq("user_id",u3).eq("month",monthKey()).then(function(r){if(r.error)throw r.error;gv.myVote=null;return loadPosts()}).then(renderGal).catch(function(err){galErr(err,"No se pudo quitar el voto.")});return}
+  if((b=t.closest("[data-gok]"))||(b=t.closest("[data-gno]"))){
+    var ok=b.hasAttribute("data-gok"),id=b.getAttribute(ok?"data-gok":"data-gno");
+    gv.sb.from("gallery_posts").update({status:ok?"aprobada":"rechazada"}).eq("id",id).then(function(r){if(r.error)throw r.error;toast(ok?"Publicación aprobada":"Publicación rechazada");return Promise.all([loadMe(),loadPosts()])}).then(renderGal).catch(function(err){galErr(err,"No se pudo actualizar.")});return;
+  }
+  if((b=t.closest("[data-gdel]"))){
+    if(b.getAttribute("data-confirm")!=="1"){b.setAttribute("data-confirm","1");b.textContent="¿Seguro? Toque otra vez";return}
+    var gid=b.getAttribute("data-gdel"),gp=b.getAttribute("data-gpath");
+    gv.sb.from("gallery_posts").delete().eq("id",gid).then(function(r){if(r.error)throw r.error;return gv.sb.storage.from("galeria").remove([gp])}).then(function(){return Promise.all([loadMe(),loadPosts()])}).then(renderGal).catch(function(err){galErr(err,"No se pudo borrar.")});return;
+  }
+});
+document.addEventListener("change",function(e){
+  if(e.target.id==="gPhoto"&&e.target.files&&e.target.files[0]){resizeTo(e.target.files[0],1600,.85,function(u){gv.photo=u;var p=$("#gPrev");if(p)p.innerHTML='<img src="'+u+'" alt="Vista previa" style="max-height:260px;border-radius:12px;object-fit:cover">'})}
+});
+
+/* ---------- Aviso de privacidad ---------- */
+function privacySection(){
+  return '<section class="block" id="privacidad"><div class="wrap legal"><div class="sec-head"><span class="eyebrow">Legal</span><h2>Aviso de privacidad</h2><p class="note">Última actualización: 7 de octubre de 2026</p></div>'+
+  '<h3>Responsable</h3><p>Reppets ("Reppets", "nosotros"), con domicilio en Nuevo León, México, es responsable del tratamiento de los datos personales que usted nos proporcione en esta página, de acuerdo con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares.</p>'+
+  '<h3>Datos que recabamos</h3><ul><li>Correo electrónico, para que pueda entrar a la galería.</li><li>El nombre o usuario que elija mostrar.</li><li>Las fotos y textos que publique, y sus votos.</li></ul><p>No recabamos datos sensibles ni financieros. Los datos de "Mi reptil" se guardan solo en su dispositivo y no llegan a nosotros.</p>'+
+  '<h3>Para qué los usamos</h3><ul><li>Darle acceso a su cuenta, publicar sus fotos y contar sus votos.</li><li>Mostrar las publicaciones aprobadas en esta página y en nuestras redes sociales, con su nombre visible.</li><li>Contactarle si gana el Terrario del Mes.</li></ul><p>No vendemos ni rentamos sus datos.</p>'+
+  '<h3>Con quién se comparten</h3><p>Usamos servicios de terceros para operar la página: Supabase (base de datos, cuentas y almacenamiento de fotos, con servidores en Estados Unidos) y GitHub Pages (alojamiento de la página). Estos proveedores tratan los datos solo para prestar el servicio.</p>'+
+  '<h3>Sus derechos</h3><p>Puede acceder, rectificar o cancelar sus datos, oponerse a su uso o retirar su consentimiento en cualquier momento. También puede borrar sus publicaciones desde "Mis publicaciones". Para cualquier otra solicitud, escríbanos por WhatsApp'+(waDigits()?' al '+esc(prettyPhone()):'')+' o por Instagram @'+esc(STATE.settings.instagram)+'; le responderemos en un plazo máximo de 20 días hábiles.</p>'+
+  '<h3>Cambios</h3><p>Si cambiamos este aviso, publicaremos la nueva versión en esta misma sección.</p></div></section>';
+}
+
 function route(id){
   var el=id?document.getElementById(id):null,v=el?el.closest("[data-view]"):null;
   if(!v){v=document.querySelector('[data-view="tienda"]');el=null}
@@ -1625,15 +1799,15 @@ function openAdmin(){
 /* ---------- arranque ---------- */
 function mount(){
   $("#app").innerHTML=header()+'<main>'+
-    '<div data-view="tienda" id="tienda">'+hero()+toolsSection()+stockSection()+printSection()+builderSection()+gallerySoon()+contactSection()+'</div>'+
+    '<div data-view="tienda" id="tienda">'+hero()+toolsSection()+stockSection()+printSection()+builderSection()+gallerySection()+contactSection()+privacySection()+'</div>'+
     '<div data-view="guias" hidden>'+guidesSection()+cmpSection()+'</div>'+
     '<div data-view="plantas" hidden>'+plantsSection()+'</div>'+
     '<div data-view="diagnostico" hidden>'+diagSection()+'</div>'+
     '<div data-view="mireptil" hidden>'+petSection()+'</div>'+
     '<div data-view="test" hidden>'+quizSection()+'</div>'+
     '</main>'+footerHTML()+bottomNav()+adminDialog();
-  view.quiz=newQuiz();renderStock();renderGuide();renderQuiz();renderBuilder();renderPlants();renderDiag();renderCmp();
-  route(location.hash.slice(1));setupInstall();
+  view.quiz=newQuiz();renderStock();renderGuide();renderQuiz();renderBuilder();renderPlants();renderDiag();renderCmp();renderGal();
+  if(!FROM_LINK)route(location.hash.slice(1));initSB();setupInstall();
 }
 mount();
 
