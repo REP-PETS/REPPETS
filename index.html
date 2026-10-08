@@ -425,6 +425,11 @@ nav.links a.on{color:var(--fg);background:var(--sunk);font-weight:700}
 .acctmenu a:hover,.acctmenu button:hover{background:var(--sunk)}
 .linkbtn{background:none;border:0;padding:0;color:var(--fg);text-decoration:underline;font:inherit;font-weight:700;cursor:pointer}
 #acct{width:min(480px,calc(100% - 24px))}
+.feedtbl{display:flex;flex-direction:column;gap:6px;margin:4px 0 10px}
+.frow{display:grid;grid-template-columns:minmax(150px,1.1fr) minmax(120px,.8fr) 2fr;gap:4px 14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg);align-items:baseline}
+.frow b{font-size:.92rem}.frow .fevery{font:600 .8rem/1.3 var(--mono);color:var(--fg)}.frow .fpor{font-size:.9rem;color:var(--muted)}
+.frow.on{border-color:var(--leaf);box-shadow:inset 3px 0 0 var(--leaf)}
+@media (max-width:640px){.frow{grid-template-columns:1fr}}
 .gauth{max-width:640px}
 .guidesel{display:none;max-width:420px;margin-bottom:18px}
 .guidesel select{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:.7rem .8rem;font-size:1rem}
@@ -758,47 +763,47 @@ var GUIDES = {
     alias:"Leopardo, leo", nombre:"Gecko leopardo", sci:"Eublepharis macularius",
     lead:"El clásico para empezar: tranquilo, vive en el piso del terrario y se acostumbra a que lo cargues.",
     ficha:[["Tamaño","20 a 25 cm"],["Vida","15 a 20 años"],["Actividad","Al atardecer y de noche"],["Terrario","Base de 90 × 45 cm, 45 cm de alto"],["Nivel","Principiante"]],
-    temp:{bands:[[24,27,"Lado fresco"],[30,33,"Zona caliente (superficie)"]],note:"De noche puede bajar a 20–22 °C sin problema. El calor siempre va con termostato."},
-    hum:{bands:[[30,40,"Ambiente"]],note:"Además, un escondite húmedo con musgo para que mude bien."},
+    temp:{bands:[[21,25,"Lado fresco"],[34,36,"Zona caliente (superficie)"]],note:"El escondite caliente debe estar a 32–33 °C. De noche puede bajar a 20–22 °C sin problema. El calor siempre va con termostato."},
+    hum:{bands:[[30,40,"Ambiente"]],note:"Además, un escondite húmedo con sustrato húmedo (70–80 % de humedad) para que mude bien."},
     cards:[
-      ["Alimentación",["Insectos vivos: grillos, cucarachas dubia, tenebrios o larvas de mosca soldado.","Crías y juveniles: todos los días o cada tercer día. Adultos: 2 o 3 veces por semana.","Espolvorea los insectos con calcio en cada comida y con vitaminas una vez por semana.","Ofrece insectos de tamaño menor al espacio entre sus ojos."]],
+      ["Alimentación",["Insectos vivos: grillos, cucarachas dubia, tenebrios o larvas de mosca soldado.","Espolvorea los insectos con calcio en cada comida; vitaminas 1 vez por semana en crías y cada 2 semanas en adultos.","Ofrece insectos de tamaño menor al espacio entre sus ojos."]],
       ["Terrario y sustrato",["Horizontal: le importa el piso, no la altura.","Tres escondites: uno caliente, uno fresco y uno húmedo.","Evita la arena suelta de calcio: se la puede tragar.","Mejor una mezcla de tierra y arena (bioactiva) o loseta para juveniles."]],
       ["Luz y calor",["Ciclo de 12 horas de luz y 12 de oscuridad.","Calor desde arriba (lámpara de calor) o placa, siempre con termostato.","UVB baja (5 a 7 %) le ayuda, sobre todo si no le das vitamina D3."]],
       ["Manejo",["Espera una o dos semanas a que se adapte antes de cargarlo.","Levántalo desde abajo, nunca de la cola.","Si se asusta puede soltar la cola: le vuelve a crecer, pero distinta."]]
     ],
     alertas:["Cola cada vez más delgada: está perdiendo reservas.","Piel de muda pegada en dedos o cola.","No come en más de 2 semanas (en invierno comer menos es normal).","Ojos cerrados o hundidos, o letargo fuera de lo normal."],
-    rutina:{"Diario":["Revisa temperatura","Agua limpia","Retira desechos"],"Semanal":["2–3 comidas (adulto)","Vitaminas 1 vez","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Revisa focos y termostato","Poda plantas"]}
+    rutina:{"Diario":["Revisa temperatura","Agua limpia","Retira desechos"],"Semanal":["Comidas según su etapa","Vitaminas según su etapa","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Revisa focos y termostato","Poda plantas"]}
   },
   crestado:{
     alias:"Crestado, gecko de pestañas", nombre:"Gecko crestado", sci:"Correlophus ciliatus",
-    lead:"Trepador y nocturno. No necesita calor extra en casi todo México, pero sí cuidado con el calor del verano.",
-    ficha:[["Tamaño","20 a 23 cm"],["Vida","15 a 20 años"],["Actividad","Nocturno"],["Terrario","Base de 45 × 45 cm, 60 cm de alto o más"],["Nivel","Principiante"]],
-    temp:{bands:[[18,22,"Noche"],[22,26,"Día ideal"]],danger:28,note:"Arriba de 28 °C se estresa y puede morir. Normalmente no necesita foco de calor."},
+    lead:"Trepador y nocturno. Casi no necesita calor extra en México (un foco suave en invierno), pero sí mucho cuidado con el calor del verano.",
+    ficha:[["Tamaño","20 a 23 cm"],["Vida","15 a 20 años"],["Actividad","Nocturno"],["Terrario","Base de 45 × 45 cm y 90 cm de alto como mínimo"],["Nivel","Principiante"]],
+    temp:{bands:[[18,22,"Noche"],[22,26,"Día ideal"]],danger:28,note:"Cuida que no pase de 28 °C: con más de 29 °C constantes puede darle un golpe de calor. Un foco suave con termostato arriba del terrario le ayuda en invierno."},
     hum:{bands:[[50,60,"De día"],[70,80,"Después de rociar"]],note:"Rocía por la noche y deja que se seque de día para evitar hongos."},
     cards:[
-      ["Alimentación",["Dieta en polvo completa para crestados (Pangea, Repashy): se mezcla con agua.","Ofrécela 3 veces por semana y retírala al día siguiente.","Insectos con calcio 1 o 2 veces por semana: opcional, pero le gustan.","Puedes tener uno sin darle insectos vivos."]],
+      ["Alimentación",["Dieta en polvo completa para crestados (Pangea, Repashy): se mezcla con agua.","Puedes tener uno sin darle insectos vivos."]],
       ["Terrario",["Vertical: vive en ramas y hojas, mientras más alto mejor.","Muchas plantas y ramas para esconderse y brincar.","Ventilación arriba para que no se quede el aire húmedo."]],
       ["Agua y humedad",["Rocía bien en la noche: toma las gotas de las hojas.","Plato de agua pequeño siempre limpio.","Si el vidrio sigue empañado al mediodía, falta ventilación."]],
       ["Manejo",["Brinca mucho: cárgalo sentado y deja que camine de una mano a otra.","Si suelta la cola, no le vuelve a crecer. Es normal y no lo afecta.","Sesiones cortas de 5 a 10 minutos al principio."]]
     ],
     alertas:["Mandíbula blanda o patas chuecas: falta de calcio.","Pasa el día pegado al vidrio y jadeando: tiene calor.","No come la papilla en 2 semanas.","Muda pegada en dedos o en la punta de la cola."],
-    rutina:{"Diario":["Rocía en la noche","Revisa que no pase de 28 °C","Agua limpia"],"Semanal":["Papilla 3 veces","Insectos 1–2 veces","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Poda plantas","Revisa ventilación"]},
+    rutina:{"Diario":["Rocía en la noche","Revisa que no pase de 28 °C","Agua limpia"],"Semanal":["Papilla según su etapa","Insectos según su etapa","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Poda plantas","Revisa ventilación"]},
     local:["Ojo con el calor","En el norte de México la casa puede pasar de 30 °C en verano. Ponlo en el cuarto más fresco, lejos de ventanas con sol, y considera clima o ventilador en ese cuarto."]
   },
   gargola:{
     alias:"Gárgola", nombre:"Gecko gárgola", sci:"Rhacodactylus auriculatus",
-    lead:"Primo del crestado, más robusto y con 'cuernitos' en la cabeza. Mismos cuidados básicos, y a diferencia del crestado su cola sí vuelve a crecer.",
-    ficha:[["Tamaño","15 a 20 cm"],["Vida","15 a 20 años"],["Actividad","Al anochecer y de noche"],["Terrario","Base de 45 × 45 cm y 60 cm de alto; adulto ideal 60 × 60 × 60"],["Nivel","Principiante"]],
-    temp:{bands:[[18,22,"Noche"],[21,24,"Lado fresco"],[28,29,"Punto cálido"]],danger:29,note:"No debe pasar de 28 °C en el ambiente. En casi todo México no necesita foco de calor."},
-    hum:{bands:[[60,80,"Promedio"]],note:"Rocía en la noche y deja que se seque un poco de día."},
+    lead:"Primo del crestado, más robusto y con 'cuernitos' en la cabeza. Parecido al crestado, pero necesita algo más de calor e insectos; y a diferencia del crestado, su cola sí vuelve a crecer.",
+    ficha:[["Tamaño","20 a 25 cm"],["Vida","15 a 20 años"],["Actividad","Al anochecer y de noche"],["Terrario","Base de 45 × 45 cm y 90 cm de alto como mínimo"],["Nivel","Principiante"]],
+    temp:{bands:[[20,25,"Noche"],[22,25,"Lado fresco"],[28,29,"Punto cálido"]],danger:30,note:"El aire nunca debe pasar de 30 °C ni bajar de 18 °C. Lo ideal es un foco de calor suave con termostato para su punto cálido."},
+    hum:{bands:[[50,70,"Promedio"]],note:"Rocía bien en la noche (puede subir a 80–100 %) y ligero en la mañana; deja que baje durante el día."},
     cards:[
-      ["Alimentación",["Papilla en polvo completa para geckos de Nueva Caledonia (Pangea, Repashy).","Crías y juveniles: papilla diario e insectos 1 o 2 veces por semana.","Adultos: papilla cada 2 o 3 días e insectos 1 vez por semana, con calcio."]],
+      ["Alimentación",["Papilla en polvo completa para geckos de Nueva Caledonia (Pangea, Repashy)."]],
       ["Terrario",["Vertical, con ramas, corcho y plantas para trepar y esconderse.","Uno por terrario: pueden morderse entre ellos.","Ventilación arriba para evitar hongos."]],
       ["Manejo",["Es más tranquilo que el crestado, pero algunos muerden de jóvenes.","Sesiones cortas y sentado, por si brinca.","Su cola sí regenera, aunque nunca hay que jalarla."]],
       ["Diferencia con el crestado",["Más pesado y menos saltador.","Come más insectos de adulto.","Hay ejemplares con manchas rayadas o rojizas muy llamativas."]]
     ],
     alertas:["Mandíbula blanda: falta de calcio.","Pegado al vidrio y jadeando: tiene calor.","Mordidas o heridas si convive con otro gecko.","Muda pegada en dedos."],
-    rutina:{"Diario":["Rocía en la noche","Revisa que no pase de 28 °C","Agua limpia"],"Semanal":["Papilla 2–3 veces","Insectos 1 vez","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Poda plantas","Revisa ventilación"]},
+    rutina:{"Diario":["Rocía en la noche","Revisa que no pase de 30 °C","Agua limpia"],"Semanal":["Papilla según su etapa","Insectos según su etapa","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Poda plantas","Revisa ventilación"]},
     local:["Ojo con el calor","Igual que el crestado: en verano busca el cuarto más fresco de la casa."]
   },
   colagorda:{
@@ -808,7 +813,7 @@ var GUIDES = {
     temp:{bands:[[22,25,"Lado fresco y noche"],[32,34,"Zona caliente"]],note:"En invierno puedes bajar un poco la zona caliente, como en su hábitat."},
     hum:{bands:[[50,80,"Ambiente según temporada"]],note:"Necesita más humedad que el leopardo: escondite húmedo siempre y rocío ligero."},
     cards:[
-      ["Alimentación",["Insectos vivos espolvoreados con calcio y vitaminas.","Unos 2 insectos por cada 2.5 cm de largo del gecko.","Juveniles: diario. Adultos con cola gruesa: cada 5 días."]],
+      ["Alimentación",["Insectos vivos espolvoreados con calcio y vitaminas."]],
       ["Terrario",["Horizontal, como el del leopardo.","Sustrato que guarde algo de humedad, mejor bioactivo.","Varios escondites: es más tímido que el leopardo."]],
       ["Luz y calor",["Calor desde arriba con termostato.","UVB baja (5 a 7 %) le ayuda.","Ciclo de 12 horas de luz."]],
       ["Manejo",["Suele ser tranquilo, pero tarda más en confiar.","Nunca lo levantes de la cola: la suelta como defensa."]]
@@ -819,27 +824,27 @@ var GUIDES = {
   dragon:{
     alias:"Pogona, barbudo", nombre:"Dragón barbudo", sci:"Pogona vitticeps",
     lead:"Lagarto de día, muy sociable y expresivo. Necesita un terrario grande, mucho calor y luz UVB fuerte.",
-    ficha:[["Tamaño","45 a 60 cm"],["Vida","10 a 15 años"],["Actividad","De día"],["Terrario","120 × 60 × 60 cm mínimo"],["Nivel","Principiante con espacio"]],
-    temp:{bands:[[21,29,"Lado fresco"],[40,46,"Zona de asoleo (superficie)"]],note:"De noche puede quedarse a temperatura de casa si no baja de unos 18 °C."},
+    ficha:[["Tamaño","45 a 60 cm"],["Vida","10 a 15 años"],["Actividad","De día"],["Terrario","180 × 60 × 60 cm mínimo"],["Nivel","Principiante con espacio"]],
+    temp:{bands:[[21,29,"Lado fresco"],[42,45,"Zona de asoleo (superficie)"]],note:"De noche puede quedarse a temperatura de casa si no baja de unos 18 °C."},
     hum:{bands:[[30,60,"Ambiente"]],note:"Ambiente seco: evita que pase de 60 % de forma constante."},
     cards:[
-      ["Alimentación",["Crías: insectos 2 veces al día y verduras diario.","Juveniles: insectos 1 vez al día y verduras diario.","Adultos: insectos 2 o 3 veces por semana; la mayor parte debe ser verdura.","Verduras: hojas de diente de león, nabo, mostaza, calabacita rallada. Evita lechuga como base."]],
-      ["Luz y calor",["UVB fuerte (tubo T5 de 12 a 14 %) a lo largo del terrario.","Foco de asoleo de calor intenso sobre una piedra o rama.","12 a 14 horas de luz al día."]],
+      ["Alimentación",["Omnívoro: de joven come sobre todo insectos; de adulto, la mayor parte es ensalada.","Verduras base: hojas de nabo, mostaza, berza (collard), escarola y arúgula. De vez en cuando: diente de león y calabacita rallada.","Evita la lechuga como base y nunca le des aguacate, cebolla ni luciérnagas."]],
+      ["Luz y calor",["UVB fuerte (tubo T5 de 12 a 14 %) que cubra la mitad del largo del terrario, del lado del asoleo.","Foco de asoleo de calor intenso sobre una piedra o rama.","12 a 14 horas de luz al día."]],
       ["Terrario",["Grande y horizontal: necesita moverse.","Sustrato de tierra y arena compactada, sin arena suelta de calcio.","Uno por terrario: los adultos pelean."]],
       ["Manejo",["Suele disfrutar estar fuera del terrario.","Sostén todo su cuerpo, nunca de la cola.","Báñalo en agua tibia poco profunda si está deshidratado o en muda."]]
     ],
-    alertas:["Temblores o patas débiles: enfermedad de los huesos por falta de UVB o calcio.","No hace popó en más de una semana: posible impactación.","Boca abierta y mocos: infección respiratoria.","En invierno puede dormir semanas (brumación): consulta antes de asumir que está enfermo."],
+    alertas:["Temblores o patas débiles: enfermedad de los huesos por falta de UVB o calcio.","No hace popó en más de una semana: posible impactación.","Mocos, burbujas en nariz o boca, o respira con la boca abierta lejos del foco: posible infección respiratoria (abrir la boca mientras se asolea es normal).","En invierno puede dormir semanas (brumación): consulta antes de asumir que está enfermo."],
     rutina:{"Diario":["Verduras frescas","Revisa temperatura de asoleo","Retira desechos"],"Semanal":["Insectos según edad","Calcio y vitaminas","Baño tibio"],"Mensual":["Revisa el foco UVB","Limpia decoración","Pésalo"]},
     local:["Tamaño especial","Un adulto necesita más que nuestras bases de línea. Si quieres un terrario para dragón, pregúntanos por un proyecto a medida."]
   },
   lenguaazul:{
     alias:"Lengua azul, eslizón de lengua azul", nombre:"Skink de lengua azul", sci:"Tiliqua spp.",
     lead:"Lagarto grueso, tranquilo y muy manso. Come de todo y es de los mejores para quien quiere un reptil cargable.",
-    ficha:[["Tamaño","38 a 61 cm"],["Vida","15 a 20 años, a veces más de 30"],["Actividad","De día"],["Terrario","120 × 60 × 60 cm recomendado"],["Nivel","Principiante con espacio"]],
-    temp:{bands:[[21,27,"Lado fresco"],[40,46,"Zona de asoleo (superficie)"]],note:"De noche está bien a temperatura de casa."},
+    ficha:[["Tamaño","38 a 61 cm"],["Vida","15 a 20 años, a veces más de 30"],["Actividad","De día"],["Terrario","180 × 60 × 60 cm mínimo"],["Nivel","Principiante con espacio"]],
+    temp:{bands:[[21,27,"Lado fresco"],[37,40,"Zona de asoleo (superficie)"]],note:"Algunas especies australianas toleran hasta 46 °C en la zona de asoleo. De noche está bien a temperatura de casa (las de Indonesia, no menos de 21 °C)."},
     hum:{bands:[[35,45,"Especies australianas"],[60,80,"Especies de Indonesia"]],note:"Depende de la especie: pregúntanos cuál es la tuya."},
     cards:[
-      ["Alimentación",["Omnívoro: proteína más verduras y algo de fruta.","Menores de 1 año: 70 a 80 % proteína. Adultos: 50 a 60 % proteína y el resto verduras.","Proteína: insectos, caracoles, huevo cocido o alimento húmedo de buena calidad.","Bebés: diario. Juveniles: 3 veces por semana. Adultos: 1 o 2 veces por semana."]],
+      ["Alimentación",["Omnívoro: proteína más verduras y algo de fruta.","Proteína: insectos, caracoles, huevo cocido o alimento húmedo de buena calidad."]],
       ["Luz y calor",["UVB T5 de 10 a 12 % sobre la mitad caliente.","Foco de asoleo con termostato.","12 horas de luz."]],
       ["Terrario",["Horizontal y amplio: pasa el tiempo en el suelo.","Sustrato profundo para que escarbe.","Escondites en el lado caliente y en el fresco."]],
       ["Manejo",["Sostén todo su cuerpo, incluida la cola.","Empieza con sesiones de 5 minutos.","No le toques la cabeza de golpe: se asusta."]]
@@ -851,11 +856,11 @@ var GUIDES = {
   camaleon:{
     alias:"Camaleón velado, camaleón de Yemen", nombre:"Camaleón velo", sci:"Chamaeleo calyptratus",
     lead:"Ojo: en México también se le dice camaleón al camaleón cornudo nativo (Phrynosoma), que es otro animal. Este es el camaleón africano: espectacular para observar, pero no para cargar. Necesita jaula de malla, mucha ventilación y agua en gotas porque no bebe de plato.",
-    ficha:[["Tamaño","Machos hasta 55 cm; hembras más chicas"],["Vida","6 a 8 años (hembras menos)"],["Actividad","De día"],["Terrario","Jaula de malla 60 × 60 × 120 cm mínimo"],["Nivel","Intermedio"]],
+    ficha:[["Tamaño","Machos hasta 55 cm; hembras más chicas"],["Vida","6 a 8 años (hembras menos)"],["Actividad","De día"],["Terrario","Jaula de malla 60 × 60 × 120 cm mínimo"],["Nivel","Intermedio a avanzado"]],
     temp:{bands:[[13,18,"Noche"],[22,25,"Ambiente"],[29,30,"Punto de asoleo"]],note:"Le hace bien que baje la temperatura en la noche. El foco de calor solo unas horas al día."},
     hum:{bands:[[40,50,"De día"],[80,100,"De noche"]],note:"Rocía dos veces al día y usa un gotero: bebe de las gotas en las hojas."},
     cards:[
-      ["Alimentación",["Solo insectos, muy variados.","Juveniles: diario, lo que coman.","Adultos: 4 o 5 insectos cada tercer día.","Vitaminas en cada comida y calcio con D3 dos veces al mes."]],
+      ["Alimentación",["Solo insectos, muy variados; puede mordisquear hojas de sus plantas."]],
       ["Jaula",["De malla, no de vidrio: el aire estancado lo enferma.","Muchas plantas vivas y ramas a varias alturas.","Uno por jaula: son muy territoriales."]],
       ["Luz y calor",["UVB T5 de 6 % y luz de día brillante.","12 horas de luz.","Foco de calor arriba, nunca dentro de la jaula."]],
       ["Hembras",["Ponen huevos aunque no haya macho.","Necesitan un contenedor con tierra húmeda para poner.","Si no encuentra dónde, puede tener problemas graves."]]
@@ -871,7 +876,7 @@ var GUIDES = {
     temp:{bands:[[22,27,"Lado fresco"],[30,32,"Escondite caliente"],[35,40,"Punto de asoleo (superficie)"]],note:"De noche entre 22 y 26 °C. Todo el calor con termostato."},
     hum:{bands:[[45,75,"Ambiente"]],note:"Mídela con higrómetro digital. Si muda en pedazos, falta humedad."},
     cards:[
-      ["Alimentación",["Roedores descongelados, de un tamaño cercano al 10 % de su peso.","La presa no debe ser más ancha que 1.5 veces su cuerpo.","Crías: cada 5 a 7 días. Adultos: cada 2 a 4 semanas o más.","Es normal que deje de comer unas semanas, sobre todo en invierno, si no pierde peso."]],
+      ["Alimentación",["Roedores descongelados, de un tamaño cercano al 10 % de su peso.","La presa no debe ser más ancha que 1.5 veces su cuerpo.","Es normal que deje de comer unas semanas, sobre todo en invierno, si no pierde peso."]],
       ["Terrario",["Dos escondites ajustados: uno caliente y uno fresco.","Tapa segura: son buenas escapistas.","Sustrato que guarde humedad, como fibra de coco o bioactivo."]],
       ["Manejo",["Espera unos días después de comer antes de cargarla.","Sostén su cuerpo; no la tomes de la cabeza.","Si se hace bolita, está asustada: déjala tranquila."]],
       ["Mudas",["Los ojos se ponen azules unos días antes.","Debe salir la piel completa, en una pieza.","Sube la humedad durante la muda."]]
@@ -887,7 +892,7 @@ var GUIDES = {
     temp:{bands:[[20,24,"Lado fresco y noche"],[30,32,"Punto cálido"]],note:"De noche no debe bajar de 20 °C."},
     hum:{bands:[[65,75,"Promedio"]],note:"Un escondite húmedo con musgo le ayuda a mudar."},
     cards:[
-      ["Alimentación",["Roedores descongelados, del ancho de su cuerpo o un poco más.","Crías: cada 7 a 10 días.","Juveniles: cada 7 a 14 días. Adultos: cada 14 a 21 días."]],
+      ["Alimentación",["Roedores descongelados, del ancho de su cuerpo o un poco más."]],
       ["Terrario",["Le gusta trepar: agrega ramas además de escondites.","Tapa con seguro: es de las más escapistas.","Uno por terrario."]],
       ["Manejo",["Muy dócil una vez que se acostumbra.","Espera 2 días después de comer para cargarla.","Las crías son nerviosas pero se calman rápido."]],
       ["Mudas",["Ojos azules unos días antes.","Debe mudar en una pieza.","Si se queda piel pegada, sube la humedad."]]
@@ -903,7 +908,7 @@ var GUIDES = {
     temp:{bands:[[21,23,"Noche"],[23,27,"Lado fresco"],[29,32,"Punto cálido"]],note:"Todo el calor con termostato."},
     hum:{bands:[[40,60,"Promedio"]],note:"Con un escondite húmedo para mudar."},
     cards:[
-      ["Alimentación",["Roedores descongelados.","Crías: cada 5 a 7 días. Juveniles: cada 7 a 10 días.","Adultos: cada 10 a 14 días."]],
+      ["Alimentación",["Roedores descongelados."]],
       ["Terrario",["Siempre sola: en la naturaleza come otras serpientes.","Varios escondites y sustrato para escarbar.","Tapa segura."]],
       ["Manejo",["Las crías son nerviosas y se mueven mucho.","Empieza con sesiones de 5 minutos después de 2 semanas de adaptación.","Manéjala al menos una vez por semana para que se acostumbre."]],
       ["Importante",["No es venenosa, pero se parece a la coralillo real.","Nunca captures serpientes de campo: compra solo con documentos de legal procedencia."]]
@@ -916,8 +921,8 @@ var GUIDES = {
   iguana:{
     alias:"Iguana común, garrobo verde", nombre:"Iguana verde", sci:"Iguana iguana",
     lead:"Nativa de México y muy bonita, pero crece mucho: de adulta mide más de 1 metro y necesita casi un cuarto para ella. Es para gente con experiencia y espacio.",
-    ficha:[["Tamaño","1.2 a 1.8 m con cola"],["Vida","15 a 20 años"],["Actividad","De día, trepadora"],["Terrario","Cría: 120 × 60 × 120 cm. Adulta: 240 × 120 × 180 cm o un cuarto adaptado"],["Nivel","Avanzado"]],
-    temp:{bands:[[24,26,"Noche"],[27,32,"Ambiente"],[35,38,"Zona de asoleo"]],note:"Necesita una zona de asoleo potente y gradiente de calor a lo alto del terrario."},
+    ficha:[["Tamaño","1.2 a 1.8 m con cola"],["Vida","15 a 20 años"],["Actividad","De día, trepadora"],["Terrario","Cría (hasta 90 cm de largo): 120 × 60 × 120 cm. Adulta: 300 × 150 × 180 cm mínimo o un cuarto adaptado"],["Nivel","Avanzado"]],
+    temp:{bands:[[23,28,"Noche (aire)"],[24,31,"Ambiente (aire)"],[45,50,"Superficie de la rama de asoleo"]],note:"Ojo: los 45–50 °C no son del aire, sino de la superficie de la rama justo bajo el foco, medida con termómetro infrarrojo (pistola). Ahí la iguana se calienta unos minutos y se aleja. El aire del terrario debe quedar entre 24 y 31 °C, y siempre debe tener zonas más frescas."},
     hum:{bands:[[60,80,"Ambiente"]],note:"Rocía a diario y ponle un recipiente grande de agua: le gusta remojarse."},
     cards:[
       ["Alimentación",["Herbívora estricta: hojas verdes oscuras (hojas de nabo, mostaza, berros, diente de león, quelites, hojas de hibisco).","Verduras picadas: calabaza, ejotes, chayote, pimiento.","Fruta solo como premio (menos del 10 %). Nunca le des carne, insectos ni comida de perro o gato.","Espolvorea calcio en la ensalada."]],
@@ -932,26 +937,26 @@ var GUIDES = {
   dragonagua:{
     alias:"Dragón de agua asiático, dragón de agua", nombre:"Dragón de agua chino", sci:"Physignathus cocincinus",
     lead:"Parece una iguana pequeña y le encanta el agua. Necesita humedad alta, un terrario grande y alto, y una buena alberca.",
-    ficha:[["Tamaño","60 a 90 cm con cola"],["Vida","10 a 15 años"],["Actividad","De día"],["Terrario","Adulto: 150 × 60 × 120 cm o más"],["Nivel","Intermedio"]],
-    temp:{bands:[[22,24,"Noche"],[26,30,"Ambiente"],[32,35,"Zona de asoleo"]],note:"Mide la temperatura en lo alto y en lo bajo del terrario."},
+    ficha:[["Tamaño","60 a 90 cm con cola"],["Vida","10 a 15 años"],["Actividad","De día"],["Terrario","Adulto: 180 × 90 × 180 cm mínimo"],["Nivel","Intermedio"]],
+    temp:{bands:[[24,25,"Noche"],[26,30,"Ambiente"],[32,35,"Zona de asoleo"]],note:"Mide la temperatura en lo alto y en lo bajo del terrario. De noche usa una fuente de calor sin luz con termostato."},
     hum:{bands:[[60,80,"Ambiente"]],note:"Rocía mañana y tarde. Un recipiente de agua grande ayuda a mantener la humedad."},
     cards:[
-      ["Alimentación",["Insectos con calcio: grillos, cucarachas, larvas de mosca soldado y gusanos.","Crías: a diario. Adultos: cada 2 o 3 días.","De vez en cuando, algún pescadito o camarón como premio.","Vitaminas una vez por semana."]],
+      ["Alimentación",["Sobre todo insectos (grillos, cucarachas, gusanos), más una ensalada de hojas verdes (diente de león, col rizada, hojas de hibisco).","Como premio, máximo una vez por semana: un pescadito vivo o un trozo de fruta.","Espolvorea los insectos con calcio y vitaminas (mitad y mitad) en cada comida."]],
       ["Terrario",["Alto y amplio, con ramas y plantas resistentes.","Alberca grande donde pueda meterse completo; cambia el agua seguido.","Fondo o paredes con textura: se asusta y se golpea la nariz contra el vidrio."]],
       ["Luz y calor",["UVB de 10 a 12 % todo el día (12 horas).","Foco de calor sobre una rama para asolearse.","Ciclo de día y noche marcado."]],
       ["Manejo",["De jóvenes son nerviosos; con paciencia se acostumbran.","Sesiones cortas y diarias.","No lo persigas dentro del terrario: tómalo con calma desde abajo."]]
     ],
     alertas:["Nariz raspada o con heridas: se golpea contra el vidrio, necesita fondo opaco.","Patas o mandíbula blandas: falta de UVB o calcio.","Respira con la boca abierta o con burbujas: infección respiratoria.","Ojos hundidos: deshidratación."],
-    rutina:{"Diario":["Rocía mañana y tarde","Revisa temperatura","Retira desechos"],"Semanal":["Cambia el agua de la alberca 2 o 3 veces","Vitaminas 1 vez","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Revisa focos y termostato","Poda plantas"]}
+    rutina:{"Diario":["Rocía mañana y tarde","Revisa temperatura","Retira desechos"],"Semanal":["Cambia el agua de la alberca 2 o 3 veces","Revisa que no esté flaco ni gordo","Pésalo cada 2 semanas"],"Mensual":["Limpia vidrios","Revisa focos y termostato","Poda plantas"]}
   },
   real:{
     alias:"Real de California, kingsnake, culebra real", nombre:"Serpiente real de California", sci:"Lampropeltis californiae",
     lead:"Resistente, activa y con mucho apetito. Una excelente segunda serpiente, o primera si quieres algo más movido que la maicera.",
-    ficha:[["Tamaño","90 a 120 cm"],["Vida","15 a 20 años"],["Actividad","De día y al atardecer"],["Terrario","Adulta: 120 × 60 × 60 cm"],["Nivel","Principiante"]],
+    ficha:[["Tamaño","90 a 120 cm"],["Vida","20 años o más"],["Actividad","De día y al atardecer"],["Terrario","Adulta: 120 × 60 × 60 cm"],["Nivel","Principiante"]],
     temp:{bands:[[24,27,"Lado fresco"],[30,32,"Zona caliente"]],note:"De noche puede bajar a temperatura de la casa."},
     hum:{bands:[[40,60,"Ambiente"]],note:"Un escondite húmedo ayuda a que mude completa."},
     cards:[
-      ["Alimentación",["Ratones descongelados del tamaño de la parte más gruesa de su cuerpo.","Crías: cada 5 a 7 días. Adultas: cada 10 a 14 días.","Es muy glotona: no la sobrealimentes.","Nunca le des presas vivas."]],
+      ["Alimentación",["Ratones descongelados del tamaño de la parte más gruesa de su cuerpo.","Es muy glotona: no la sobrealimentes.","Nunca le des presas vivas."]],
       ["Terrario",["Siempre sola: en la naturaleza come otras serpientes, incluso de su especie.","Dos escondites (caliente y fresco), ramas y sustrato para escarbar.","Tapa con seguro: es escapista."]],
       ["Manejo",["Es activa y curiosa; puede morder por confundir tu mano con comida.","Lávate las manos antes de cargarla si tocaste ratones.","No la cargues 48 horas después de comer."]]
     ],
@@ -960,15 +965,15 @@ var GUIDES = {
   },
   nariz:{
     alias:"Hognose, culebra nariz de cerdo occidental", nombre:"Serpiente nariz de cerdo", sci:"Heterodon nasicus",
-    lead:"Pequeña, carismática y famosa por su teatro: se infla, sisea y hasta se hace la muerta. Vive también en el norte de México.",
-    ficha:[["Tamaño","Machos 40 a 50 cm; hembras 60 a 90 cm"],["Vida","15 a 20 años"],["Actividad","De día"],["Terrario","Macho: 90 × 45 × 45 cm. Hembra: 120 × 60 × 45 cm"],["Nivel","Principiante"]],
+    lead:"Pequeña, carismática y famosa por su teatro: se infla, sisea y hasta se hace la muerta. Tiene parientes silvestres en el norte de México.",
+    ficha:[["Tamaño","Machos 40 a 50 cm; hembras 60 a 90 cm"],["Vida","10 a 15 años (algunas casi 20)"],["Actividad","De día"],["Terrario","Macho: 90 × 45 × 45 cm. Hembra: 120 × 60 × 45 cm"],["Nivel","Principiante"]],
     temp:{bands:[[24,27,"Lado fresco"],[32,35,"Zona caliente"]],note:"De noche puede bajar a temperatura de la casa."},
     hum:{bands:[[30,50,"Ambiente"]],note:"Ambiente seco con un escondite un poco húmedo."},
     cards:[
-      ["Alimentación",["Ratones descongelados de tamaño adecuado.","Crías: cada 5 días. Adultos: cada 7 a 10 días.","Algunas crías son caprichosas al principio: pregúntanos trucos para que acepten.","En invierno puede comer menos o ayunar: es normal si no pierde mucho peso."]],
+      ["Alimentación",["Ratones descongelados de tamaño adecuado.","Algunas crías son caprichosas al principio: pregúntanos trucos para que acepten.","En invierno puede comer menos o ayunar: es normal si no pierde mucho peso."]],
       ["Terrario",["Sustrato profundo y suelto (10 cm o más): le encanta enterrarse.","Escondites en la zona caliente y en la fresca.","Las bases de 90 × 45 cm le quedan perfectas a un macho."]],
       ["Manejo",["Si se infla o se hace la muerta, déjala en paz y vuelve a intentarlo después.","Su saliva es levemente tóxica: no es peligrosa, pero una mordida larga puede hinchar la piel.","Casi nunca muerde por defensa; si muerde, suele ser por olor a comida."]],
-      ["Importante",["Es nativa del norte de México: compra solo de criadero autorizado, con documentos.","No captures serpientes del campo."]]
+      ["Importante",["Sus parientes (Heterodon kennerlyi) viven en el norte de México: compra solo de criadero autorizado, con documentos.","No captures serpientes del campo."]]
     ],
     alertas:["Pierde mucho peso durante un ayuno largo: consulta al veterinario.","Mudas en pedazos.","Respira con la boca abierta o con burbujas.","Ácaros: puntitos negros en la piel."],
     rutina:{"Diario":["Revisa temperatura","Agua limpia"],"Semanal":["Comida según edad","Retira desechos","Revisa el escondite húmedo"],"Mensual":["Pésala","Remueve el sustrato","Revisa termostato"]}
@@ -976,11 +981,11 @@ var GUIDES = {
   boa:{
     alias:"Boa mexicana, mazacuata, boa constrictor", nombre:"Boa", sci:"Boa imperator (antes Boa constrictor)",
     lead:"Tranquila e impresionante, pero grande y fuerte de adulta. Es para quien ya tuvo serpientes y tiene espacio para un terrario de casi 2 metros.",
-    ficha:[["Tamaño","1.5 a 2.5 m"],["Vida","20 a 30 años"],["Actividad","Al atardecer y de noche"],["Terrario","Adulta: 180 × 60 × 60 cm o más"],["Nivel","Intermedio"]],
+    ficha:[["Tamaño","1.5 a 2.5 m"],["Vida","20 a 30 años"],["Actividad","Al atardecer y de noche"],["Terrario","Joven: 120 × 60 × 60 cm. Adulta: 180 × 90 × 120 cm o más"],["Nivel","Intermedio"]],
     temp:{bands:[[24,26,"Noche"],[26,29,"Lado fresco"],[31,33,"Zona caliente"]],note:"El calor siempre con termostato."},
     hum:{bands:[[50,70,"Ambiente"]],note:"Sube un poco la humedad cuando veas los ojos azulados: está por mudar."},
     cards:[
-      ["Alimentación",["Ratones o ratas descongelados del tamaño de la parte más gruesa de su cuerpo.","Crías: cada 7 días. Juveniles: cada 10 a 14 días. Adultas: cada 3 a 4 semanas.","La obesidad es muy común: no la sobrealimentes.","Nunca le des presas vivas."]],
+      ["Alimentación",["Ratones o ratas descongelados del tamaño de la parte más gruesa de su cuerpo.","La obesidad es muy común: no la sobrealimentes.","Nunca le des presas vivas."]],
       ["Terrario",["Escondites grandes en ambos lados y ramas gruesas.","Recipiente de agua donde quepa enroscada.","Las crías empiezan en un terrario chico y van subiendo de tamaño."]],
       ["Manejo",["De adulta, cárgala entre dos personas si mide más de 2 metros.","Sostén su cuerpo con calma; no la tomes del cuello.","No la cargues 48 horas después de comer."]],
       ["Importante",["Es nativa de México y está protegida (NOM-059). Solo de criadero autorizado, con documentos."]]
@@ -996,7 +1001,7 @@ var GUIDES = {
     temp:{bands:[[26,28,"Lado fresco"],[34,35,"Zona caliente (superficie)"]],note:"De noche se puede apagar el calor."},
     hum:{bands:[[30,40,"Ambiente"]],note:"Ambiente seco, con un escondite húmedo en el lado fresco."},
     cards:[
-      ["Alimentación",["Ratones descongelados pequeños.","Crías: cada 7 a 10 días. Adultas: cada 2 a 3 semanas.","Come enterrada: deja la presa cerca de donde está."]],
+      ["Alimentación",["Ratones descongelados pequeños.","Come enterrada: deja la presa cerca de donde está."]],
       ["Terrario",["Sustrato de arena con tierra, de 8 a 10 cm de profundo.","No necesita alturas: le importa el piso.","Nuestras bases de 60 × 45 y 90 × 45 cm le quedan perfectas."]],
       ["Manejo",["Muy tranquila; se acostumbra rápido a que la carguen.","Sácala con calma de la arena, sin jalarla."]]
     ],
@@ -1006,14 +1011,14 @@ var GUIDES = {
   sulcata:{
     alias:"Tortuga de espolones africana", nombre:"Tortuga sulcata", sci:"Centrochelys sulcata",
     lead:"De bebé cabe en la mano, pero de adulta puede pesar más de 40 kg y vivir más de 70 años. Necesita jardín propio cuando crece.",
-    ficha:[["Tamaño","60 a 80 cm de caparazón"],["Vida","Más de 70 años"],["Actividad","De día"],["Terrario","Cría: 210 × 105 cm. Adulta: patio o jardín amplio"],["Nivel","Intermedio (por su tamaño)"]],
+    ficha:[["Tamaño","60 a 80 cm de caparazón"],["Vida","Más de 70 años"],["Actividad","De día"],["Terrario","Cría: 240 × 120 cm. Adulta: patio o jardín amplio"],["Nivel","Intermedio (por su tamaño)"]],
     temp:{bands:[[21,23,"Noche"],[27,32,"Ambiente"],[38,41,"Zona de asoleo (superficie)"]],note:"Las adultas aguantan más rango, pero deben tener refugio del frío en invierno."},
-    hum:{bands:[[60,80,"Crías"],[40,60,"Adultas"]],note:"Las crías necesitan un refugio húmedo para que el caparazón crezca liso."},
+    hum:{bands:[[80,90,"Crías"],[40,60,"Adultas"]],note:"Las crías necesitan un refugio húmedo para que el caparazón crezca liso."},
     cards:[
-      ["Alimentación",["Herbívora: pastos, heno, hojas silvestres, nopal sin espinas, hojas de hibisco y diente de león.","Crías: todos los días. Adultas: diario, en porciones controladas.","Nada de fruta, carne ni comida de perro: le dañan los riñones y el caparazón.","Calcio en la comida y un hueso de jibia siempre disponible."]],
+      ["Alimentación",["Herbívora: pastos, heno, hojas silvestres, nopal sin espinas, hojas de hibisco y diente de león.","Nada de fruta, carne ni comida de perro: le dañan los riñones y el caparazón.","Calcio en la comida y un hueso de jibia siempre disponible."]],
       ["Espacio",["Las crías pueden empezar adentro, en un recinto amplio y bajo.","De adulta necesita un patio con pasto, sombra, refugio y agua.","Es escarbadora: el patio debe tener barda firme."]],
       ["Luz y calor",["UVB fuerte (T5 de 10 a 12 %) si está adentro. Afuera, sol directo con sombra disponible.","Foco de calor para asolearse.","Refugio con calor en noches frías."]],
-      ["Baños",["Crías: baño tibio de 15 minutos a diario o cada tercer día.","Adultas: una vez por semana o cuando haga mucho calor."]]
+      ["Baños",["Crías: baño tibio (29 a 35 °C) de 20 a 30 minutos todos los días, con el agua a la altura de los codos.","Adultas: una vez por semana o cuando haga mucho calor."]]
     ],
     alertas:["Caparazón con 'pirámides' o placas abultadas: falta humedad o hay exceso de proteína.","Ojos hinchados, moco o respiración con silbido.","Caparazón blando: falta calcio o UVB.","No come por varios días fuera del invierno."],
     rutina:{"Diario":["Comida fresca","Agua limpia","Revisa temperatura"],"Semanal":["Baños tibios","Calcio en la comida","Pésala"],"Mensual":["Mide el caparazón","Revisa focos","Limpia el refugio"]},
@@ -1022,13 +1027,13 @@ var GUIDES = {
   rusa:{
     alias:"Tortuga de Horsfield", nombre:"Tortuga rusa", sci:"Testudo horsfieldii",
     lead:"Pequeña, activa y muy resistente. Una de las mejores tortugas de tierra para empezar, porque se queda chica.",
-    ficha:[["Tamaño","13 a 25 cm de caparazón"],["Vida","40 a 50 años"],["Actividad","De día"],["Terrario","Mínimo 210 × 105 cm; juvenil 120 × 60 cm"],["Nivel","Principiante"]],
+    ficha:[["Tamaño","13 a 25 cm de caparazón"],["Vida","40 a 50 años"],["Actividad","De día"],["Terrario","Adulta: mínimo 240 × 120 cm; juvenil 120 × 60 cm"],["Nivel","Principiante"]],
     temp:{bands:[[21,23,"Noche"],[24,29,"Lado fresco"],[34,36,"Zona de asoleo"]],note:"Necesita un lugar bien caliente para asolearse y otro fresco para descansar."},
     hum:{bands:[[40,75,"Ambiente"]],note:"Más seca de día y más húmeda de noche. Las crías necesitan más humedad."},
     cards:[
-      ["Alimentación",["Hojas y hierbas: diente de león, quelites, lechuga romana, hojas de nabo, flores comestibles.","Juveniles: todos los días. Adultas: diario, en porciones del tamaño de su caparazón.","Fruta e insectos solo como premio muy ocasional.","Calcio en la comida."]],
+      ["Alimentación",["Hojas y hierbas: diente de león, quelites, lechuga romana, hojas de nabo, flores comestibles.","Fruta e insectos solo como premio muy ocasional.","Calcio en la comida."]],
       ["Terrario",["Amplio y bajo: camina mucho.","Sustrato profundo para escarbar: le encanta enterrarse.","En temporada de calor puede vivir en un patio seguro."]],
-      ["Luz y calor",["UVB T5 de 10 a 12 % de un tercio del largo del terrario.","Foco de calor para asolearse.","14 horas de luz en verano y unas 10 en invierno."]],
+      ["Luz y calor",["UVB T5 de 5 a 6 % que cubra la mitad del largo del terrario, del lado caliente.","Foco de calor para asolearse.","14 horas de luz en verano y unas 10 en invierno."]],
       ["Manejo",["No le gusta que la carguen mucho: mejor obsérvala y dale de comer en la mano.","Lávate las manos después de tocarla."]]
     ],
     alertas:["Ojos hinchados o cerrados.","Moco o silbidos al respirar.","Caparazón blando.","No come por varios días fuera del invierno."],
@@ -1037,14 +1042,14 @@ var GUIDES = {
   japonesa:{
     alias:"Tortuga de orejas rojas, slider", nombre:"Tortuga japonesa", sci:"Trachemys scripta elegans",
     lead:"La tortuga de agua más común en México. Parece fácil, pero de adulta necesita un acuario grande con buen filtro, asoleadero y UVB.",
-    ficha:[["Tamaño","20 a 30 cm de caparazón"],["Vida","20 a 40 años"],["Actividad","De día"],["Terrario","Acuario de 300 litros o más para una adulta"],["Nivel","Intermedio"]],
+    ficha:[["Tamaño","20 a 30 cm de caparazón"],["Vida","20 a 40 años"],["Actividad","De día"],["Terrario","Acuario de 450 litros o más para una adulta"],["Nivel","Intermedio"]],
     temp:{bands:[[24,27,"Agua"],[32,35,"Asoleadero"]],note:"El agua siempre con calentador y termómetro."},
     hum:{bands:[[60,80,"Ambiente"]],note:"Lo importante es el agua limpia: filtro potente y cambios parciales cada semana."},
     cards:[
-      ["Alimentación",["Pellets para tortuga acuática como base.","Hojas verdes y plantas acuáticas, sobre todo de adulta.","Presas de vez en cuando: pescaditos, insectos, camarón.","Crías: diario. Adultas: cada 2 o 3 días."]],
+      ["Alimentación",["Crías: pellets y presas como base. Adultas: la base son hojas verdes y plantas acuáticas; los pellets, como complemento.","Hojas verdes y plantas acuáticas, sobre todo de adulta.","Presas de vez en cuando: pescaditos, insectos, camarón."]],
       ["Acuario",["Agua profunda para nadar y un asoleadero seco donde salga completa.","Filtro para el doble de litros del acuario.","Cambia el 25 % del agua cada semana."]],
       ["Luz y calor",["UVB y foco de calor sobre el asoleadero, 12 horas al día.","Calentador sumergible con protección."]],
-      ["Importante",["Nunca la sueltes en ríos o presas: es invasora y es delito.","Puede portar salmonela: lávate las manos después de tocarla o limpiar el agua."]]
+      ["Importante",["Nunca la sueltes en ríos o presas: fuera de su zona natural es invasora, contagia enfermedades a las tortugas silvestres y liberarla puede ser delito.","Puede portar salmonela: lávate las manos después de tocarla o limpiar el agua."]]
     ],
     alertas:["Ojos hinchados o cerrados: falta de vitamina A o agua sucia.","Caparazón blando o con manchas blancas que huelen mal.","Nada de lado o no puede sumergirse: posible neumonía.","No sale a asolearse."],
     rutina:{"Diario":["Revisa temperatura del agua","Retira restos de comida"],"Semanal":["Cambio parcial de agua (25 %)","Revisa el filtro","Pésala cada 2 semanas"],"Mensual":["Lava el material del filtro con agua del acuario","Revisa calentador y focos","Limpia vidrios"]}
@@ -1056,7 +1061,7 @@ var GUIDES = {
     temp:{bands:[[16,20,"Agua ideal"]],danger:23,note:"Arriba de 22 °C se estresa y se enferma. Es el punto más importante en Nuevo León."},
     hum:{bands:[[95,100,"Vive en el agua"]],note:"No necesita humedad ambiente: lo importante es la calidad del agua (sin cloro y con filtro suave)."},
     cards:[
-      ["Alimentación",["Lombrices de tierra (picadas para crías) y pellets para ajolote.","Crías: diario. Juveniles: cada 1 o 2 días. Adultos: 2 o 3 veces por semana.","Retira la comida que no se coma en 15 minutos.","Evita peces vivos: pueden traer enfermedades."]],
+      ["Alimentación",["Lombrices de tierra (picadas para crías) y pellets para ajolote.","Retira la comida que no se coma en unos minutos para no ensuciar el agua.","Evita peces vivos: pueden traer enfermedades."]],
       ["Acuario",["Agua sin cloro (usa acondicionador) y ciclada antes de meterlo.","Filtro de corriente suave: no le gusta el agua movida.","Fondo desnudo o arena fina. Nunca grava chica: se la traga.","Escondites y plantas; no necesita luz fuerte."]],
       ["Agua fresca",["Mantén el agua entre 16 y 20 °C.","En verano usa ventilador sobre el agua, cuarto con clima o un enfriador (chiller).","Cambia el 20 % del agua cada semana."]],
       ["Manejo",["No se carga: su piel es muy delicada.","Si hay que moverlo, usa un recipiente, no una red de tela áspera.","Vive mejor solo o con otros ajolotes del mismo tamaño."]]
@@ -1068,25 +1073,25 @@ var GUIDES = {
   pacman:{
     alias:"Rana cornuda, pacman", nombre:"Rana pacman", sci:"Ceratophrys cranwelli",
     lead:"Una boca con patas. Pasa casi todo el día enterrada esperando comida. Fácil de cuidar y muy llamativa.",
-    ficha:[["Tamaño","10 a 13 cm"],["Vida","10 a 15 años"],["Actividad","Al atardecer"],["Terrario","45 × 45 cm es suficiente para una adulta"],["Nivel","Principiante"]],
+    ficha:[["Tamaño","8 a 13 cm (las hembras son más grandes)"],["Vida","10 a 15 años"],["Actividad","Al atardecer"],["Terrario","45 × 45 cm es suficiente para una adulta"],["Nivel","Principiante"]],
     temp:{bands:[[22,24,"Noche"],[24,28,"Día"]],danger:31,note:"No necesita foco de calor si la casa está en ese rango."},
     hum:{bands:[[60,80,"Ambiente"]],note:"Sustrato húmedo pero no encharcado. Rocía a diario con agua sin cloro."},
     cards:[
-      ["Alimentación",["Insectos (grillos, cucarachas, larvas) y lombrices.","Crías: diario. Adultas: cada 3 a 5 días.","Ratones solo como premio muy ocasional: engordan y dañan el hígado.","Calcio en la mayoría de las comidas."]],
+      ["Alimentación",["Insectos (grillos, cucarachas, larvas) y lombrices.","Ratones solo como premio muy ocasional: engordan y dañan el hígado.","Calcio en la mayoría de las comidas."]],
       ["Terrario",["Sustrato suave para enterrarse: fibra de coco y musgo, 8 cm o más.","Plato de agua poco profundo, siempre sin cloro.","Siempre sola: se come a otras ranas."]],
       ["Manejo",["No se carga: muerde fuerte y su piel es delicada.","Si hay que moverla, usa guantes sin talco mojados o un recipiente."]]
     ],
     alertas:["Piel seca o cubierta con una capa dura: le falta humedad.","Ojos opacos o hinchados.","Se hincha o tiene la panza muy inflada.","Postura rara, temblores o convulsiones: revisa el agua (cloro) y la temperatura."],
-    rutina:{"Diario":["Rocía con agua sin cloro","Revisa temperatura"],"Semanal":["Comida según edad","Cambia el agua 2 o 3 veces","Retira desechos"],"Mensual":["Cambia el sustrato sucio","Pésala"]}
+    rutina:{"Diario":["Rocía con agua sin cloro","Lava y rellena el plato de agua sin cloro","Revisa temperatura"],"Semanal":["Comida según su etapa","Retira desechos"],"Mensual":["Cambia el sustrato sucio","Pésala"]}
   },
   white:{
-    alias:"Rana de White, rana dumpy", nombre:"Rana arborícola de White", sci:"Ranoides caerulea (antes Litoria caerulea)",
+    alias:"Rana de White, rana dumpy", nombre:"Rana arborícola de White", sci:"Litoria caerulea (también Pelodryas caerulea)",
     lead:"Una rana regordeta, tranquila y sonriente. Trepa de noche y se acostumbra a la gente. De las mejores ranas para empezar.",
     ficha:[["Tamaño","7 a 12 cm"],["Vida","15 a 20 años"],["Actividad","De noche"],["Terrario","Base de 45 × 45 cm y 60 cm de alto para 1 o 2"],["Nivel","Principiante"]],
     temp:{bands:[[20,22,"Noche"],[24,28,"Día"]],danger:31,note:"Una lámpara de calor suave solo si la casa está fría."},
     hum:{bands:[[50,70,"Ambiente"]],note:"Rocía en la noche y deja buena ventilación arriba."},
     cards:[
-      ["Alimentación",["Insectos con calcio: grillos, cucarachas, larvas.","Juveniles: diario o cada tercer día. Adultas: cada 2 o 3 días.","Engorda fácil: si le salen 'bolitas' de grasa sobre los ojos, dale menos."]],
+      ["Alimentación",["Insectos con calcio: grillos, cucarachas, larvas. No más grandes que la distancia entre sus ojos.","Engorda fácil: si le salen 'bolitas' de grasa sobre los ojos, dale menos."]],
       ["Terrario",["Vertical, con ramas gruesas y plantas firmes.","Plato de agua grande y sin cloro donde quepa sentada.","Terrario bioactivo: mantiene la humedad estable."]],
       ["Manejo",["Tolera el manejo corto, con las manos mojadas y sin jabón ni crema.","Lávate las manos antes y después."]]
     ],
@@ -1098,33 +1103,33 @@ var GUIDES = {
     lead:"Pequeño, activo de día y con la panza roja o naranja brillante. Ideal para un paludario con agua y tierra. Se puede tener en grupo.",
     ficha:[["Tamaño","4 a 5 cm"],["Vida","10 a 15 años"],["Actividad","De día"],["Terrario","Paludario de 45 × 45 cm para 3 o 4"],["Nivel","Principiante"]],
     temp:{bands:[[18,20,"Noche"],[20,24,"Día"]],danger:27,note:"Prefiere fresco. En verano en Nuevo León ponlo en el cuarto más fresco."},
-    hum:{bands:[[70,90,"Ambiente"]],note:"Mitad agua (5 a 10 cm de profundidad) y mitad tierra con musgo."},
+    hum:{bands:[[70,90,"Ambiente"]],note:"Mitad agua (2.5 a 5 cm de profundidad, sin cloro) y mitad tierra con musgo."},
     cards:[
-      ["Alimentación",["Insectos pequeños con calcio: grillos chicos, larvas, cucarachas pequeñas.","Juveniles: diario. Adultos: cada 2 o 3 días.","Vitaminas una vez por semana."]],
+      ["Alimentación",["Insectos pequeños con calcio: grillos chicos, larvas, cucarachas pequeñas."]],
       ["Paludario",["Parte de agua sin cloro con filtro suave.","Parte de tierra con musgo y plantas.","Tapa segura: trepan las esquinas."]],
       ["Importante",["Su piel suelta una sustancia irritante: lávate las manos y no te toques los ojos.","No lo mezcles con otras especies."]]
     ],
-    alertas:["Panza que pierde color: falta de variedad en la dieta.","Patas rojas o hinchadas: infección.","Se queda flotando todo el tiempo sin moverse.","No come en varios días."],
-    rutina:{"Diario":["Rocía","Revisa temperatura"],"Semanal":["Comida según edad","Cambio de agua del 30 %","Vitaminas 1 vez"],"Mensual":["Limpia el filtro","Poda plantas","Revisa la tapa"]}
+    alertas:["Panza que pierde color: falta de variedad en la dieta.","Patas rojas o hinchadas: infección.","Se ve flaco, decaído o no reacciona al tocar el agua.","No come en varios días."],
+    rutina:{"Diario":["Rocía","Renueva el agua sin cloro","Revisa temperatura"],"Semanal":["Comida según su etapa","Limpieza completa y cambio total del agua","Vitaminas según su etapa"],"Mensual":["Limpia el filtro","Poda plantas","Revisa la tapa"]}
   },
   dardo:{
     alias:"Rana punta de flecha, rana venenosa", nombre:"Rana dardo", sci:"Dendrobates tinctorius, D. leucomelas y D. auratus",
-    lead:"Diminutas joyas de colores para un terrario bioactivo. En cautiverio no son venenosas: su veneno viene de la dieta silvestre.",
+    lead:"Diminutas joyas de colores para un terrario bioactivo. Las criadas en cautiverio casi no tienen veneno, porque viene de su dieta silvestre; aun así, no las cargues y lávate las manos.",
     ficha:[["Tamaño","3 a 5 cm"],["Vida","10 a 15 años"],["Actividad","De día"],["Terrario","Base de 45 × 45 cm para 1 o 2"],["Nivel","Intermedio"]],
-    temp:{bands:[[20,22,"Noche"],[22,26,"Día"]],danger:29,note:"Arriba de 28 °C se estresan. No necesitan foco de calor."},
+    temp:{bands:[[20,22,"Noche"],[22,26,"Día"]],danger:28,note:"Arriba de 27 °C se estresan. No necesitan foco de calor."},
     hum:{bands:[[80,100,"Ambiente"]],note:"Rocío o nebulizador varias veces al día y buena ventilación arriba."},
     cards:[
-      ["Alimentación",["Moscas de la fruta sin alas y colémbolos, espolvoreados con calcio y vitaminas.","Juveniles: diario. Adultas: cada 1 o 2 días.","Tienes que mantener tu propio cultivo de moscas: es la parte más laboriosa."]],
+      ["Alimentación",["Moscas de la fruta sin alas y colémbolos, espolvoreados con calcio y vitaminas.","Tienes que mantener tu propio cultivo de moscas: es la parte más laboriosa."]],
       ["Terrario",["Bioactivo y muy plantado: bromelias, helechos, musgo, hojarasca.","El equipo de limpieza (isópodos y colémbolos) también les sirve de comida.","Tapa cerrada: escapan por rendijas mínimas."]],
       ["Manejo",["Solo para observar: no se cargan.","Para moverlas, usa un vaso y una tarjeta."]]
     ],
     alertas:["Adelgaza: la columna y las caderas se marcan.","Patas temblorosas o que no se sostienen: falta de calcio.","No sale de su escondite por días.","Manchas o heridas en la piel."],
-    rutina:{"Diario":["Rocía o revisa el nebulizador","Revisa temperatura","Comida para juveniles"],"Semanal":["Comida de adultas 3 o 4 veces","Inicia un cultivo nuevo de moscas","Limpia el vidrio frontal"],"Mensual":["Poda plantas","Agrega hojarasca","Revisa la ventilación"]}
+    rutina:{"Diario":["Rocía o revisa el nebulizador","Revisa temperatura","Revisa que no sobren moscas"],"Semanal":["Comidas según su etapa","Inicia un cultivo nuevo de moscas","Limpia el vidrio frontal"],"Mensual":["Poda plantas","Agrega hojarasca","Revisa la ventilación"]}
   }
 
 };
 var GROUPS=[["Geckos",["leopardo","crestado","gargola","colagorda"]],["Lagartos",["dragon","lenguaazul","camaleon","iguana","dragonagua"]],["Serpientes",["maiz","pitonbola","real","nariz","coralillo","boaarena","boa"]],["Tortugas",["rusa","sulcata","japonesa"]],["Anfibios",["ajolote","pacman","white","bombina","dardo"]],["Terrarios",["bioactivo"]]];
-var SOURCES=[["ReptiFiles: dragón barbudo","https://www.zenhabitats.com/blogs/reptile-care-sheets-resources/bearded-dragon-care-sheet-reptifiles"],["ReptiFiles: pitón bola","https://reptifiles.com/wp-content/uploads/2020/11/Ball-Python-Care-Sheet-PDF-1.pdf"],["ReptiFiles: serpiente maicera","https://www.zenhabitats.com/pages/corn-snake-care-sheet-provided-by-reptifiles"],["ReptiFiles: falsa coralillo","https://reptifiles.com/milksnake-care-sheet"],["ReptiFiles: camaleón velo","https://reptifiles.com/veiled-chameleon-care-sheet"],["ReptiFiles: skink de lengua azul","https://zenhabitats.com/blogs/reptile-care-sheets-resources/blue-tongued-skink-care-sheet-reptifiles"],["ReptiFiles: gecko cola gorda","https://reptifiles.com/wp-content/uploads/2024/04/African-Fat-Tailed-Gecko-Care-Sheet-ReptiFiles-PDF.pdf"],["The Bio Dude: gecko gárgola","https://thebiodude.com/blogs/gecko-caresheets/gargoyle-gecko-care-sheet-and-maintenance"],["ReptiFiles: tortuga sulcata","https://reptifiles.com/sulcata-tortoise-care-sheet/"],["ReptiFiles: tortuga rusa","https://reptifiles.com/russian-tortoise-care-sheet/"],["ReptiFiles: boa de arena","https://reptifiles.com/kenyan-sand-boa-care-sheet/"],["ReptiFiles: serpiente real","https://reptifiles.com/wp-content/uploads/2020/11/Kingsnake-Care-Sheet-PDF.pdf"],["ReptiFiles: tortuga japonesa","https://reptifiles.com/wp-content/uploads/2020/12/Red-Eared-Slider-Care-Sheet-PDF.pdf"]];
+var SOURCES=[["ReptiFiles: dragón barbudo","https://www.zenhabitats.com/blogs/reptile-care-sheets-resources/bearded-dragon-care-sheet-reptifiles"],["ReptiFiles: pitón bola","https://reptifiles.com/wp-content/uploads/2020/11/Ball-Python-Care-Sheet-PDF-1.pdf"],["ReptiFiles: serpiente maicera","https://www.zenhabitats.com/pages/corn-snake-care-sheet-provided-by-reptifiles"],["ReptiFiles: falsa coralillo","https://reptifiles.com/milksnake-care-sheet"],["ReptiFiles: camaleón velo","https://reptifiles.com/veiled-chameleon-care-sheet"],["ReptiFiles: skink de lengua azul","https://zenhabitats.com/blogs/reptile-care-sheets-resources/blue-tongued-skink-care-sheet-reptifiles"],["ReptiFiles: gecko cola gorda","https://reptifiles.com/wp-content/uploads/2024/04/African-Fat-Tailed-Gecko-Care-Sheet-ReptiFiles-PDF.pdf"],["The Bio Dude: gecko gárgola","https://thebiodude.com/blogs/gecko-caresheets/gargoyle-gecko-care-sheet-and-maintenance"],["ReptiFiles: tortuga sulcata","https://reptifiles.com/sulcata-tortoise-care-sheet/"],["ReptiFiles: tortuga rusa","https://reptifiles.com/russian-tortoise-care-sheet/"],["ReptiFiles: boa de arena","https://reptifiles.com/kenyan-sand-boa-care-sheet/"],["ReptiFiles: serpiente real","https://reptifiles.com/wp-content/uploads/2020/11/Kingsnake-Care-Sheet-PDF.pdf"],["ReptiFiles: tortuga japonesa","https://reptifiles.com/wp-content/uploads/2020/12/Red-Eared-Slider-Care-Sheet-PDF.pdf"],["ReptiFiles: alimentación del gecko leopardo","https://reptifiles.com/leopard-gecko-care/leopard-gecko-feeding/"],["ReptiFiles: alimentación del dragón barbudo","https://reptifiles.com/bearded-dragon-care/bearded-dragon-food/"],["ReptiFiles: alimentación de la serpiente maicera","https://reptifiles.com/corn-snake-care/corn-snake-food/"],["ReptiFiles: alimentación de la boa","https://reptifiles.com/boa-constrictor-care/what-do-boa-constrictors-eat/"],["VCA: alimentación de tortugas acuáticas","https://vcahospitals.com/know-your-pet/turtles-aquatic-feeding"],["VCA: alimentación de iguanas","https://vcahospitals.com/know-your-pet/iguanas-feeding"],["PetMD: rana pacman","https://www.petmd.com/reptile/pacman-frog-care-sheet"],["Universidad de Kentucky: cuidado del ajolote","https://ambystoma.as.uky.edu/education1/guide-to-axolotl-husbandry"],["RVC: rana arborícola de White","https://www.rvc.ac.uk/Media/Default/Beaumont%20Sainsbury%20Animal%20Hospital/EXOTICS/Animal%20Care%20Factsheets/White's%20Tree%20Frog%20care%20sheet%202024%20jh.pdf"],["LafeberVet: ranas dardo","https://lafeber.com/vet/basic-information-poison-dart-frogs/"]];
 
 /* ---------- render ---------- */
 var view = {filter:"todos", tab:"leopardo", quiz:null, cfg:{sp:"leopardo",base:"90x45",alto:45,style:"desierto",extras:{luz:true,calor:true,limpieza:true,guia:true,esc3d:true,plato3d:true,rep3d:false,animal:false}}};
@@ -1465,37 +1470,113 @@ function buildICS(events){
 }
 
 /* ---------- calendario y checklist por especie ---------- */
+/* ---------- Alimentación por especie y etapa (verificado con fuentes, oct 2026) ----------
+   st: [etapa, hasta (meses; null = adulto), cada mín días, cada máx días, porción] */
 var CAL={
-  leopardo:{feed:[1,2,4],label:"Dar insectos con calcio",extras:[["Vitaminas en la comida",7],["Humedecer el escondite húmedo",2]]},
-  crestado:{feed:[1,2,3],label:"Dar papilla y retirar la anterior",extras:[["Rociar el terrario por la noche",1],["Insectos con calcio",7]]},
-  gargola:{feed:[1,2,3],label:"Dar papilla y retirar la anterior",extras:[["Rociar el terrario por la noche",1],["Insectos con calcio",7]]},
-  colagorda:{feed:[1,3,5],label:"Dar insectos con calcio",extras:[["Vitaminas en la comida",7],["Rocío ligero y escondite húmedo",2]]},
-  dragon:{feed:[1,1,1],label:"Verduras frescas",extras:[["Insectos con calcio",[1,1,3]],["Vitaminas",7],["Baño tibio",7]]},
-  lenguaazul:{feed:[1,2,5],label:"Comida: proteína y verduras",extras:[["Vitaminas en la comida",7]]},
-  camaleon:{feed:[1,1,2],label:"Dar insectos",extras:[["Rociar mañana y tarde",1],["Revisar el gotero",1]]},
-  pitonbola:{feed:[6,8,18],label:"Ofrecer roedor descongelado",extras:[["Revisar humedad y cambiar agua",3]]},
-  maiz:{feed:[8,10,17],label:"Ofrecer roedor descongelado",extras:[["Cambiar agua y revisar la tapa",3]]},
-  coralillo:{feed:[6,8,12],label:"Ofrecer roedor descongelado",extras:[["Cambiar agua",3]]},
-  iguana:{feed:[1,1,1],label:"Ensalada de hojas verdes",extras:[["Calcio en la ensalada",[1,2,3]],["Rociar o baño tibio",2]]},
-  dragonagua:{feed:[1,2,3],label:"Dar insectos con calcio",extras:[["Rociar el terrario",1],["Cambiar el agua de la alberca",2],["Vitaminas",7]]},
-  real:{feed:[6,8,12],label:"Ofrecer roedor descongelado",extras:[["Cambiar agua y revisar la tapa",3]]},
-  nariz:{feed:[5,7,10],label:"Ofrecer roedor descongelado",extras:[["Cambiar agua",3]]},
-  boa:{feed:[7,12,25],label:"Ofrecer roedor descongelado",extras:[["Revisar humedad y cambiar agua",3]]},
-  boaarena:{feed:[7,10,14],label:"Ofrecer roedor descongelado",extras:[["Cambiar agua",4]]},
-  sulcata:{feed:[1,1,1],label:"Pasto, heno y hojas",extras:[["Baño tibio de 15 minutos",[1,3,7]],["Calcio en la comida",[2,3,7]]]},
-  rusa:{feed:[1,1,1],label:"Hojas y hierbas frescas",extras:[["Baño tibio de 15 minutos",[2,3,7]],["Calcio en la comida",[2,3,7]]]},
-  japonesa:{feed:[1,2,3],label:"Comida: pellets, hojas y presas",extras:[["Cambio parcial de agua (25 %)",7],["Revisar filtro y calentador",3]],acuatico:1},
-  ajolote:{feed:[1,2,3],label:"Dar lombrices o pellets",extras:[["Revisar la temperatura del agua",1],["Cambio parcial de agua (20 %)",7]],acuatico:1,noUvb:1},
-  pacman:{feed:[1,2,4],label:"Dar insectos o lombrices",extras:[["Rociar con agua sin cloro",1],["Calcio en la comida",[2,3,7]]]},
-  white:{feed:[1,2,3],label:"Dar insectos con calcio",extras:[["Rociar el terrario",1],["Cambiar agua sin cloro",2]]},
-  bombina:{feed:[1,2,3],label:"Dar insectos pequeños con calcio",extras:[["Rociar el terrario",1],["Cambio de agua del 30 %",7]]},
-  dardo:{feed:[1,1,2],label:"Moscas de la fruta con calcio",extras:[["Rociar el terrario",1],["Iniciar cultivo nuevo de moscas",7]]}
+  leopardo:{label:"Dar insectos con calcio",st:[["Cría (0 a 6 meses)",6,1,1,"Lo que coma en 15 minutos: unos 2 insectos por cada 2.5 cm de largo"],["Juvenil (6 a 12 meses)",12,2,3,"Unos 2 insectos por cada 2.5 cm de largo, o lo que coma en 15 minutos"],["Adulto (12 meses o más)",null,3,5,"Unos 2 insectos por cada 2.5 cm de largo; si su cola ya es más gruesa que su cuello, con cada 5 días basta"]],
+    extras:[["Vitaminas en los insectos",[7,7,14]],["Humedecer el escondite húmedo",2]],
+    sup:"Calcio en cada comida (sin D3 si tiene UVB; con D3 si no tiene). Multivitamínico 1 vez por semana en crías y juveniles, y cada 2 semanas en adultos.",
+    nota:"Insectos no más grandes que el espacio entre sus ojos. Gusanos de cera y superworms máximo 1 vez por semana: engordan. En invierno puede comer menos por semanas; es normal si no baja de peso."},
+  colagorda:{label:"Dar insectos con calcio",st:[["Cría (0 a 6 meses)",6,1,1,"Lo que coma en 15 minutos: unos 2 insectos por cada 2.5 cm de largo"],["Juvenil (6 a 12 meses)",12,2,3,"Unos 2 insectos por cada 2.5 cm de largo, o lo que coma en 15 minutos"],["Adulto (12 meses o más)",null,5,5,"Unos 2 insectos por cada 2.5 cm de largo, o lo que coma en 15 minutos"]],
+    extras:[["Vitaminas en los insectos",7],["Rocío ligero y escondite húmedo",2]],
+    sup:"Espolvorea un poco de calcio en los insectos; multivitamínico de vez en cuando (por ejemplo, 1 vez por semana).",
+    nota:"Su etapa adulta se nota por el cuerpo (cola más gruesa que el cuello), no tanto por la edad."},
+  crestado:{label:"Dar papilla fresca y retirar la anterior",st:[["Juvenil (0 a 12 meses)",12,1,1,"Papilla en un platito; retírala a las 24 horas. Insectos 1 o 2 veces por semana"],["Adulto (12 meses o más)",null,2,3,"Papilla fresca; retírala a las 24 horas. Insectos 1 vez por semana (opcional), menos si engorda"]],
+    extras:[["Insectos con calcio",[4,7]],["Rociar el terrario por la noche",1]],
+    sup:"Calcio en los insectos (sin D3 si tiene UVB). La papilla ya trae sus vitaminas.",
+    nota:"Prepara la papilla a consistencia de catsup y rota al menos 3 sabores. Insectos no más anchos que el espacio entre sus ojos; evita tenebrios y superworms."},
+  gargola:{label:"Dar papilla fresca y retirar la anterior",st:[["Juvenil (0 a 15 meses)",15,1,1,"Papilla todos los días; insectos cada 2 días"],["Adulto (15 meses o más)",null,2,2,"Papilla cada 2 días; insectos 2 veces por semana"]],
+    extras:[["Insectos con calcio",[2,3]],["Rociar el terrario por la noche",1]],
+    sup:"Calcio en todos los insectos (sin D3 si tiene UVB).",
+    nota:"Un adulto puede saltarse una comida 2 a 4 veces al mes. Ratoncitos u otras presas, máximo 2 veces al mes. Insectos no más grandes que el espacio entre sus ojos."},
+  dragon:{label:"Ensalada de hojas verdes",st:[["Cría (0 a 3 meses)",3,1,1,"Insectos 1 o 2 veces al día, todos los que coma; ensalada todos los días"],["Juvenil (3 a 12 meses)",12,1,1,"5 a 6 insectos del tamaño de su cabeza al día; ensalada diaria (unas 3 veces el volumen de los insectos)"],["Adulto (12 meses o más)",null,1,3,"Ensalada del tamaño de su cabeza a diario o cada 2 a 3 días; 3 a 4 insectos 2 veces por semana"]],
+    extras:[["Insectos con calcio",[1,1,3]],["Multivitamínico en la ensalada",[3,3,7]],["Baño tibio",7]],
+    sup:"Calcio en insectos y ensalada. Multivitamínico 2 veces por semana en crías y juveniles, 1 vez por semana en adultos. El exceso de suplementos también hace daño.",
+    nota:"Insectos no más grandes que el espacio entre sus ojos. En adultos, mucha proteína causa obesidad y gota. Fruta muy de vez en cuando; ratoncitos máximo 1 vez al mes."},
+  lenguaazul:{label:"Comida: proteína y verduras",st:[["Bebé (0 a 3 meses)",3,1,1,"1 a 2 cucharadas (más o menos el tamaño de su cabeza)"],["Juvenil (3 a 8 meses)",8,2,3,"1 a 2 cucharadas, unas 3 veces por semana"],["Adulto (8 meses o más)",null,3,7,"1 a 2 cucharadas, 1 o 2 veces por semana"]],
+    extras:[["Multivitamínico en la comida",[7,7,14]]],
+    sup:"Calcio en cada comida; multivitamínico 1 vez por semana en juveniles y cada 2 semanas en adultos. Si le das dieta preparada (Repashy, Arcadia), ya no hace falta.",
+    nota:"Menores de 1 año: 70 a 80 % proteína. Adultos: 50 a 60 % proteína y el resto verduras; fruta máximo 10 %. Mucha proteína en adultos causa sobrepeso."},
+  camaleon:{label:"Dar insectos",st:[["Cría (0 a 3 meses)",3,1,1,"Insectos pequeños disponibles durante todo el día"],["Juvenil (3 a 12 meses)",12,1,1,"Todos los insectos que coma en el día"],["Adulto (12 meses o más)",null,2,2,"3 a 5 insectos cada 2 días. No sobrealimentes a las hembras: ponen más huevos y se desgastan"]],
+    extras:[["Rociar mañana y tarde",1],["Revisar el gotero",1]],
+    sup:"ReptiFiles: un suplemento todo en uno de dosis baja (calcio con vitamina A, tipo Arcadia EarthPro-A) en cada comida y calcio con D3 2 veces al mes. Otros veterinarios: calcio 2 a 3 veces por semana y multivitamínico 1 vez por semana o menos. No juntes varios productos: el exceso de vitamina A hace daño.",
+    nota:"Insectos no más anchos que su cabeza. Alimenta bien a los insectos 2 o 3 días antes de dárselos."},
+  iguana:{label:"Ensalada picada",st:[["Juvenil (hasta unos 90 cm de largo)",24,1,1,"Toda la ensalada picada que coma en el día"],["Adulta",null,1,2,"Toda la ensalada que coma; si tiene sobrepeso, cada 2 a 3 días"]],
+    extras:[["Calcio en la ensalada",[2,4]],["Multivitamínico en la ensalada",[4,14]],["Rociar o baño tibio",2]],
+    sup:"VCA: jóvenes, calcio 4 a 5 veces por semana y multivitamínico 2 veces por semana; adultas, calcio 1 a 2 veces por semana y multivitamínico 2 veces al mes.",
+    nota:"Ensalada: la mayor parte hojas verdes oscuras, el resto otras verduras; fruta menos del 10 %. Pica o ralla todo: no mastica. Edad de cambio a adulta aproximada."},
+  dragonagua:{label:"Dar insectos con calcio y vitaminas",st:[["Cría (0 a 3 meses)",3,1,1,"Solo insectos: lo que coma en 5 minutos"],["Juvenil (hasta 40 cm)",12,2,2,"Insectos (lo que coma en 5 minutos) y ensalada, cada 2 días"],["Adulto (más de 40 cm)",null,3,5,"Insectos cada 3 a 5 días; ensalada de hojas verdes a diario"]],
+    extras:[["Ensalada de hojas verdes",[0,2,1]],["Rociar el terrario",1],["Cambiar el agua de la alberca",2]],
+    sup:"Calcio y multivitamínico, mitad y mitad, en cada comida de insectos.",
+    nota:"Insectos no más largos que su cabeza ni más anchos que el espacio entre sus ojos. Premios (pescadito vivo, fruta) máximo 1 vez por semana. Si se ve flaco, dale más; si engorda, menos."},
+  pitonbola:{label:"Ofrecer roedor descongelado",st:[["Cría (0 a 6 meses)",6,5,7,"1 presa de 10 a 15 % de su peso, no más ancha que su parte más gruesa"],["Juvenil (6 meses a 2 años)",24,7,10,"1 presa de 10 a 15 % de su peso"],["Subadulto (2 a 3 años)",36,10,14,"1 presa de 10 a 15 % de su peso"],["Adulto (3 años o más)",null,14,21,"1 presa de 10 a 15 % de su peso; vigila que no engorde"]],
+    extras:[["Revisar humedad y cambiar agua",3]],
+    sup:"Casi no necesita suplementos; si acaso, un poco de calcio con vitaminas de vez en cuando.",
+    nota:"Es normal que ayune semanas, sobre todo en invierno o en temporada de cría, si no pierde más del 10 % de su peso: pésala cada semana mientras ayuna. PetMD (ficha veterinaria) alimenta a las crías más seguido, cada 2 días."},
+  maiz:{label:"Ofrecer roedor descongelado",st:[["Cría (20 a 50 cm)",6,5,7,"1 presa de 1 a 1.5 veces el ancho de la parte más gruesa de su cuerpo"],["Juvenil (50 a 90 cm)",18,7,10,"1 presa (o 2 chicas); en total no más del 10 % de su peso"],["Subadulto (90 a 120 cm)",30,10,12,"1 presa de 1 a 1.5 veces su ancho"],["Adulto (2 a 3 años o más)",null,14,21,"1 presa de 1 a 1.5 veces su ancho; mayores de 18 años, cada 10 a 14 días"]],
+    extras:[["Cambiar agua y revisar la tapa",3]],
+    sup:"De vez en cuando, un poco de calcio con vitaminas en la presa; no es indispensable.",
+    nota:"Guíate más por su largo que por la edad (las edades son aproximadas). Si engorda, espacia las comidas."},
+  coralillo:{label:"Ofrecer roedor descongelado",st:[["Cría (0 a 6 meses)",6,5,7,"1 presa no más ancha que 1.5 veces su parte más gruesa (alrededor del 10 % de su peso)"],["Juvenil (6 meses a 2 años)",24,7,10,"1 presa de alrededor del 10 % de su peso"],["Adulto (2 años o más)",null,10,14,"1 presa de alrededor del 10 % de su peso"]],
+    extras:[["Cambiar agua",3]],
+    sup:"De vez en cuando, un poco de calcio con vitaminas (mitad y mitad) en la presa.",
+    nota:"Si engorda, espacia las comidas o da presas más chicas. Edades aproximadas."},
+  real:{label:"Ofrecer roedor descongelado",st:[["Cría (0 a 6 meses)",6,5,7,"1 presa no más ancha que 1.5 veces su parte más gruesa (alrededor del 10 % de su peso)"],["Juvenil (6 meses a 2 años)",24,7,10,"1 presa de alrededor del 10 % de su peso"],["Adulto (2 años o más)",null,10,14,"1 presa de alrededor del 10 % de su peso"]],
+    extras:[["Cambiar agua y revisar la tapa",3]],
+    sup:"De vez en cuando, un poco de calcio con vitaminas (mitad y mitad) en la presa.",
+    nota:"Es muy glotona: no la sobrealimentes. No la cargues 48 horas después de comer. Edades aproximadas."},
+  nariz:{label:"Ofrecer roedor descongelado",st:[["Cría (0 a 6 meses)",6,4,5,"1 presa no más ancha que la parte más gruesa de su cuerpo; mejor varias chicas que una grande"],["Juvenil (6 a 12 meses)",12,6,7,"1 presa no más ancha que su parte más gruesa"],["Adulto (12 meses o más)",null,7,14,"1 presa no más ancha que su parte más gruesa; si engorda, más chica o más espaciada"]],
+    extras:[["Cambiar agua",3]],
+    sup:"De vez en cuando, un poco de calcio con vitaminas.",
+    nota:"Si la vas a brumar, deja de alimentarla a inicios de noviembre; nunca brumes a menores de 1 año y ofrécele comida 2 semanas después de calentarla. No la cargues 24 a 48 horas después de comer."},
+  boa:{label:"Ofrecer roedor descongelado",st:[["Cría (0 a 12 meses)",12,10,12,"1 presa de máximo 10 % de su peso, no más ancha que su parte más gruesa"],["12 a 18 meses",18,12,14,"1 presa de máximo 10 % de su peso"],["18 meses a 2 años y medio",30,14,21,"1 presa de máximo 10 % de su peso"],["2 años y medio a 3 años",36,21,28,"1 presa de máximo 10 % de su peso"],["3 a 4 años",48,28,42,"1 presa de máximo 10 % de su peso"],["Adulta (4 años o más)",null,28,56,"1 presa de máximo 10 % de su peso; después de comer solo debe notarse un bulto discreto"]],
+    extras:[["Revisar humedad y cambiar agua",3]],
+    sup:"Casi no necesita suplementos; si acaso, calcio o vitaminas de vez en cuando.",
+    nota:"Estos tiempos (ReptiFiles) buscan evitar la obesidad, muy común en boas. Otras fichas (Chewy, la Universidad Estatal de Bowling Green) alimentan más seguido con presas más chicas (crías cada 7 a 10 días, adultas cada 10 a 14). Saltarse una comida no pasa nada."},
+  boaarena:{label:"Ofrecer roedor descongelado",st:[["Cría y juvenil (hasta 1 año aprox.)",12,7,14,"1 o 2 presas del ancho de su parte más gruesa"],["Adulta",null,14,28,"1 o 2 presas del ancho de su parte más gruesa"]],
+    extras:[["Cambiar agua",4]],
+    sup:"De vez en cuando, un poco de calcio con vitaminas en la presa; no es indispensable.",
+    nota:"Los machos adultos a veces ayunan meses en temporada de cría: es normal. Las hembras engordan fácil si se les da de más."},
+  sulcata:{label:"Pasto, heno y hojas",st:[["Cría y juvenil (menos de 25 cm)",24,1,1,"Toda la que quiera comer"],["Casi adulta y adulta",null,1,1,"Una porción del tamaño de su caparazón, para que no engorde"]],
+    extras:[["Baño tibio (20 a 30 minutos)",[1,7]],["Calcio y multivitamínico en la comida",[3,7]]],
+    sup:"Calcio varias veces por semana, sobre todo en crías, y hueso de jibia siempre disponible. Multivitamínico según tu veterinario.",
+    nota:"Base: pastos y heno (alrededor de la mitad) y hojas silvestres. Nunca fruta ni proteína animal. Edad de cambio aproximada: se guía por el tamaño."},
+  rusa:{label:"Hojas y hierbas frescas",st:[["Juvenil (hasta 10 cm de caparazón)",36,1,1,"Toda la que quiera comer"],["Adulta",null,1,1,"Una porción del tamaño de su caparazón (o 3 ensaladas por semana si pastorea afuera a diario)"]],
+    extras:[["Baño tibio",[3,7]],["Calcio en la comida",[3,4]]],
+    sup:"Calcio sin fósforo 1 a 2 veces por semana (más en juveniles); multivitamínico con vitamina A 1 a 2 veces al mes.",
+    nota:"Alta en fibra, baja en proteína y azúcar. Fruta e insectos solo como premio muy ocasional. Edad de cambio aproximada: se guía por el tamaño."},
+  japonesa:{label:"Comida de tortuga",st:[["Cría (0 a 6 meses)",6,1,1,"Lo que coma en 5 a 15 minutos (más o menos el tamaño de su cabeza), sobre todo pellets y presas"],["Juvenil (6 a 12 meses)",12,1,2,"Lo que coma en 5 a 15 minutos; empieza a darle más hojas verdes"],["Adulta (12 meses o más)",null,2,3,"Pellets o presas del tamaño de su cabeza; hojas verdes y plantas acuáticas siempre disponibles"]],
+    extras:[["Cambio parcial de agua (25 %)",7],["Revisar filtro y calentador",3],["Revisar bloque de calcio o hueso de jibia",7]],acuatico:1,
+    sup:"Los pellets de buena calidad ya traen vitaminas (los polvos se pierden en el agua). Deja un bloque de calcio o hueso de jibia en el agua; algunos veterinarios agregan un multivitamínico semanal.",
+    nota:"Las adultas deben comer más verdura que proteína. Engorda fácil: no le des de más aunque pida."},
+  ajolote:{label:"Dar lombrices o pellets",st:[["Larva (hasta 8 cm)",2,1,1,"Artemia o daphnia viva hasta que se le vea la panza llena"],["Juvenil (8 a 15 cm)",12,1,1,"Lo que coma en 2 a 3 minutos (lombriz picada o pellets chicos)"],["Adulto (1 año o más)",null,2,3,"Lo que coma en 2 a 3 minutos: unos 5 pellets o 1 a 2 lombrices"]],
+    extras:[["Revisar la temperatura del agua",1],["Cambio parcial de agua (20 %)",7]],acuatico:1,noUvb:1,
+    sup:"No necesita suplementos si come lombrices y pellets para ajolote.",
+    nota:"Mantén el agua entre 16 y 18 °C: arriba de 22 °C se estresa y deja de comer. Con el agua más fría come menos. Saca lo que no coma para no ensuciar el agua."},
+  pacman:{label:"Dar insectos o lombrices",st:[["Juvenil (0 a 12 meses)",12,1,2,"Lo que coma en una sentada; cada presa de máximo un tercio de su tamaño"],["Adulta (12 meses o más)",null,5,7,"Lo que coma en una sentada; debe verse redonda, no inflada"]],
+    extras:[["Multivitamínico",7],["Lavar y rellenar el plato de agua sin cloro",1]],
+    sup:"Calcio en la comida (PetMD: con D3 a diario; otros veterinarios: sin D3, 2 a 3 veces por semana de juvenil y en cada comida de adulta). Multivitamínico 1 vez por semana.",
+    nota:"Ratoncitos solo en adultas y máximo cada 2 semanas: engordan. Retira lo que no coma ese día."},
+  white:{label:"Dar insectos con calcio",st:[["Ranita (menos de 4 cm)",3,1,1,"1 a 4 grillos muy chicos"],["Subadulta (4 a 8 cm)",12,2,3,"1 a 2 grillos medianos"],["Adulta (más de 8 cm)",null,3,4,"3 a 4 grillos grandes; si no sobra ninguno a los 30 minutos, agrega unos más la siguiente vez"]],
+    extras:[["Calcio en los insectos",2],["Multivitamínico con vitamina A",7],["Rociar el terrario",1]],
+    sup:"Calcio 3 a 4 veces por semana; multivitamínico con vitamina A al menos 1 vez por semana.",
+    nota:"Insectos no más grandes que la distancia entre sus ojos. Retira los que no coma en 30 minutos. Engorda fácil. Edades aproximadas: se guía por el tamaño."},
+  bombina:{label:"Dar insectos pequeños con calcio",st:[["Recién transformado (0 a 3 meses)",3,1,1,"Moscas de la fruta y grillos muy chicos, 5 a 6 días por semana"],["Juvenil (3 a 12 meses)",12,2,2,"Lo que coma en 15 minutos"],["Adulto (12 meses o más)",null,3,7,"3 a 4 grillos chicos o lo que coma en 15 minutos, 1 o 2 veces por semana"]],
+    extras:[["Multivitamínico",[3,4,7]],["Renovar el agua sin cloro",1]],
+    sup:"Calcio con D3 en cada comida; multivitamínico 1 a 2 veces por semana.",
+    nota:"Insectos no más anchos que su cabeza. Edades aproximadas."},
+  dardo:{label:"Moscas de la fruta con calcio",st:[["Ranita y juvenil (0 a 12 meses)",12,1,1,"20 a 30 moscas de la fruta al día"],["Adulta",null,2,3,"Lo que coma en 15 a 30 minutos (empieza con unas 12 moscas); si sobran muchas después de 1 hora, fueron demasiadas"]],
+    extras:[["Iniciar cultivo nuevo de moscas",7],["Rociar el terrario",1]],
+    sup:"Calcio y vitaminas en cada comida; vitamina A 1 vez al mes.",
+    nota:"Algunos criadores alimentan a las adultas a diario con menos moscas; lo importante es que no adelgacen."}
 };
-var AGES=["Cría","Juvenil","Adulto"];
-function ageIndex(birth){if(!birth)return 2;var m=daysBetween(birth,todayISO())/30.4;return m<6?0:(m<12?1:2)}
+function stageIndex(sp,birth){var st=CAL[sp].st;if(!birth)return st.length-1;var m=daysBetween(birth,todayISO())/30.4;for(var i=0;i<st.length;i++){if(st[i][1]==null||m<st[i][1])return i}return st.length-1}
+function feedEvery(sp,i){return CAL[sp].st[Math.min(i,CAL[sp].st.length-1)][2]}
+function everyTxt(a,b){return a===1&&b===1?"Todos los días":a===b?"Cada "+a+" días":(a===1?"A diario o cada "+(b===2?"2":"2 a "+b)+" días":"Cada "+a+" a "+b+" días")}
+function extraN(x,ai){var v=x[1];return Array.isArray(v)?v[Math.min(ai,v.length-1)]:v}
 function calEvents(sp,ai,start){
-  var c=CAL[sp],g=GUIDES[sp],ev=[{date:start,title:g.nombre+": "+c.label,every:c.feed[ai],desc:"Calendario de Reppets ("+AGES[ai].toLowerCase()+")"}];
-  c.extras.forEach(function(x,i){var n=Array.isArray(x[1])?x[1][ai]:x[1];ev.push({date:start,title:g.nombre+": "+x[0],every:n,time:"2000"})});
+  var c=CAL[sp],g=GUIDES[sp],s=c.st[ai],ev=[{date:start,title:g.nombre+": "+c.label,every:s[2],desc:s[4]+" · Reppets ("+s[0].toLowerCase()+")"}];
+  c.extras.forEach(function(x){var n=extraN(x,ai);if(n)ev.push({date:start,title:g.nombre+": "+x[0],every:n,time:"2000"})});
   if(!c.noUvb)ev.push({date:addMonths(start,12),title:g.nombre+": revisar o cambiar el foco UVB",desc:"Los focos UVB pierden fuerza aunque sigan prendiendo."});
   return ev;
 }
@@ -1507,11 +1588,13 @@ function checklistCard(sp,cid){
     return '<div><h4>'+k+' · '+done.length+'/'+items.length+'</h4>'+items.map(function(x,i){var on=done.indexOf(i)>=0;return '<label class="chk"><input type="checkbox" data-chk="'+sp+'|'+k+'|'+i+'"'+(on?" checked":"")+'><span>'+x+'</span></label>'}).join("")+'</div>'}).join("")+'</div></div>';
 }
 function calendarCard(sp,cid,ai){
-  var c=CAL[sp];if(!c)return "";cid=cid||"g";ai=ai==null?2:ai;
-  return '<div class="gcard wide noprint"><div class="cardhead"><h3>Calendario de alimentación</h3><span class="note">Descárguelo y agréguelo al calendario de su celular.</span></div>'+
-  '<div class="calrow"><div class="field"><label for="calAge-'+cid+'">Edad</label><select id="calAge-'+cid+'">'+AGES.map(function(a,i){return '<option value="'+i+'"'+(i===ai?" selected":"")+'>'+a+' · cada '+c.feed[i]+(c.feed[i]===1?" día":" días")+'</option>'}).join("")+'</select></div>'+
+  var c=CAL[sp];if(!c)return "";cid=cid||"g";ai=ai==null?c.st.length-1:ai;
+  return '<div class="gcard wide feedcard"><div class="cardhead"><h3>Alimentación: cada cuánto y cuánto</h3><span class="note">'+(cid==="p"?'Resaltamos la etapa de su mascota según su edad.':'Según la etapa de vida.')+'</span></div>'+
+  '<div class="feedtbl">'+c.st.map(function(s,i){return '<div class="frow'+(cid==="p"&&i===ai?' on':'')+'"><b>'+s[0]+'</b><span class="fevery">'+everyTxt(s[2],s[3])+'</span><span class="fpor">'+s[4]+'</span></div>'}).join("")+'</div>'+
+  '<p class="note"><b>Suplementos:</b> '+c.sup+'</p><p class="note"><b>Importante:</b> '+c.nota+'</p>'+
+  '<div class="calrow noprint"><div class="field"><label for="calAge-'+cid+'">Etapa</label><select id="calAge-'+cid+'">'+c.st.map(function(s,i){return '<option value="'+i+'"'+(i===ai?" selected":"")+'>'+s[0]+'</option>'}).join("")+'</select></div>'+
   '<div class="field"><label for="calStart-'+cid+'">Empezar el</label><input type="date" id="calStart-'+cid+'" value="'+todayISO()+'"></div>'+
-  '<button class="btn btn-dark" data-cal="'+sp+'|'+cid+'">Descargar calendario</button></div></div>';
+  '<button class="btn btn-dark" data-cal="'+sp+'|'+cid+'">Descargar recordatorios</button></div><p class="note noprint">Guía general. Ajusta según el cuerpo de tu animal y consulta a un veterinario de exóticos si sube o baja mucho de peso.</p></div>';
 }
 
 /* ---------- guía de plantas ---------- */
@@ -1520,13 +1603,13 @@ var PLANTS=[
   {n:"Planta araña o mala madre",sci:"Chlorophytum comosum",tox:"segura",hum:"media",fuerte:1,com:1,forma:"roseta",col:"#7FB55A",uso:"Casi cualquier terrario.",nota:"Muy resistente y crece rápido."},
   {n:"Fittonia o planta mosaico",sci:"Fittonia albivenis",tox:"segura",hum:"alta",forma:"ancha",col:"#4E8C4A",uso:"Tropicales con animales ligeros.",nota:"Se marchita si le falta humedad, pero se recupera al rociarla."},
   {n:"Peperomia",sci:"Peperomia spp.",tox:"segura",hum:"media",forma:"ancha",col:"#5F9B4E",uso:"Tropicales y semihúmedos.",nota:"Hojas gruesas que aguantan bien."},
-  {n:"Calathea o maranta",sci:"Calathea y Maranta spp.",tox:"segura",hum:"alta",forma:"ancha",col:"#3E7A52",uso:"Tropicales.",nota:"Delicada: no resiste animales pesados."},
+  {n:"Calathea o maranta",sci:"Goeppertia (antes Calathea) y Maranta spp.",tox:"segura",hum:"alta",forma:"ancha",col:"#3E7A52",uso:"Tropicales.",nota:"Delicada: no resiste animales pesados."},
   {n:"Helecho de Boston",sci:"Nephrolepis exaltata",tox:"segura",hum:"alta",forma:"helecho",col:"#4F8E3D",uso:"Tropicales y bosque.",nota:"Necesita humedad constante."},
   {n:"Musgo de cojín o sphagnum",sci:"Leucobryum y Sphagnum",tox:"segura",hum:"alta",forma:"musgo",col:"#6E9E45",uso:"Escondite húmedo y tropicales.",nota:"Ideal para el escondite húmedo de cualquier gecko."},
   {n:"Haworthia",sci:"Haworthia spp.",tox:"segura",hum:"baja",fuerte:1,forma:"suculenta",col:"#5D8A4E",uso:"Desérticos: leopardo, cola gorda.",nota:"Aguanta sol y poco riego."},
   {n:"Gasteria",sci:"Gasteria spp.",tox:"segura",hum:"baja",fuerte:1,forma:"suculenta",col:"#4F7A45",uso:"Desérticos.",nota:"Hojas duras que resisten pisadas."},
   {n:"Echeveria o rosa de alabastro",sci:"Echeveria spp.",tox:"segura",hum:"baja",forma:"suculenta",col:"#8AB3A2",uso:"Desérticos con animales ligeros.",nota:"Se aplasta con reptiles pesados."},
-  {n:"Lengua de suegra",sci:"Dracaena trifasciata (antes Sansevieria)",tox:"segura",hum:"baja",fuerte:1,forma:"espada",col:"#4C7A3C",uso:"Desérticos y semihúmedos.",nota:"Casi indestructible. Evítela solo si su reptil come plantas."},
+  {n:"Lengua de suegra",sci:"Dracaena trifasciata (antes Sansevieria)",tox:"segura",hum:"baja",fuerte:1,forma:"espada",col:"#4C7A3C",uso:"Desérticos y semihúmedos.",nota:"Casi indestructible. Si tu reptil come plantas, puede mordisquearla de vez en cuando, pero no debe ser parte de su dieta."},
   {n:"Árbol de jade",sci:"Crassula ovata",tox:"segura",hum:"baja",fuerte:1,forma:"suculenta",col:"#5E9A5A",uso:"Desérticos.",nota:"Ramas firmes para trepar un poco."},
   {n:"Tradescantia o amor de hombre",sci:"Tradescantia spp.",tox:"segura",hum:"media",forma:"colgante",col:"#7A5A9E",uso:"Tropicales y semihúmedos.",nota:"Crece rápido y cubre el suelo."},
   {n:"Diente de león",sci:"Taraxacum officinale",tox:"segura",hum:"media",com:1,forma:"roseta",col:"#7DAA4A",uso:"Dragón barbudo y skink de lengua azul.",nota:"Sus hojas y flores son comida excelente."},
@@ -1652,8 +1735,8 @@ function pullPets(){
 function curPet(){var p=pets();return p.filter(function(x){return x.id===pv.sel})[0]||p[0]||null}
 function lastLog(pet,t){var l=(pet.logs||[]).filter(function(x){return x.t===t}).sort(function(a,b){return a.fecha<b.fecha?1:-1});return l[0]||null}
 function petTasks(pet){
-  var ai=ageIndex(pet.nacimiento),c=CAL[pet.especie],out=[],today=todayISO();
-  var lc=lastLog(pet,"comida");out.push({t:"comida",k:"Próxima comida",due:lc?addDays(lc.fecha,c.feed[ai]):null,hint:c.label+" · cada "+c.feed[ai]+(c.feed[ai]===1?" día":" días")});
+  var ai=stageIndex(pet.especie,pet.nacimiento),c=CAL[pet.especie],out=[],today=todayISO(),fs=c.st[ai];
+  var lc=lastLog(pet,"comida");out.push({t:"comida",k:"Próxima comida",due:lc?addDays(lc.fecha,fs[2]):null,hint:c.label+" · "+everyTxt(fs[2],fs[3]).toLowerCase()+" · "+fs[4]});
   if(!c.noUvb&&pet.uvbMeses!==0){var lu=lastLog(pet,"uvb");out.push({t:"uvb",k:"Cambio de foco UVB",due:lu?addMonths(lu.fecha,pet.uvbMeses||12):null,hint:"Cada "+(pet.uvbMeses||12)+" meses"})}
   var lm=lastLog(pet,"mant");out.push({t:"mant",k:c.acuatico?"Mantenimiento del acuario":"Mantenimiento del bioactivo",due:lm?addDays(lm.fecha,30):null,hint:c.acuatico?"Limpieza del filtro y revisión del agua cada mes":"Poda, hojas secas y revisión de drenaje cada mes"});
   out.forEach(function(x){if(!x.due){x.st="nodata";return}var d=daysBetween(today,x.due);x.st=d<0?"late":(d===0?"today":"soon");x.days=d});
@@ -1697,14 +1780,14 @@ function renderPets(){
   var pn=$("#petNote");if(pn)pn.innerHTML=IN_CLAUDE?'Sus datos se guardan solo en este dispositivo.':(typeof gv!=="undefined"&&gv.session?'✓ Guardado en su cuenta: lo verá en cualquier celular o computadora.':'Sin cuenta, se guarda solo en este aparato. <button class="linkbtn" data-open-acct>Entre o cree su cuenta</button> para no perder sus datos y verlos en cualquier celular.');
   var area=$("#petArea"),list=pets();
   if(!list.length||pv.adding){area.innerHTML=(list.length?'':'<div class="empty" style="margin-bottom:18px"><span class="chip">Empiece aquí</span><h3>Registre a su primera mascota</h3><p class="note">Con su especie y edad calculamos cada cuándo comer, cambiar el foco y dar mantenimiento.</p></div>')+petForm();return}
-  var pet=curPet();pv.sel=pet.id;var g=GUIDES[pet.especie],ai=ageIndex(pet.nacimiento);
+  var pet=curPet();pv.sel=pet.id;var g=GUIDES[pet.especie],ai=stageIndex(pet.especie,pet.nacimiento);
   var tasks=petTasks(pet),lw=lastLog(pet,"peso"),lmu=lastLog(pet,"muda"),lc=lastLog(pet,"comida");
   var mudas=(pet.logs||[]).filter(function(x){return x.t==="muda"}).sort(function(a,b){return a.fecha<b.fecha?-1:1}),avgM=null;
   if(mudas.length>1){avgM=Math.round(daysBetween(mudas[0].fecha,mudas[mudas.length-1].fecha)/(mudas.length-1))}
   var chips='<div class="filters" role="group" aria-label="Mis mascotas">'+list.map(function(p){return '<button data-pet="'+p.id+'" aria-pressed="'+(p.id===pet.id)+'">'+esc(p.nombre)+'</button>'}).join("")+'<button data-petadd>+ Agregar</button></div>';
   var pic=pet.foto?'<img src="'+esc(pet.foto)+'" alt="'+esc(pet.nombre)+'">':speciesScene(pet.especie,"Ilustración de "+g.nombre);
   var edad=pet.nacimiento?(function(){var d=daysBetween(pet.nacimiento,todayISO()),m=Math.floor(d/30.4);return m<1?d+" días":(m<24?m+" meses":Math.floor(m/12)+" años")})():"Edad sin registrar";
-  var head='<div class="pethead"><div class="petpic">'+pic+'</div><div class="petinfo"><span class="eyebrow">'+AGES[ai]+'</span><h3 style="font-size:2rem">'+esc(pet.nombre)+'</h3><p class="note">'+g.nombre+' · '+edad+'</p>'+
+  var head='<div class="pethead"><div class="petpic">'+pic+'</div><div class="petinfo"><span class="eyebrow">'+CAL[pet.especie].st[ai][0]+(pet.nacimiento?'':' · sin fecha de nacimiento')+'</span><h3 style="font-size:2rem">'+esc(pet.nombre)+'</h3><p class="note">'+g.nombre+' · '+edad+'</p>'+
     '<dl class="petstats"><div><dt>Último peso</dt><dd>'+(lw?lw.valor+' g':'—')+'</dd></div><div><dt>Última muda</dt><dd>'+(lmu?fmtDate(lmu.fecha):'—')+'</dd></div><div><dt>Última comida</dt><dd>'+(lc?fmtDate(lc.fecha):'—')+'</dd></div><div><dt>Muda cada</dt><dd>'+(avgM?'~'+avgM+' días':'—')+'</dd></div></dl>'+
     '<a class="note" href="#guias" data-goto-tab="'+pet.especie+'">Ver la guía del '+g.nombre.toLowerCase()+'</a></div></div>';
   var tk='<div class="tasks">'+tasks.map(function(x){var lab=x.st==="nodata"?"Sin registro":x.st==="late"?"Atrasado "+(-x.days)+(x.days===-1?" día":" días"):x.st==="today"?"Hoy":"En "+x.days+(x.days===1?" día":" días");
@@ -1722,11 +1805,11 @@ function renderPets(){
     '<div class="petgrid2"><div class="gcard"><h3>Crecimiento</h3>'+weightChart(pet)+'</div><div class="gcard"><h3>Historial</h3>'+hist+'</div></div>'+care+tools;
 }
 function petICS(pet){
-  var t=petTasks(pet),c=CAL[pet.especie],g=GUIDES[pet.especie],ai=ageIndex(pet.nacimiento),ev=[];
+  var t=petTasks(pet),c=CAL[pet.especie],g=GUIDES[pet.especie],ai=stageIndex(pet.especie,pet.nacimiento),ev=[];
   var T=function(k){return t.filter(function(x){return x.t===k})[0]||{}};
   var fc=T("comida").due&&T("comida").due>=todayISO()?T("comida").due:todayISO();
-  ev.push({date:fc,title:pet.nombre+": "+c.label,every:c.feed[ai],desc:g.nombre+" · Reppets"});
-  c.extras.forEach(function(x){var n=Array.isArray(x[1])?x[1][ai]:x[1];ev.push({date:todayISO(),title:pet.nombre+": "+x[0],every:n,time:"2000"})});
+  ev.push({date:fc,title:pet.nombre+": "+c.label,every:c.st[ai][2],desc:c.st[ai][4]+" · "+g.nombre+" · Reppets"});
+  c.extras.forEach(function(x){var n=extraN(x,ai);if(n)ev.push({date:todayISO(),title:pet.nombre+": "+x[0],every:n,time:"2000"})});
   if(T("uvb").t)ev.push({date:T("uvb").due&&T("uvb").due>todayISO()?T("uvb").due:addMonths(todayISO(),pet.uvbMeses||12),title:pet.nombre+": cambiar el foco UVB"});
   ev.push({date:T("mant").due&&T("mant").due>=todayISO()?T("mant").due:addDays(todayISO(),30),title:pet.nombre+": "+(c.acuatico?"mantenimiento del acuario":"mantenimiento del bioactivo"),every:30,count:12});
   return buildICS(ev);
@@ -2097,9 +2180,9 @@ function slug(t){return String(t).toLowerCase().normalize('NFD').replace(/[\u030
 function printBtn(target,title){return pdfBtn(target,title,'reppets-'+slug(title)+'.pdf')}
 
 /* ---------- comparador de especies ---------- */
-var DIET={iguana:"Herbívora: hojas verdes y verduras",dragonagua:"Insectos y algún pescadito",real:"Roedores congelados",nariz:"Roedores congelados",boa:"Roedores y ratas congelados",boaarena:"Roedores congelados pequeños",sulcata:"Pasto, heno y hojas",rusa:"Hojas y hierbas",japonesa:"Omnívora: pellets, hojas y presas",ajolote:"Lombrices y pellets para ajolote",pacman:"Insectos y lombrices",white:"Insectos vivos",bombina:"Insectos pequeños",dardo:"Moscas de la fruta y colémbolos",leopardo:"Insectos vivos",crestado:"Papilla en polvo y algunos insectos",gargola:"Papilla en polvo e insectos",colagorda:"Insectos vivos",dragon:"Verduras diario e insectos",lenguaazul:"Omnívoro: proteína y verduras",camaleon:"Insectos vivos y agua en gotas",pitonbola:"Roedores congelados",maiz:"Roedores congelados",coralillo:"Roedores congelados"};
-var MANEJO={iguana:"Requiere paciencia; los machos en celo pueden ser agresivos",dragonagua:"Nervioso al principio; mejora con paciencia",real:"Activa; puede morder por confundir la mano con comida",nariz:"Dócil; hace teatro (se infla o se hace la muerta)",boa:"Tranquila, pero grande y fuerte de adulta",boaarena:"Muy tranquila; pasa enterrada",sulcata:"Tranquila, pero muy pesada de adulta",rusa:"Tranquila; prefiere no ser cargada",japonesa:"Para observar; puede morder",ajolote:"No se carga: solo para observar",pacman:"No se carga; muerde fuerte",white:"Tranquila; manejo breve con manos mojadas",bombina:"Solo para observar; su piel irrita",dardo:"Solo para observar",leopardo:"Tolera bien que lo carguen",crestado:"Moderado: brinca mucho",gargola:"Moderado; algunos muerden de jóvenes",colagorda:"Tranquilo, pero tímido",dragon:"Disfruta convivir fuera del terrario",lenguaazul:"Muy dócil",camaleon:"Solo para observar",pitonbola:"Tranquila",maiz:"Dócil y activa",coralillo:"Nerviosa de cría, luego se calma"};
-var CALOR={iguana:"Lo tolera bien",dragonagua:"Moderado: necesita humedad alta",real:"Lo tolera con el equipo adecuado",nariz:"Lo tolera bien",boa:"Lo tolera con el equipo adecuado",boaarena:"Lo tolera bien",sulcata:"Lo tolera bien con sombra y agua",rusa:"Lo tolera con sombra; en verano se entierra",japonesa:"Moderado: cuidar que el agua no se caliente de más",ajolote:"Muy sensible: el agua no debe pasar de 22 °C",pacman:"Moderado: no debe pasar de 30 °C",white:"Moderado: no debe pasar de 30 °C",bombina:"Sensible: no debe pasar de 26 °C",dardo:"Sensible: no debe pasar de 28 °C",leopardo:"Lo tolera con el equipo adecuado",crestado:"Sensible: no debe pasar de 28 °C",gargola:"Sensible: no debe pasar de 28 °C",colagorda:"Lo tolera con el equipo adecuado",dragon:"Lo tolera bien",lenguaazul:"Lo tolera bien",camaleon:"Moderado: necesita ventilación",pitonbola:"Lo tolera con el equipo adecuado",maiz:"Lo tolera con el equipo adecuado",coralillo:"Lo tolera con el equipo adecuado"};
+var DIET={iguana:"Herbívora: hojas verdes y verduras",dragonagua:"Insectos, hojas verdes y algún pescadito",real:"Roedores congelados",nariz:"Roedores congelados",boa:"Roedores y ratas congelados",boaarena:"Roedores congelados pequeños",sulcata:"Pasto, heno y hojas",rusa:"Hojas y hierbas",japonesa:"Omnívora: pellets, hojas y presas",ajolote:"Lombrices y pellets para ajolote",pacman:"Insectos y lombrices",white:"Insectos vivos",bombina:"Insectos pequeños",dardo:"Moscas de la fruta y colémbolos",leopardo:"Insectos vivos",crestado:"Papilla en polvo y algunos insectos",gargola:"Papilla en polvo e insectos",colagorda:"Insectos vivos",dragon:"Verduras diario e insectos",lenguaazul:"Omnívoro: proteína y verduras",camaleon:"Insectos vivos y agua en gotas",pitonbola:"Roedores congelados",maiz:"Roedores congelados",coralillo:"Roedores congelados"};
+var MANEJO={iguana:"Requiere paciencia; los machos en celo pueden ser agresivos",dragonagua:"Nervioso al principio; mejora con paciencia",real:"Activa; puede morder por confundir la mano con comida",nariz:"Dócil; hace teatro (se infla o se hace la muerta)",boa:"Tranquila, pero grande y fuerte de adulta",boaarena:"Muy tranquila; pasa enterrada",sulcata:"Tranquila, pero muy pesada de adulta",rusa:"Tranquila; prefiere no ser cargada",japonesa:"Para observar; puede morder",ajolote:"No se carga: solo para observar",pacman:"No se carga; muerde fuerte",white:"Tranquila; manejo breve con manos mojadas",bombina:"Solo para observar; su piel irrita",dardo:"Solo para observar",leopardo:"Tolera bien que lo carguen",crestado:"Moderado: brinca mucho",gargola:"Moderado; casi nunca muerde si no se le molesta",colagorda:"Tranquilo, pero tímido",dragon:"Disfruta convivir fuera del terrario",lenguaazul:"Muy dócil",camaleon:"Solo para observar",pitonbola:"Tranquila",maiz:"Dócil y activa",coralillo:"Nerviosa de cría, luego se calma"};
+var CALOR={iguana:"Lo tolera bien",dragonagua:"Moderado: necesita humedad alta",real:"Lo tolera con el equipo adecuado",nariz:"Lo tolera bien",boa:"Lo tolera con el equipo adecuado",boaarena:"Lo tolera bien",sulcata:"Lo tolera bien con sombra y agua",rusa:"Lo tolera con sombra; en verano se entierra",japonesa:"Moderado: cuidar que el agua no se caliente de más",ajolote:"Muy sensible: el agua no debe pasar de 22 °C",pacman:"Moderado: no debe pasar de 30 °C",white:"Moderado: no debe pasar de 30 °C",bombina:"Sensible: no debe pasar de 26 °C",dardo:"Sensible: no debe pasar de 27 °C",leopardo:"Lo tolera con el equipo adecuado",crestado:"Sensible: no debe pasar de 28 °C",gargola:"Sensible: no debe pasar de 30 °C",colagorda:"Lo tolera con el equipo adecuado",dragon:"Lo tolera bien",lenguaazul:"Lo tolera bien",camaleon:"Moderado: necesita ventilación",pitonbola:"Lo tolera con el equipo adecuado",maiz:"Lo tolera con el equipo adecuado",coralillo:"Lo tolera con el equipo adecuado"};
 var cmpView={a:"leopardo",b:"crestado"};
 function cmpSection(){
   var opts=function(sel){return Object.keys(GUIDES).map(function(k){return '<option value="'+k+'"'+(k===sel?" selected":"")+'>'+GUIDES[k].nombre+'</option>'}).join("")};
@@ -2113,7 +2196,7 @@ function renderCmp(){
   var a=cmpView.a,b=cmpView.b,A=GUIDES[a],B=GUIDES[b];
   var rows=[["También le dicen",A.alias,B.alias],["Tamaño",fichaVal(a,"Tamaño"),fichaVal(b,"Tamaño")],["Vida",fichaVal(a,"Vida"),fichaVal(b,"Vida")],["Actividad",fichaVal(a,"Actividad"),fichaVal(b,"Actividad")],["Terrario",fichaVal(a,"Terrario"),fichaVal(b,"Terrario")],["Nivel",fichaVal(a,"Nivel"),fichaVal(b,"Nivel")],
     ["Temperatura",bandsText(A.temp," °C"),bandsText(B.temp," °C")],["Humedad",bandsText(A.hum," %"),bandsText(B.hum," %")],["Alimentación",DIET[a],DIET[b]],
-    ["Comida de un adulto","Cada "+CAL[a].feed[2]+(CAL[a].feed[2]===1?" día":" días"),"Cada "+CAL[b].feed[2]+(CAL[b].feed[2]===1?" día":" días")],["Manejo",MANEJO[a],MANEJO[b]],["Calor del verano en N.L.",CALOR[a],CALOR[b]]];
+    ["Comida de un adulto",everyTxt(CAL[a].st[CAL[a].st.length-1][2],CAL[a].st[CAL[a].st.length-1][3]),everyTxt(CAL[b].st[CAL[b].st.length-1][2],CAL[b].st[CAL[b].st.length-1][3])],["Manejo",MANEJO[a],MANEJO[b]],["Calor del verano en N.L.",CALOR[a],CALOR[b]]];
   $("#cmpArea").innerHTML='<div class="cmp"><div class="cmprow cmphead"><span></span><div><div class="cmppic">'+speciesPic(a)+'</div><h3>'+A.nombre+'</h3><span class="sci">'+A.sci+'</span></div><div><div class="cmppic">'+speciesPic(b)+'</div><h3>'+B.nombre+'</h3><span class="sci">'+B.sci+'</span></div></div>'+
     rows.map(function(r){return '<div class="cmprow"><span class="cmplab">'+r[0]+'</span><div>'+esc(r[1])+'</div><div>'+esc(r[2])+'</div></div>'}).join("")+'</div>'+
     '<div class="actions noprint" style="margin-top:18px"><a class="btn btn-ghost" href="#guias" data-goto-tab="'+a+'">Guía: '+A.nombre+'</a><a class="btn btn-ghost" href="#guias" data-goto-tab="'+b+'">Guía: '+B.nombre+'</a>'+printBtn("cmpArea","Comparación: "+A.nombre+" vs "+B.nombre)+'</div>';
