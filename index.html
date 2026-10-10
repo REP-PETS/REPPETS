@@ -443,6 +443,7 @@ body.printing{background:#fff}
 .pvmode .noprint,.pvmode .pr-body button,.pvmode .pr-body .actions{display:none!important}
 .lgimg{display:block;height:auto}
 @media print{.pv-bar{display:none!important}}
+.cardform{max-width:440px;width:calc(100% - 32px);display:flex;flex-direction:column;align-items:center;gap:12px;max-height:92vh;overflow:auto;padding:4px}
 .gauth{max-width:640px}
 .guidesel{display:none;max-width:420px;margin-bottom:18px}
 .guidesel select{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:.7rem .8rem;font-size:1rem}
@@ -1494,7 +1495,7 @@ function fileReady(name,blob,pid,ptitle){
   var canShare=!!(file&&navigator.canShare&&navigator.canShare({files:[file]}));
   fileReadyState={name:name,blob:blob,file:file,url:URL.createObjectURL(blob),pid:pid,ptitle:ptitle};
   var ov=document.createElement("div");ov.className="pdfwait";ov.id="fileReady";
-  ov.innerHTML='<div style="max-width:340px;padding:0 20px"><span class="logo logo-emb" style="width:54px;animation:none"></span><b style="font-size:1.15rem">Tu archivo está listo</b><span class="note">'+esc(name)+'</span>'+
+  ov.innerHTML='<div style="max-width:340px;padding:0 20px">'+(/^image\//.test(blob.type)?'<img src="'+fileReadyState.url+'" alt="Vista previa" style="max-height:42vh;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,.25)">':'<span class="logo logo-emb" style="width:54px;animation:none"></span>')+'<b style="font-size:1.15rem">Tu archivo está listo</b><span class="note">'+esc(name)+'</span>'+
     '<div style="display:flex;flex-direction:column;gap:10px;width:100%;margin-top:6px">'+
     (canShare?'<button class="btn btn-primary" data-fr="share">Guardar o compartir</button>':'')+
     '<button class="btn '+(canShare?'btn-ghost':'btn-primary')+'" data-fr="dl">Descargar</button>'+
@@ -1510,6 +1511,83 @@ document.addEventListener("click",function(e){
   if(a==="open"){var w=window.open(f.url,"_blank");if(!w)location.href=f.url;return}
   if(a==="print"){var o2=document.getElementById("fileReady");if(o2)o2.remove();(IS_IOS?printView:printDoc)(document.getElementById(f.pid),f.ptitle);return}
   if(a==="close"){var o=document.getElementById("fileReady");if(o)o.remove();setTimeout(function(){URL.revokeObjectURL(f.url)},60000);fileReadyState=null}
+});
+/* ---------- Credencial para Instagram (imagen 1080 × 1920) ---------- */
+var cardState=null;
+function petAgeText(b){if(!b)return "";var d=daysBetween(b,todayISO()),m=Math.floor(d/30.4);return m<1?d+" días":(m<24?m+" meses":Math.floor(m/12)+" años")}
+function openCardForm(pet){
+  cardState={pet:pet,foto:pet.foto||""};
+  var old=document.getElementById("cardForm");if(old)old.remove();
+  var ov=document.createElement("div");ov.className="pdfwait";ov.id="cardForm";
+  ov.innerHTML='<div class="cardform"><b style="font-size:1.2rem">Credencial de '+esc(pet.nombre)+'</b><span class="note">Una imagen tamaño historia para compartir en Instagram o WhatsApp.</span>'+
+    '<div class="fgrid" style="width:100%;text-align:left">'+
+    '<div class="field"><label for="cSexo">Sexo</label><select id="cSexo">'+["","Macho","Hembra","Sin sexar"].map(function(x){return '<option value="'+x+'"'+((pet.sexo||"")===x?" selected":"")+'>'+(x||"No mostrar")+'</option>'}).join("")+'</select></div>'+
+    '<div class="field"><label for="cMorfo">Morfo o fase (opcional)</label><input id="cMorfo" maxlength="40" value="'+esc(pet.morfo||"")+'" placeholder="Ej. Tangerine, Harlequin"></div>'+
+    '<div class="field full"><label for="cFrase">Frase (opcional)</label><input id="cFrase" maxlength="60" value="'+esc(pet.frase||"")+'" placeholder="Ej. El rey del terrario"></div>'+
+    '<div class="field full"><label for="cFoto">Foto '+(pet.foto?'(ya tiene una; puedes cambiarla)':'(si no pones, usamos un dibujo)')+'</label><input type="file" id="cFoto" accept="image/*"></div>'+
+    '</div><div style="display:flex;flex-direction:column;gap:10px;width:100%"><button class="btn btn-primary" data-card="make">Crear credencial</button><button class="mini" data-card="close" style="padding:.5rem 1rem">Cancelar</button></div></div>';
+  document.body.appendChild(ov);
+}
+function loadImg(src){return new Promise(function(ok,no){var i=new Image();i.onload=function(){ok(i)};i.onerror=no;i.src=src})}
+function rrect(x,X,y,w,h,r){x.beginPath();x.moveTo(X+r,y);x.arcTo(X+w,y,X+w,y+h,r);x.arcTo(X+w,y+h,X,y+h,r);x.arcTo(X,y+h,X,y,r);x.arcTo(X,y,X+w,y,r);x.closePath()}
+function wrapText(x,t,maxW){var w=t.split(" "),lines=[],cur="";w.forEach(function(p){var test=cur?cur+" "+p:p;if(x.measureText(test).width>maxW&&cur){lines.push(cur);cur=p}else cur=test});if(cur)lines.push(cur);return lines}
+function makeCard(d){
+  var W=1080,H=1920,c=document.createElement("canvas");c.width=W;c.height=H;var x=c.getContext("2d");
+  var g=GUIDES[d.especie]||{nombre:"",sci:""};
+  var photoSrc=d.foto||("data:image/svg+xml;charset=utf-8,"+encodeURIComponent(speciesScene(d.especie)));
+  var fontsReady=(document.fonts&&document.fonts.load)?Promise.all([document.fonts.load('700 120px Poppins'),document.fonts.load('600 40px Nunito'),document.fonts.load('600 32px "JetBrains Mono"')]).catch(function(){}):Promise.resolve();
+  return Promise.all([loadImg(photoSrc),logoPNG("logo-full","#F4EFE4"),logoPNG("logo-emb","#EECD35"),fontsReady]).then(function(r){
+    var img=r[0],lfull=r[1],lemb=r[2];
+    var grd=x.createLinearGradient(0,0,0,H);grd.addColorStop(0,"#2B2B0E");grd.addColorStop(1,"#373713");x.fillStyle=grd;x.fillRect(0,0,W,H);
+    // marca de agua grande
+    x.fillStyle="#EECD35";rrect(x,0,0,W,14,0);x.fill();
+    // logo
+    var pLogo=lfull?loadImg(lfull.url):Promise.resolve(null),pEmb=lemb?loadImg(lemb.url):Promise.resolve(null);
+    return Promise.all([pLogo,pEmb]).then(function(L){
+      if(L[1]){x.save();x.globalAlpha=.08;var ew=900,eh=ew*L[1].height/L[1].width;x.translate(W/2,H*0.62);x.rotate(-0.25);x.drawImage(L[1],-ew/2,-eh/2,ew,eh);x.restore()}
+      if(L[0]){var lw=420,lh=lw*L[0].height/L[0].width;x.drawImage(L[0],(W-lw)/2,90,lw,lh)}
+      x.fillStyle="#F1FF9A";x.font='600 30px "JetBrains Mono", monospace';x.textAlign="center";x.fillText("CREDENCIAL DE MASCOTA",W/2,400);
+      // foto
+      var px=110,py=450,pw=W-220,ph=760;
+      x.save();x.fillStyle="#F4EFE4";rrect(x,px-12,py-12,pw+24,ph+24,48);x.fill();rrect(x,px,py,pw,ph,40);x.clip();
+      var s=Math.max(pw/img.width,ph/img.height),iw=img.width*s,ih=img.height*s;x.drawImage(img,px+(pw-iw)/2,py+(ph-ih)/2,iw,ih);x.restore();
+      // sello
+      x.save();x.translate(W-190,py+ph-95);x.rotate(-0.18);x.fillStyle="#EECD35";x.beginPath();x.arc(0,0,105,0,Math.PI*2);x.fill();x.fillStyle="#373713";x.font='700 30px Poppins, sans-serif';x.textAlign="center";x.fillText("REPPETS",0,-6);x.font='600 22px "JetBrains Mono", monospace';x.fillText("FAMILY",0,28);x.restore();
+      // nombre
+      var y=py+ph+150;x.textAlign="center";x.fillStyle="#F4EFE4";
+      var fs=130;x.font='700 '+fs+'px Poppins, sans-serif';while(x.measureText(d.nombre).width>W-140&&fs>60){fs-=6;x.font='700 '+fs+'px Poppins, sans-serif'}
+      x.fillText(d.nombre,W/2,y);
+      y+=80;x.fillStyle="#EECD35";x.font='600 48px Poppins, sans-serif';x.fillText(g.nombre,W/2,y);
+      y+=50;x.fillStyle="#C9C6A0";x.font='italic 400 32px Nunito, sans-serif';x.fillText(g.sci.split(" (")[0],W/2,y);
+      // chips
+      var chips=[d.sexo,d.morfo,d.edad].filter(Boolean);y+=70;
+      if(chips.length){x.font='600 34px Nunito, sans-serif';var gap=20,ws=chips.map(function(t){return x.measureText(t).width+60}),tot=ws.reduce(function(a,b){return a+b},0)+gap*(chips.length-1),cx=(W-tot)/2;
+        chips.forEach(function(t,i){x.fillStyle="rgba(241,255,154,.14)";rrect(x,cx,y-48,ws[i],70,35);x.fill();x.strokeStyle="#F1FF9A";x.lineWidth=2;x.stroke();x.fillStyle="#F1FF9A";x.fillText(t,cx+ws[i]/2,y);cx+=ws[i]+gap});y+=60}
+      if(d.frase){y+=40;x.fillStyle="#F4EFE4";x.font='italic 600 42px Nunito, sans-serif';wrapText(x,"“"+d.frase+"”",W-200).slice(0,2).forEach(function(l){x.fillText(l,W/2,y);y+=56})}
+      // pie
+      x.fillStyle="#EECD35";x.fillRect(0,H-210,W,210);
+      x.fillStyle="#373713";x.font='700 46px Poppins, sans-serif';x.fillText("Conecta. Cuida. Inspira.",W/2,H-130);
+      x.font='600 34px "JetBrains Mono", monospace';x.fillText("@"+STATE.settings.instagram+" · reppets.vercel.app",W/2,H-70);
+      return new Promise(function(ok){c.toBlob(function(b){ok(b)},"image/png")});
+    });
+  });
+}
+document.addEventListener("change",function(e){
+  if(e.target.id==="cFoto"&&e.target.files&&e.target.files[0]&&cardState){resizeImage(e.target.files[0],function(u){cardState.foto=u;toast("Foto lista")})}
+});
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("[data-card]");if(!b||!cardState)return;
+  var a=b.getAttribute("data-card"),ov=document.getElementById("cardForm");
+  if(a==="close"){if(ov)ov.remove();cardState=null;return}
+  if(a==="make"){
+    var p=cardState.pet,sexo=$("#cSexo").value,morfo=$("#cMorfo").value.trim(),frase=$("#cFrase").value.trim();
+    var L=pets().map(function(z){if(z.id===p.id){z.sexo=sexo;z.morfo=morfo;z.frase=frase;if(cardState.foto&&!z.foto)z.foto=cardState.foto}return z});savePets(L);
+    b.disabled=true;b.textContent="Creando…";
+    makeCard({nombre:p.nombre,especie:p.especie,foto:cardState.foto,sexo:sexo,morfo:morfo,frase:frase,edad:petAgeText(p.nacimiento)}).then(function(blob){
+      if(ov)ov.remove();cardState=null;if(!blob)throw new Error("vacía");
+      if(IN_CLAUDE)saveFile("credencial-"+slug(p.nombre)+".png",blob,"image/png");else fileReady("credencial-"+slug(p.nombre)+".png",blob);
+    }).catch(function(){b.disabled=false;b.textContent="Crear credencial";toast("No se pudo crear la imagen; intenta con otra foto")});
+  }
 });
 function pdfFallback(pid,title,why){
   var old=document.getElementById("fileReady");if(old)old.remove();
@@ -1881,7 +1959,7 @@ function renderPets(){
   var noU=CAL[pet.especie].noUvb||pet.uvbMeses===0;var acts='<div class="actions quick">'+Object.keys(LOGT).filter(function(t){return !(t==="uvb"&&noU)}).map(function(t){return '<button class="btn btn-ghost" data-log="'+t+'">'+LOGT[t][0]+'</button>'}).join("")+'</div>';
   var logs=(pet.logs||[]).slice().sort(function(a,b){return a.fecha<b.fecha?1:-1});
   var hist='<ul class="hist">'+(logs.length?logs.slice(0,40).map(function(x){return '<li><span class="hdate">'+fmtDate(x.fecha)+'</span><span><b>'+LOGT[x.t][0]+'</b>'+(x.valor?' · '+esc(x.valor)+(x.t==="peso"?" g":""):'')+'</span><button class="mini" data-logdel="'+x.id+'" aria-label="Borrar registro">Borrar</button></li>'}).join(""):'<li class="note">Aún no hay registros. Use los botones de arriba.</li>')+'</ul>';
-  var tools='<div class="actions">'+printBtn("petArea","Registro de "+pet.nombre)+'<button class="btn btn-dark" data-petics>Agregar recordatorios a mi calendario</button><button class="btn btn-ghost" data-petbackup>Descargar respaldo</button><label class="btn btn-ghost" style="cursor:pointer">Restaurar respaldo<input type="file" id="petRestore" accept="application/json,.json" hidden></label>'+
+  var tools='<div class="actions"><button class="btn btn-primary" data-petcard>Credencial para Instagram</button>'+printBtn("petArea","Registro de "+pet.nombre)+'<button class="btn btn-dark" data-petics>Agregar recordatorios a mi calendario</button><button class="btn btn-ghost" data-petbackup>Descargar respaldo</button><label class="btn btn-ghost" style="cursor:pointer">Restaurar respaldo<input type="file" id="petRestore" accept="application/json,.json" hidden></label>'+
     (pv.del?'<span class="note" style="align-self:center">¿Borrar a '+esc(pet.nombre)+' y todo su registro?</span><button class="btn btn-ghost" data-petdelyes style="color:var(--bad)">Sí, borrar</button><button class="btn btn-ghost" data-petdelno>Cancelar</button>':'<button class="btn btn-ghost" data-petdel style="color:var(--bad)">Borrar mascota</button>')+'</div>'+
     '<p class="note">Próximamente: avisos por correo cuando toque cambiar el foco UVB o dar mantenimiento.</p>';
   var care='<div class="sec-head" style="margin:34px 0 14px"><span class="eyebrow">Cuidados de su '+g.nombre.toLowerCase()+'</span><h3 style="font-size:1.5rem">Lo que necesita '+esc(pet.nombre)+'</h3></div><div class="gcards">'+
@@ -2234,6 +2312,7 @@ document.addEventListener("click",function(e){
   }
   if((b=t.closest("[data-logdel]"))){var L3=pets(),p3=L3.filter(function(x){return x.id===pv.sel})[0],id=b.getAttribute("data-logdel");p3.logs=p3.logs.filter(function(x){return x.id!==id});savePets(L3);renderPets();return}
   if(t.closest("[data-petics]")){var cp=curPet();saveFile("recordatorios-"+cp.nombre.toLowerCase().replace(/[^a-z0-9]+/g,"-")+".ics",petICS(cp),"text/calendar");return}
+  if(t.closest("[data-petcard]")){openCardForm(curPet());return}
   if(t.closest("[data-petbackup]")){saveFile("respaldo-mi-reptil-"+todayISO()+".json",JSON.stringify({app:"reppets",v:1,pets:pets()},null,1),"application/json");return}
   if(t.closest("[data-petdel]")){pv.del=true;renderPets();return}
   if(t.closest("[data-petdelno]")){pv.del=false;renderPets();return}
