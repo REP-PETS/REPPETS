@@ -1472,6 +1472,31 @@ function addMonths(s,n){var d=parseISO(s);d.setMonth(d.getMonth()+n);return isoD
 function daysBetween(a,b){return Math.round((parseISO(b)-parseISO(a))/86400000)}
 function fmtDate(s){try{return parseISO(s).toLocaleDateString("es-MX",{day:"numeric",month:"short",year:"numeric"})}catch(e){return s}}
 function isoWeek(d){var t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));var n=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-n);var y=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+"-S"+Math.ceil(((t-y)/86400000+1)/7)}
+var IS_IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+var fileReadyState=null;
+function fileReady(name,blob){
+  var old=document.getElementById("fileReady");if(old)old.remove();
+  if(fileReadyState)URL.revokeObjectURL(fileReadyState.url);
+  var file=null;try{file=new File([blob],name,{type:blob.type})}catch(e){}
+  var canShare=!!(file&&navigator.canShare&&navigator.canShare({files:[file]}));
+  fileReadyState={name:name,blob:blob,file:file,url:URL.createObjectURL(blob)};
+  var ov=document.createElement("div");ov.className="pdfwait";ov.id="fileReady";
+  ov.innerHTML='<div style="max-width:340px;padding:0 20px"><span class="logo logo-emb" style="width:54px;animation:none"></span><b style="font-size:1.15rem">Tu archivo está listo</b><span class="note">'+esc(name)+'</span>'+
+    '<div style="display:flex;flex-direction:column;gap:10px;width:100%;margin-top:6px">'+
+    (canShare?'<button class="btn btn-primary" data-fr="share">Guardar o compartir</button>':'')+
+    '<button class="btn '+(canShare?'btn-ghost':'btn-primary')+'" data-fr="dl">Descargar</button>'+
+    '<button class="btn btn-ghost" data-fr="open">Abrir para ver o imprimir</button>'+
+    '<button class="mini" data-fr="close" style="padding:.5rem 1rem;margin-top:4px">Cerrar</button></div></div>';
+  document.body.appendChild(ov);
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest&&e.target.closest("[data-fr]");if(!b||!fileReadyState)return;
+  var a=b.getAttribute("data-fr"),f=fileReadyState;
+  if(a==="share"){navigator.share({files:[f.file],title:f.name}).catch(function(){});return}
+  if(a==="dl"){var l=document.createElement("a");l.href=f.url;l.download=f.name;document.body.appendChild(l);l.click();setTimeout(function(){l.remove()},500);toast("Descargando "+f.name);return}
+  if(a==="open"){var w=window.open(f.url,"_blank");if(!w)location.href=f.url;return}
+  if(a==="close"){var o=document.getElementById("fileReady");if(o)o.remove();setTimeout(function(){URL.revokeObjectURL(f.url)},60000);fileReadyState=null}
+});
 function saveFile(name,text,mime){
   if(IN_CLAUDE){
     window.claude.use("downloads").then(function(d){
@@ -1480,6 +1505,7 @@ function saveFile(name,text,mime){
     }).catch(function(e){toast(e&&e.code==="rejected_extension"?"Este tipo de archivo se descarga desde la página pública":"No se pudo descargar aquí")});
     return;
   }
+  if(IS_IOS){fileReady(name,(text instanceof Blob)?text:new Blob([text],{type:mime||"text/plain"}));return}
   try{var b=(text instanceof Blob)?text:new Blob([text],{type:mime||"text/plain"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(u);a.remove()},500);toast("Descargando "+name)}catch(e){toast("No se pudo descargar")}
 }
 function icsEsc(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\;").replace(/,/g,"\\,").replace(/\n/g,"\\n")}
@@ -2315,7 +2341,7 @@ function exportPDF(el,title,file){
       doc.setFontSize(7.5);doc.setTextColor(104,96,47);doc.text(foot,mx,H-7.5);doc.text("Página "+(n+1)+" de "+pages.length,W-mx,H-7.5,{align:"right"});
       if(o.lfull){doc.setGState(new doc.GState({opacity:.07}));var ww=140,hh=ww*o.lfull.h/o.lfull.w;doc.addImage(o.lfull.url,"PNG",(W-ww)/2,(H-hh)/2,ww,hh);doc.setGState(new doc.GState({opacity:1}))}
     });
-    saveFile(file,doc.output("blob"),"application/pdf");
+    if(IN_CLAUDE)saveFile(file,doc.output("blob"),"application/pdf");else fileReady(file,doc.output("blob"));
   }).catch(function(err){restore();toast("No se pudo generar el PDF. Revise su conexión e intente de nuevo.")});
 }
 document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pdf]");if(b){exportPDF(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"),b.getAttribute("data-pfile"))}});
