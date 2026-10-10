@@ -430,6 +430,19 @@ nav.links a.on{color:var(--fg);background:var(--sunk);font-weight:700}
 .frow b{font-size:.92rem}.frow .fevery{font:600 .8rem/1.3 var(--mono);color:var(--fg)}.frow .fpor{font-size:.9rem;color:var(--muted)}
 .frow.on{border-color:var(--leaf);box-shadow:inset 3px 0 0 var(--leaf)}
 @media (max-width:640px){.frow{grid-template-columns:1fr}}
+body.printing>*:not(#printRoot){display:none!important}
+body.printing{background:#fff}
+#printRoot.pvmode{--bg:#fff;--surface:#fff;--sunk:#F1EDE3;--fg:#1d1d0c;--muted:#5a5530;--line:#d9d3c2;--brand:#373713;--moss:#373713;--moss-ink:#F4EFE4;--leaf:#978F15;--pill-ink:#fff;color-scheme:light;background:#fff;display:block;position:relative;max-width:820px;margin:0 auto;padding:0 16px 40px;min-height:100vh;color:#1d1d0c}
+.pv-bar{position:sticky;top:0;z-index:30;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 0;margin-bottom:12px;background:#F4EFE4;border-bottom:1px solid #d9d3c2}
+.pvmode .pr-wm{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:0}
+.pvmode .pr-wm .logo,.pvmode .pr-wm img{width:62%;opacity:.07;transform:rotate(-18deg)}
+.pvmode .pr-head{display:flex;align-items:center;gap:10px;border-bottom:2px solid #373713;padding-bottom:8px;margin-bottom:14px;position:relative;z-index:1}
+.pvmode .pr-head .logo-emb{width:34px}.pvmode .pr-head .logo-word{width:110px}
+.pvmode .pr-title{margin-left:auto;text-align:right;display:flex;flex-direction:column;font-size:.85rem}
+.pvmode .pr-body{position:relative;z-index:1}.pvmode .pr-foot{font-size:.75rem;color:#5a5530;border-top:1px solid #d9d3c2;padding-top:6px;margin-top:20px}
+.pvmode .noprint,.pvmode .pr-body button,.pvmode .pr-body .actions{display:none!important}
+.lgimg{display:block;height:auto}
+@media print{.pv-bar{display:none!important}}
 .gauth{max-width:640px}
 .guidesel{display:none;max-width:420px;margin-bottom:18px}
 .guidesel select{border:1.5px solid var(--line);background:var(--surface);border-radius:10px;padding:.7rem .8rem;font-size:1rem}
@@ -1490,12 +1503,12 @@ function fileReady(name,blob,pid,ptitle){
   document.body.appendChild(ov);
 }
 document.addEventListener("click",function(e){
-  var b=e.target.closest&&e.target.closest("[data-fr]");if(!b)return;if(b.getAttribute("data-fr")==="fallback"){var fo=document.getElementById("fileReady");if(fo)fo.remove();printDoc(document.getElementById(b.getAttribute("data-pid")),b.getAttribute("data-ptitle"));return}if(b.getAttribute("data-fr")==="fbclose"){var fc=document.getElementById("fileReady");if(fc)fc.remove();return}if(!fileReadyState)return;
+  var b=e.target.closest&&e.target.closest("[data-fr]");if(!b)return;if(b.getAttribute("data-fr")==="fallback"){var fo=document.getElementById("fileReady");if(fo)fo.remove();(IS_IOS?printView:printDoc)(document.getElementById(b.getAttribute("data-pid")),b.getAttribute("data-ptitle"));return}if(b.getAttribute("data-fr")==="fbclose"){var fc=document.getElementById("fileReady");if(fc)fc.remove();return}if(!fileReadyState)return;
   var a=b.getAttribute("data-fr"),f=fileReadyState;
   if(a==="share"){navigator.share({files:[f.file],title:f.name}).catch(function(){});return}
   if(a==="dl"){var l=document.createElement("a");l.href=f.url;l.download=f.name;document.body.appendChild(l);l.click();setTimeout(function(){l.remove()},500);toast("Descargando "+f.name);return}
   if(a==="open"){var w=window.open(f.url,"_blank");if(!w)location.href=f.url;return}
-  if(a==="print"){var o2=document.getElementById("fileReady");if(o2)o2.remove();printDoc(document.getElementById(f.pid),f.ptitle);return}
+  if(a==="print"){var o2=document.getElementById("fileReady");if(o2)o2.remove();(IS_IOS?printView:printDoc)(document.getElementById(f.pid),f.ptitle);return}
   if(a==="close"){var o=document.getElementById("fileReady");if(o)o.remove();setTimeout(function(){URL.revokeObjectURL(f.url)},60000);fileReadyState=null}
 });
 function pdfFallback(pid,title,why){
@@ -2235,6 +2248,22 @@ document.addEventListener("change",function(e){
 });
 
 /* ---------- impresión con marca de agua ---------- */
+function printView(el,title){
+  if(!el)return;var old=document.getElementById("printRoot");if(old)return;
+  var root=document.createElement("div");root.id="printRoot";root.className="pvmode";
+  root.innerHTML='<div class="pv-bar"><button type="button" class="btn btn-primary" data-pv="print">Guardar como PDF</button><button type="button" class="btn btn-ghost" data-pv="back">Volver</button><span class="note">Toca Guardar, luego Compartir → Guardar en Archivos.</span></div>'+
+    '<div class="pr-wm" aria-hidden="true"><span class="logo logo-full" data-lg="logo-full"></span></div>'+
+    '<div class="pr-head"><span class="logo logo-emb" data-lg="logo-emb"></span><span class="logo logo-word" data-lg="logo-word"></span><div class="pr-title"><b>'+esc(title)+'</b><span>'+fmtDate(todayISO())+'</span></div></div>';
+  var ph=document.createComment("print"),body=document.createElement("div");body.className="pr-body";
+  el.parentNode.insertBefore(ph,el);body.appendChild(el);root.appendChild(body);
+  root.insertAdjacentHTML("beforeend",'<div class="pr-foot">Reppets · '+esc(ciudad())+(waDigits()?' · WhatsApp '+esc(prettyPhone()):'')+' · @'+esc(STATE.settings.instagram)+' · reppets.vercel.app</div>');
+  document.body.appendChild(root);document.body.classList.add("printing");window.scrollTo(0,0);
+  pvState={el:el,ph:ph,root:root};
+  [].slice.call(root.querySelectorAll("[data-lg]")).forEach(function(sp){logoPNG(sp.getAttribute("data-lg"),"#373713").then(function(o){if(!o)return;var im=new Image();im.src=o.url;im.alt="";im.className=sp.className.replace("logo ","")+" lgimg";sp.parentNode.replaceChild(im,sp)})});
+}
+var pvState=null;
+function closePrintView(){var p=pvState;if(!p)return;if(p.ph.parentNode){p.ph.parentNode.insertBefore(p.el,p.ph);p.ph.remove()}p.root.remove();document.body.classList.remove("printing");pvState=null}
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pv]");if(!b)return;if(b.getAttribute("data-pv")==="print"){window.print();return}closePrintView()});
 function printDoc(el,title){
   if(IN_CLAUDE){toast("Imprima o guarde el PDF desde la página pública de Reppets");return}
   if(!el)return;
@@ -2378,7 +2407,7 @@ function exportPDF(el,title,file){
   }).catch(function(err){clearTimeout(guard);if(failed)return;restore();try{console.error("PDF",err)}catch(e){}if(IN_CLAUDE){toast("No se pudo generar el PDF");return}pdfFallback(pid,title,(err&&err.message)||"error")});
 }
 var IS_SAFARI=/^((?!chrome|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
-document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pdf]");if(b&&!IN_CLAUDE&&(IS_SAFARI||IS_IOS)){toast(IS_IOS?"En la ventana toca Compartir y luego Guardar en Archivos":"En la ventana de impresión elige PDF → Guardar como PDF");printDoc(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"));return}if(b){exportPDF(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"),b.getAttribute("data-pfile"))}});
+document.addEventListener("click",function(e){var b=e.target.closest&&e.target.closest("[data-pdf]");if(b&&!IN_CLAUDE&&IS_IOS){printView(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"));return}if(b&&!IN_CLAUDE&&IS_SAFARI){toast("En la ventana de impresión elige PDF → Guardar como PDF");printDoc(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"));return}if(b){exportPDF(document.getElementById(b.getAttribute("data-pdf")),b.getAttribute("data-ptitle"),b.getAttribute("data-pfile"))}});
 
 /* ---------- admin ---------- */
 var EDITABLE=false, ART=null, draft=null, editing=null, pendingDel=null;
