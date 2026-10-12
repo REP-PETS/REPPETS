@@ -1413,28 +1413,63 @@ function renderQuiz(){
 }
 
 /* builder */
-var BASES={"30x30":[30,30,"Para crías"],"45x45":[45,45,""],"60x45":[60,45,""],"90x45":[90,45,""]};
-var SPECIES={leopardo:["Gecko leopardo","90x45",45,"desierto"],crestado:["Gecko crestado","45x45",60,"selva"],otro:["Otra especie",null,45,"selva"],nose:["Aún no sé",null,45,"selva"]};
+var BASES={"30x30":[30,30,""],"45x45":[45,45,""],"60x45":[60,45,""],"90x45":[90,45,""]};
+/* Recomendación por especie: [base, altura, "ok" | "cria" | "no", nota] */
+var FIT={
+ leopardo:["90x45",45,"ok"],crestado:["45x45",90,"ok"],gargola:["45x45",90,"ok"],colagorda:["90x45",45,"ok"],
+ chahoua:["90x45",90,"ok"],leachianus:["90x45",90,"ok","Un leachianus grande necesita base de 120 × 60 cm y 120 cm de alto; ese te lo cotizamos a medida."],
+ grandis:["90x45",120,"ok"],standingi:["90x45",120,"ok"],laticauda:["30x30",45,"ok"],tokay:["90x45",120,"ok","Si tu tokay mide más de 30 cm, lo ideal es 90 × 60 × 120 cm; ese te lo cotizamos a medida."],
+ dragon:["90x45",45,"cria","Un dragón barbudo adulto necesita 180 × 60 × 60 cm. Nuestras bases le sirven mientras es cría o juvenil; para adulto te cotizamos uno a medida."],
+ lenguaazul:["90x45",45,"cria","Un lengua azul adulto necesita 180 × 60 × 60 cm. Nuestras bases le sirven mientras es joven; para adulto te cotizamos uno a medida."],
+ camaleon:["60x45",120,"cria","Un camaleón adulto necesita jaula de malla de 60 × 60 × 120 cm. Esta medida le sirve de joven; para adulto te cotizamos uno a medida."],
+ uromastyx:["90x45",60,"cria","Un uromastyx adulto necesita base de 120 × 60 cm; para adulto te cotizamos uno a medida."],
+ iguana:["90x45",120,"no","La iguana necesita un recinto grande desde cría (120 × 60 × 120 cm) y de adulta casi un cuarto. Te cotizamos uno a medida."],
+ dragonagua:["90x45",120,"no","El dragón de agua adulto necesita 180 × 90 × 180 cm. Te cotizamos un recinto a medida."],
+ tegu:["90x45",60,"no","El tegu adulto necesita un recinto de 240 × 120 cm. Te cotizamos uno a medida."],
+ maiz:["90x45",45,"cria","Una maicera adulta necesita 120 × 60 × 60 cm. Nuestras bases le sirven mientras es cría o juvenil."],
+ pitonbola:["90x45",45,"cria","Una pitón bola adulta necesita 120 × 60 × 60 cm. Nuestras bases le sirven mientras es joven."],
+ real:["90x45",45,"cria","Una culebra real adulta necesita 120 × 60 × 60 cm. Nuestras bases le sirven mientras es joven."],
+ coralillo:["90x45",45,"cria","Un falso coralillo grande necesita 120 × 60 × 60 cm. Nuestras bases le sirven mientras es joven."],
+ nariz:["90x45",45,"ok","La base de 90 × 45 cm es perfecta para un macho; una hembra adulta necesita 120 × 60 cm."],
+ boaarena:["60x45",30,"ok","Un macho vive bien en 60 × 45 cm; para hembra recomendamos 90 × 45 cm."],
+ boa:["90x45",60,"cria","Una boa joven necesita 120 × 60 × 60 cm y de adulta 180 × 90 × 120 cm. Nuestras bases le sirven solo de cría."],
+ arcoiris:["90x45",60,"cria","Una boa arcoíris adulta necesita 180 × 90 × 90 cm. Nuestras bases le sirven mientras es joven."],
+ alfombra:["90x45",60,"cria","Una pitón alfombra adulta necesita 200 × 90 × 90 cm. Nuestras bases le sirven mientras es joven."],
+ rusa:["90x45",30,"no","Una tortuga rusa necesita mucho piso (120 × 60 cm de joven, 240 × 120 cm de adulta). Te cotizamos un corral a medida."],
+ patasrojas:["90x45",45,"no","La tortuga de patas rojas adulta necesita 240 × 120 cm de piso o un corral en patio. Te cotizamos uno a medida."],
+ leopardotortuga:["90x45",30,"no","La tortuga leopardo necesita 120 × 60 cm de cría y de adulta un corral en patio. Te cotizamos uno a medida."],
+ sulcata:["90x45",30,"no","La sulcata crece muchísimo: de cría necesita 240 × 120 cm y de adulta un patio. Te cotizamos un corral a medida."],
+ japonesa:["90x45",45,"no","La tortuga japonesa vive en un acuario grande (450 litros para adulta). Pregúntanos por un acuario a medida."],
+ ajolote:["90x45",45,"no","El ajolote vive en acuario con agua fría (80 litros o más por ajolote), no en terrario. Pregúntanos por un acuario a medida."],
+ pacman:["45x45",30,"ok"],white:["45x45",60,"ok"],bombina:["45x45",45,"ok","Para bombinas lo armamos como paludario: parte de agua y parte de tierra."],dardo:["45x45",45,"ok"]
+};
+var SPECIES={};
+Object.keys(FIT).forEach(function(k){var f=FIT[k];SPECIES[k]=[GUIDES[k].nombre,f[0],f[1],ANIMAL_STYLE[k]||"selva",f[2],f[3]||""]});
+SPECIES.otro=["Otra especie",null,45,"selva"];SPECIES.nose=["Aún no sé",null,45,"selva"];
 function baseLabel(b){return BASES[b][0]+" × "+BASES[b][1]+" cm"}
-var EXTRAS=[["luz","Iluminación LED + UVB"],["calor","Calor con termostato"],["limpieza","Equipo de limpieza","Isópodos y colémbolos"],["guia","Guía de cuidados impresa"],["esc3d","Escondite impreso en 3D"],["plato3d","Platos impresos en 3D"],["rep3d","Repisas y plataformas 3D"],["animal","Incluir el animal","Con registro SEMARNAT"]];
+var EXTRAS=[["luz","Iluminación LED + UVB"],["calor","Calor con termostato"],["limpieza","Equipo de limpieza","Isópodos y colémbolos"],["guia","Guía de cuidados impresa"],["esc3d","Escondite impreso en 3D"],["plato3d","Platos impresos en 3D"],["rep3d","Repisas y plataformas 3D"],["animal","Incluir el animal","Según disponibilidad · con registro SEMARNAT"]];
 function builderSection(){
   var c=view.cfg;
-  var sp='<fieldset class="step"><legend>1 · ¿Para quién es?</legend><div class="seg">'+Object.keys(SPECIES).map(function(k){return '<label><input type="radio" name="sp" id="sp-'+k+'" value="'+k+'"'+(c.sp===k?" checked":"")+'><span>'+SPECIES[k][0]+'</span></label>'}).join("")+'</div></fieldset>';
+  var opt=function(k){return '<option value="'+k+'"'+(c.sp===k?" selected":"")+'>'+esc(SPECIES[k][0])+'</option>'};
+  var sp='<div class="step"><label class="h" for="cfgSp">1 · ¿Para quién es?</label><select id="cfgSp" name="sp" style="width:100%;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);border-radius:12px;padding:.75rem .8rem;font:inherit;font-size:1.05rem">'+
+    GROUPS.filter(function(g){return g[0]!=="Terrarios"}).map(function(g){return '<optgroup label="'+g[0]+'">'+g[1].filter(function(k){return SPECIES[k]}).map(opt).join("")+'</optgroup>'}).join("")+
+    '<optgroup label="Otra">'+opt("otro")+opt("nose")+'</optgroup></select><p class="note" id="spFit"></p></div>';
   var sz='<fieldset class="step"><legend>2 · Base (medidas fijas)</legend><div class="seg" id="sizeSeg"></div></fieldset>'+
     '<div class="step"><label class="h" for="alto">3 · Altura, a tu gusto</label><div style="display:flex;align-items:center;gap:14px"><input type="range" id="alto" min="20" max="120" step="5" value="'+c.alto+'" style="flex:1;min-width:0;accent-color:var(--moss)" aria-describedby="altoHelp"><output id="altoOut" for="alto" class="price" style="min-width:4.5em;text-align:right">'+c.alto+' cm</output></div><p class="note" id="altoHelp">Las bases son fijas; la altura la hacemos a la medida que quieras.</p></div>';
-  var stl='<fieldset class="step"><legend>4 · Estilo</legend><div class="seg">'+Object.keys(STYLES).map(function(k){return '<label><input type="radio" name="style" id="st-'+k+'" value="'+k+'"'+(c.style===k?" checked":"")+'><span>'+STYLES[k].name+(k==="desierto"?'<small>Ideal para leopardo</small>':'')+'</span></label>'}).join("")+'</div></fieldset>';
+  var stl='<fieldset class="step"><legend>4 · Estilo</legend><div class="seg" id="stySeg"></div></fieldset>';
   var ex='<fieldset class="step"><legend>5 · Extras</legend><div class="seg" id="exSeg"></div></fieldset>';
   return '<section class="block alt" id="arma"><div class="wrap"><div class="sec-head"><span class="eyebrow">Configurador</span><h2>Arma tu terrario</h2><p class="lead">Elige especie, medidas y estilo, y mira cómo quedaría. Te mandamos la cotización por mensaje.</p></div>'+
     '<div class="builder"><form id="cfgForm" onsubmit="return false">'+sp+sz+stl+ex+'</form><div class="preview"><div class="stage" id="stage"></div><div class="summary" id="summary"></div><div class="actions"><a class="btn btn-primary" id="quoteBtn" target="_blank" rel="noopener" href="#">Pedir cotización</a><button class="btn btn-ghost" id="copyQuote" type="button">Copiar resumen</button></div><p class="note" id="quoteNote"></p></div></div></div></section>';
 }
 function cfgMessage(){
   var c=view.cfg, ex=EXTRAS.filter(function(e){return c.extras[e[0]] && !(e[0]==="animal"&&!animalOk())}).map(function(e){return e[1]});
-  return "Hola Reppets, quiero cotizar un terrario:\n• Para: "+SPECIES[c.sp][0]+"\n• Base: "+baseLabel(c.base)+"\n• Altura: "+c.alto+" cm\n• Estilo: "+STYLES[c.style].name+"\n• Extras: "+(ex.length?ex.join(", "):"ninguno")+"\n(Lo armé en su página)";
+  return "Hola Reppets, quiero cotizar un terrario:\n• Para: "+SPECIES[c.sp][0]+"\n• Base: "+baseLabel(c.base)+"\n• Altura: "+c.alto+" cm\n• Estilo: "+STYLES[c.style].name+"\n• Extras: "+(ex.length?ex.join(", "):"ninguno")+(SPECIES[c.sp][4]==="no"?"\n• Me interesa que me coticen uno a medida para esta especie":"")+"\n(Lo armé en su página)";
 }
-function animalOk(){return view.cfg.sp==="leopardo"||view.cfg.sp==="crestado"}
+function animalOk(){return !!SPECIES[view.cfg.sp][1]}
 function renderBuilder(){
   var c=view.cfg, rec=SPECIES[c.sp][1];
   $("#sizeSeg").innerHTML=Object.keys(BASES).map(function(k){var sub=k===rec?"Recomendada":BASES[k][2];return '<label><input type="radio" name="base" id="bs-'+k+'" value="'+k+'"'+(c.base===k?" checked":"")+'><span>'+baseLabel(k)+(sub?'<small>'+sub+'</small>':'')+'</span></label>'}).join("");
+  $("#stySeg").innerHTML=Object.keys(STYLES).map(function(k){return '<label><input type="radio" name="style" id="st-'+k+'" value="'+k+'"'+(c.style===k?" checked":"")+'><span>'+STYLES[k].name+(ANIMAL_STYLE[c.sp]===k?'<small>Ideal para tu especie</small>':'')+'</span></label>'}).join("");
   $("#alto").value=c.alto; $("#altoOut").textContent=c.alto+" cm";
   $("#exSeg").innerHTML=EXTRAS.map(function(e){var dis=e[0]==="animal"&&!animalOk();return '<label><input type="checkbox" name="ex" id="ex-'+e[0]+'" value="'+e[0]+'"'+(c.extras[e[0]]&&!dis?" checked":"")+(dis?" disabled":"")+'><span>'+e[1]+(e[2]?'<small>'+e[2]+'</small>':'')+'</span></label>'}).join("");
   renderPreview();
@@ -1447,17 +1482,19 @@ function applySpecies(sp){
 function renderPreview(){
   var c=view.cfg;
   var g = c.extras.animal&&animalOk() ? c.sp : null;
-  $("#stage").innerHTML=terrSVG({dims:[BASES[c.base][0],c.alto],style:c.style,gecko:g,luz:c.extras.luz,calor:c.extras.calor,limpieza:c.extras.limpieza,esc3d:c.extras.esc3d,plato3d:c.extras.plato3d,rep3d:c.extras.rep3d,seed:7,label:"Vista previa de tu terrario"});
+  $("#stage").innerHTML=terrSVG({dims:[BASES[c.base][0],c.alto],style:c.style,animal:g,agua:!!AQUA[c.sp],luz:c.extras.luz,calor:c.extras.calor,limpieza:c.extras.limpieza,esc3d:c.extras.esc3d,plato3d:c.extras.plato3d,rep3d:c.extras.rep3d,seed:7,label:"Vista previa de tu terrario"});
   var msg=cfgMessage();
   $("#summary").textContent=msg;
   var q=$("#quoteBtn"); q.href=contactUrl(msg); q.setAttribute("data-msg",msg);
   q.textContent = waDigits()?"Pedir cotización por WhatsApp":"Pedir cotización por Instagram";
-  var tip = (c.sp==="leopardo"&&c.base!=="90x45")?"Tip: para un gecko leopardo adulto recomendamos la base de 90 × 45 cm; las más chicas sirven para crías."
-    : (c.sp==="crestado"&&c.alto<60)?"Tip: el crestado trepa mucho; recomendamos al menos 60 cm de alto."
-    : (c.sp==="crestado"&&c.base==="30x30")?"Tip: la base de 30 × 30 cm es solo para crías de crestado."
-    : (c.sp==="leopardo"&&c.style!=="desierto")?"Tip: para gecko leopardo recomendamos el estilo desierto rocoso: necesita un ambiente seco."
-    : (c.sp==="crestado"&&c.style==="desierto")?"Tip: el crestado necesita humedad y plantas; el desierto no le conviene."
-    : "La vista previa es ilustrativa: cada terrario se arma a mano y queda único.";
+  var S=SPECIES[c.sp],nm=S[0],tip="La vista previa es ilustrativa: cada terrario se arma a mano y queda único.";
+  if(S[1]){
+    var order=Object.keys(BASES),stN=ANIMAL_STYLE[c.sp];
+    if(S[4]!=="no"&&order.indexOf(c.base)<order.indexOf(S[1]))tip="Tip: para "+nm.toLowerCase()+" recomendamos la base de "+baseLabel(S[1])+".";
+    else if(S[4]!=="no"&&c.alto<S[2])tip="Tip: para "+nm.toLowerCase()+" recomendamos al menos "+S[2]+" cm de alto.";
+    else if(stN&&c.style!==stN)tip="Tip: para "+nm.toLowerCase()+" recomendamos el estilo "+STYLES[stN].name.toLowerCase()+".";
+  }
+  var fit=$("#spFit");if(fit){fit.textContent=S[5]||(S[1]?"Recomendado: base de "+baseLabel(S[1])+" y "+S[2]+" cm de alto. Ya lo dejamos seleccionado.":"");fit.style.color=S[4]==="no"?"#A4471F":""}
   $("#quoteNote").textContent = tip;
 }
 
@@ -1470,7 +1507,7 @@ function contactSection(){
   '</div></div></section>';
 }
 function footerHTML(){
-  return '<footer><div class="wrap" style="align-items:flex-end"><span class="logo logo-full" role="img" aria-label="Reppets" style="width:150px"></span><span><b style="font-family:var(--display);color:var(--fg)">Conecta. Cuida. Inspira.</b><br>© 2026 Reppets · Un fragmento de naturaleza en casa</span><span style="font-family:var(--mono)">Versión 9 oct 2026 · Bitácora SEMARNAT '+esc(STATE.settings.semarnat)+'<br><a href="#privacidad" style="color:inherit">Aviso de privacidad</a></span></div></footer>';
+  return '<footer><div class="wrap" style="align-items:flex-end"><span class="logo logo-full" role="img" aria-label="Reppets" style="width:150px"></span><span><b style="font-family:var(--display);color:var(--fg)">Conecta. Cuida. Inspira.</b><br>© 2026 Reppets · Un fragmento de naturaleza en casa</span><span style="font-family:var(--mono)">Versión 11 oct 2026 · Bitácora SEMARNAT '+esc(STATE.settings.semarnat)+'<br><a href="#privacidad" style="color:inherit">Aviso de privacidad</a></span></div></footer>';
 }
 
 /* ---------- utilidades de la app ---------- */
@@ -2623,7 +2660,7 @@ document.addEventListener("click",function(e){
   if((b=t.closest("[data-filter]"))){view.filter=b.getAttribute("data-filter");renderStock();return}
   if((b=t.closest("[data-tab]"))){view.tab=b.getAttribute("data-tab");renderGuide();return}
   if((b=t.closest("[data-goto-tab]"))){view.tab=b.getAttribute("data-goto-tab");renderGuide();return}
-  if((b=t.closest("[data-cfg-sp]"))){var sp=b.getAttribute("data-cfg-sp");var r=$("#sp-"+sp);if(r)r.checked=true;applySpecies(sp);return}
+  if((b=t.closest("[data-cfg-sp]"))){var sp=b.getAttribute("data-cfg-sp");if(!SPECIES[sp])sp="otro";var r=$("#cfgSp");if(r)r.value=sp;applySpecies(sp);return}
   if((b=t.closest("[data-ans]"))){var o=QUIZ[view.quiz.i].o[+b.getAttribute("data-ans")][1];Object.keys(o).forEach(function(k){view.quiz.score[k]+=o[k]});if(view.quiz.i<QUIZ.length-1)view.quiz.i++;else view.quiz.done=true;renderQuiz();return}
   if(t.closest("[data-quiz-reset]")){view.quiz=newQuiz();renderQuiz();return}
   if((b=t.closest("[data-copy]"))){copyText(b.getAttribute("data-copy"),"Número copiado");return}
